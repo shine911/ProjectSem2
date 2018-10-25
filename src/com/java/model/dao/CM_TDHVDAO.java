@@ -23,8 +23,6 @@ import java.util.logging.Logger;
  */
 public class CM_TDHVDAO {
 
-    public static Connection connection = ConnectionUtil.getInstance().getConnection();
-
     public static Map<String, TDHV> getTrinhTheoCM(String id) {
         Map<String, TDHV> danhSachTrinhDo = new HashMap<>();
         try {

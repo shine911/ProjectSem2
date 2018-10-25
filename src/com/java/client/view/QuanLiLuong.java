@@ -5,12 +5,16 @@
  */
 package com.java.client.view;
 
+import com.java.model.Mucluong;
+import java.util.SortedMap;
+
 /**
  *
  * @author MR.K
  */
 public class QuanLiLuong extends javax.swing.JFrame {
-
+    private static QuanLiLuong obj = null;
+    public static SortedMap<String, Mucluong> danhSachMucLuong;
     /**
      * Creates new form quanliluong
      */
@@ -31,7 +35,6 @@ public class QuanLiLuong extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -43,7 +46,7 @@ public class QuanLiLuong extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Quản lí lương");
 
-        jMenu1.setText("Action");
+        jMenu1.setText("Menu");
 
         jMenu3.setText(" Payroll");
 
@@ -55,10 +58,6 @@ public class QuanLiLuong extends javax.swing.JFrame {
             }
         });
         jMenu3.add(jMenuItem3);
-
-        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem4.setText("Payroll table by department ");
-        jMenu3.add(jMenuItem4);
 
         jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem5.setText("Payroll table by positon");
@@ -122,7 +121,7 @@ public class QuanLiLuong extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static QuanLiLuong callRun() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -150,9 +149,12 @@ public class QuanLiLuong extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new QuanLiLuong().setVisible(true);
+                if(obj == null){
+                    obj = new QuanLiLuong();
+                }
             }
         });
+        return obj;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -164,7 +166,6 @@ public class QuanLiLuong extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;

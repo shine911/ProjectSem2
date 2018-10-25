@@ -5,13 +5,10 @@
  */
 package com.java.model.dao;
 
-import com.java.config.ConnectionUtil;
-import java.sql.Connection;
 import com.java.model.Chucvu;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -38,7 +35,7 @@ public class ChucvuDAO {
                 cv.setTenCV(rs.getString(2));
                 cv.setBaoHiem(rs.getInt(3));
                 cv.setTroCap(rs.getInt(4));
-                cv.setMaMl(rs.getString(5));
+                cv.setMucluong(MucLuongDAO.getMucLuongTheoChucVu(rs.getString(5)));
                 danhSach.put(cv.getMaCV(), cv);
             }
         } catch (SQLException ex) {

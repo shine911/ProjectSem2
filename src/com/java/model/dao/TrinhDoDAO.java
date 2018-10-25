@@ -6,7 +6,6 @@
 package com.java.model.dao;
 
 import com.java.model.TDHV;
-import static com.java.model.dao.CM_TDHVDAO.connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -24,7 +23,7 @@ public class TrinhDoDAO {
         Map<String, TDHV> danhsach = new HashMap<>();
         try {
             String sql = "SELECT * FROM TRINHDOHV";
-            Statement st = connection.createStatement();
+            Statement st = NhanvienDAO.connection.createStatement();
             st.execute(sql);
             ResultSet rs = st.getResultSet();
             while(rs.next()){

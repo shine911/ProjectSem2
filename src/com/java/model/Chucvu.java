@@ -14,14 +14,14 @@ public class Chucvu {
     private String TenCV;
     private int BaoHiem;
     private int TroCap;
-    private String MaMl;
+    private Mucluong Mucluong;
 
-    public Chucvu(String MaCV, String TenCV, int BaoHiem, int TroCap, String MaMl) {
+    public Chucvu(String MaCV, String TenCV, int BaoHiem, int TroCap, Mucluong MaMl) {
         this.MaCV = MaCV;
         this.TenCV = TenCV;
         this.BaoHiem = BaoHiem;
         this.TroCap = TroCap;
-        this.MaMl = MaMl;
+        this.Mucluong = MaMl;
     }
 
     public Chucvu() {
@@ -59,12 +59,12 @@ public class Chucvu {
         this.TroCap = TroCap;
     }
 
-    public String getMaMl() {
-        return MaMl;
+    public Mucluong getMucluong() {
+        return Mucluong;
     }
 
-    public void setMaMl(String MaMl) {
-        this.MaMl = MaMl;
+    public void setMucluong(Mucluong Mucluong) {
+        this.Mucluong = Mucluong;
     }
 
     @Override

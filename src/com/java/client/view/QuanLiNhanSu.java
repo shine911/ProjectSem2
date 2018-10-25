@@ -143,7 +143,7 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
             }
         });
 
-        Action.setText("Action");
+        Action.setText("Menu");
 
         DanhSachNv.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
         DanhSachNv.setText("View Employee List");
@@ -315,10 +315,12 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
 
     private void BangFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_BangFocusLost
         // TODO add your handling code here:
-        BtnView.setEnabled(false);
-        jButton2.setEnabled(false);
-        jButton3.setEnabled(false);
-        jButton4.setEnabled(false);
+        if(Bang.getSelectedRow()==-1){
+            BtnView.setEnabled(false);
+            jButton2.setEnabled(false);
+            jButton3.setEnabled(false);
+            jButton4.setEnabled(false);
+        }
     }//GEN-LAST:event_BangFocusLost
 
     public void callRun() {
