@@ -78,14 +78,14 @@ public class ThongTinNhanVien extends javax.swing.JFrame {
                 {"Address:", nv.getDc()},
                 {"Gender:", nv.isPhai()?"Nam":"Nu"},
                 {"Birthday:", nv.getNgSinh()},
-                {"Position:", QuanLiNhanSu.danhSachChucVu.get(nv.getMaCv()).getTenCV()},
+                {"Position:", QuanLiNhanSu.danhSachPhongBan.get(nv.getMaPb()).getChucvu(nv.getMaCv()).getTenCV()},
                 {"Department:", QuanLiNhanSu.danhSachPhongBan.get(nv.getMaPb()).getTenPB()},
                 {"Phone:", nv.getDienThoai()},
                 {"Email:", nv.getEmail()},
                 {"Education:", QuanLiNhanSu.danhSachTrinhDo.get(nv.getMaTDHV()).getTenTDHV()},
                 {"Technique:", QuanLiNhanSu.danhSachChuyenMon.get(nv.getMaCM()).getTenCM()},
                 {"Foreign Language:", nv.getMaTDNN()},
-                {"Password:", nv.getPassword()}
+                {"Password (only 3 character of password):", nv.getPassword().substring(0, 3)}
             },
             new String [] {
                 "My Infomation", ""

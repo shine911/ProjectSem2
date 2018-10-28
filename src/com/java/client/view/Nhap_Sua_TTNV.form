@@ -2,8 +2,8 @@
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="title" type="java.lang.String" value="Nh&#x1ead;p th&#xf4;ng tin nh&#xe2;n vi&#xea;n"/>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="title" type="java.lang.String" value="Enter Employee Information"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -79,16 +79,6 @@
                               <EmptySpace min="-2" pref="269" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel9" min="-2" pref="147" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtchucvu" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel10" min="-2" pref="147" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtphongbancongtac" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel11" min="-2" pref="147" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtdienthoai" max="32767" attributes="0"/>
@@ -111,6 +101,16 @@
                                       <Component id="txttrinhdohocvan" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel9" min="-2" pref="147" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="txtchucvu" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel10" min="-2" pref="147" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="txtphongbancongtac" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
@@ -228,32 +228,32 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="99" id="ComboBox.selectionBackground" palette="3" red="33" type="palette"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="H&#x1ecd; v&#xe0; t&#xea;n:"/>
+        <Property name="text" type="java.lang.String" value="Full name:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Gi&#x1edb;i t&#xed;nh:"/>
+        <Property name="text" type="java.lang.String" value="Sex:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&#x110;&#x1ecb;a ch&#x1ec9;:"/>
+        <Property name="text" type="java.lang.String" value="Address:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Qu&#x1ead;n huy&#x1ec7;n:"/>
+        <Property name="text" type="java.lang.String" value="District:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
-        <Property name="text" type="java.lang.String" value="T&#x1ec9;nh/ Th&#xe0;nh ph&#x1ed1;:"/>
+        <Property name="text" type="java.lang.String" value="province/ city:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ng&#xe0;y sinh: (dd/mmm/yy)"/>
+        <Property name="text" type="java.lang.String" value="Birthday: (dd/mm/yy)"/>
       </Properties>
       <AccessibilityProperties>
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Ng&#xe0;y sinh (dd/mmm/yy):"/>
@@ -263,17 +263,17 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ch&#x1ee9;c v&#x1ee5;:"/>
+        <Property name="text" type="java.lang.String" value="Position:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel10">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ph&#xf2;ng ban c&#xf4;ng t&#xe1;c:"/>
+        <Property name="text" type="java.lang.String" value="Department:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel11">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&#x110;i&#x1ec7;n  tho&#x1ea1;i:"/>
+        <Property name="text" type="java.lang.String" value="Phone"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel12">
@@ -283,32 +283,37 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel13">
       <Properties>
-        <Property name="text" type="java.lang.String" value="M&#x1ead;t kh&#x1ea9;u:"/>
+        <Property name="text" type="java.lang.String" value="Password:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel14">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Tr&#xec;nh &#x111;&#x1ed9; h&#x1ecd;c v&#x1ea5;n:"/>
+        <Property name="text" type="java.lang.String" value="Academic Level:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel15">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Chuy&#xea;n m&#xf4;n:"/>
+        <Property name="text" type="java.lang.String" value="Technique:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtname">
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtnameFocusLost"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="txtgioitinh">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="2">
-            <StringItem index="0" value="nam"/>
-            <StringItem index="1" value="n&#x1eef;"/>
+          <StringArray count="3">
+            <StringItem index="0" value="Male"/>
+            <StringItem index="1" value="Female"/>
+            <StringItem index="2" value="None"/>
           </StringArray>
         </Property>
         <Property name="name" type="java.lang.String" value="" noResource="true"/>
       </Properties>
       <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtgioitinhFocusLost"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtgioitinhActionPerformed"/>
       </Events>
       <AuxValues>
@@ -316,16 +321,14 @@
       </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="txtdiachi">
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtdiachiFocusLost"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="txtquanhuyen">
       <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Qu&#x1ead;n 1"/>
-            <StringItem index="1" value="Qu&#x1ead;n 2"/>
-            <StringItem index="2" value="Qu&#x1ead;n 3"/>
-            <StringItem index="3" value="Qu&#x1ead;n 4"/>
-          </StringArray>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="createComboListMaHuyen()" type="code"/>
         </Property>
       </Properties>
       <AuxValues>
@@ -334,16 +337,8 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="txttinh">
       <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="7">
-            <StringItem index="0" value="TP H&#x1ed3; Ch&#xed; Minh"/>
-            <StringItem index="1" value="C&#x1ea7;n th&#x1a1;"/>
-            <StringItem index="2" value="V&#x129;nh long"/>
-            <StringItem index="3" value="H&#x1ead;u Giang"/>
-            <StringItem index="4" value="S&#xf3;c Tr&#x103;ng"/>
-            <StringItem index="5" value="B&#x1ea1;c Li&#xea;u"/>
-            <StringItem index="6" value="kh&#xe1;c"/>
-          </StringArray>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="createComboListTinh()" type="code"/>
         </Property>
       </Properties>
       <AuxValues>
@@ -351,15 +346,18 @@
       </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="txtngaysinh">
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtngaysinhFocusLost"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="txtchucvu">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
-            <StringItem index="0" value="gi&#xe1;m &#x111;&#x1ed1;c"/>
-            <StringItem index="1" value="Ph&#xf3; gi&#xe1;m &#x111;&#x1ed1;c"/>
-            <StringItem index="2" value="Tr&#x1b0;&#x1edf;ng ph&#xf2;ng"/>
-            <StringItem index="3" value="Nh&#xe2;n vi&#xea;n"/>
+            <StringItem index="0" value=" President"/>
+            <StringItem index="1" value="Vice President"/>
+            <StringItem index="2" value="Manager"/>
+            <StringItem index="3" value="Employee"/>
           </StringArray>
         </Property>
       </Properties>
@@ -371,8 +369,8 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="2">
-            <StringItem index="0" value="Ph&#xf2;ng h&#xe0;nh ch&#xed;nh"/>
-            <StringItem index="1" value="Ph&#xf2;ng nh&#xe2;n s&#x1ef1;"/>
+            <StringItem index="0" value="Administration Room"/>
+            <StringItem index="1" value="Personnel Room"/>
           </StringArray>
         </Property>
       </Properties>
@@ -381,17 +379,23 @@
       </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="txtemail">
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtemailFocusLost"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField5">
     </Component>
     <Component class="javax.swing.JTextField" name="txtdienthoai">
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtdienthoaiFocusLost"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="txttrinhdohocvan">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="2">
-            <StringItem index="0" value="Cao &#x111;&#x1eb3;ng CNTT"/>
-            <StringItem index="1" value="&#x110;&#x1ea1;i h&#x1ecd;c CNTT"/>
+            <StringItem index="0" value=" CNTT Colleges"/>
+            <StringItem index="1" value="CNTT University"/>
           </StringArray>
         </Property>
       </Properties>
@@ -416,9 +420,9 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="3">
-            <StringItem index="0" value="B&#x1eb1;ng A"/>
-            <StringItem index="1" value="B&#x1eb1;ng B"/>
-            <StringItem index="2" value="B&#x1eb1;ng Topic"/>
+            <StringItem index="0" value="Degree A"/>
+            <StringItem index="1" value="Degree B"/>
+            <StringItem index="2" value="Degree Topic"/>
           </StringArray>
         </Property>
       </Properties>
@@ -428,7 +432,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel16">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Tr&#xec;nh &#x111;&#x1ed9; ngo&#x1ea1;i ng&#x1eef;:"/>
+        <Property name="text" type="java.lang.String" value="English Level:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btback">
@@ -456,6 +460,9 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtmatkhau">
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtmatkhauFocusLost"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

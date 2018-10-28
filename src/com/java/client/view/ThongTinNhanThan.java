@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.java.client.view;
+package thu;
 
 import java.awt.event.ActionListener;
 
@@ -54,27 +54,27 @@ public class ThongTinNhanThan extends javax.swing.JFrame {
         btcancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Nhập thông tin nhân thân của nhân viên");
+        setTitle("Enter the employee's personal information");
 
-        jLabel1.setText("Họ tên cha:");
+        jLabel1.setText("Father's full name:");
 
-        jLabel2.setText("Địa chỉ:");
+        jLabel2.setText("Address:");
 
-        jLabel3.setText("Ngày sinh (dd/mmm/yy):");
+        jLabel3.setText("Birthday (dd/mmm/yy):");
 
-        jLabel4.setText("Họ tên mẹ:");
+        jLabel4.setText("mother's full name:");
 
-        jLabel5.setText("Địa chỉ:");
+        jLabel5.setText("Address:");
 
-        jLabel6.setText("Ngày sinh (dd/mmm/yy):");
+        jLabel6.setText("Birthday (dd/mmm/yy):");
 
-        jLabel7.setText("Họ tên vợ/chồng:");
+        jLabel7.setText("Wife/husband full name:");
 
-        jLabel8.setText("Địa chỉ:");
+        jLabel8.setText("Address:");
 
-        jLabel9.setText("Ngày sinh (dd/mmm/yy):");
+        jLabel9.setText("Birthday (dd/mmm/yy):");
 
-        jLabel10.setText("Quan hệ với nhân viên:");
+        jLabel10.setText("Relations with employees:");
 
         txtten1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,7 +82,7 @@ public class ThongTinNhanThan extends javax.swing.JFrame {
             }
         });
 
-        txtquanhenhanthan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vơ", "Chồng", "Con" }));
+        txtquanhenhanthan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Wife", "Husband", "Children" }));
 
         btback.setText("Back");
         btback.addActionListener(new java.awt.event.ActionListener() {
@@ -149,9 +149,11 @@ public class ThongTinNhanThan extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtten1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtten1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)

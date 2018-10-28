@@ -11,6 +11,7 @@ import com.java.model.Chuyenmon;
 import com.java.model.Nhanvien;
 import com.java.model.TDHV;
 import com.java.model.Phongban;
+import com.java.model.Tinh;
 import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -25,10 +26,10 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
     private final String username;
     public static QuanLiNhanSu obj = null;
     public static Map<String, Nhanvien> danhSachNhanVien;
-    public static Map<String, Chucvu> danhSachChucVu;
     public static Map<String, Chuyenmon> danhSachChuyenMon;
     public static Map<String, TDHV> danhSachTrinhDo;
     public static Map<String, Phongban> danhSachPhongBan;
+    public static Map<String, Tinh> Quequan;
 
     public static QuanLiNhanSu getForm(String user) {
         if (obj == null) {
@@ -222,7 +223,7 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
         }
         if (model.getRowCount() == 0) {
             danhSachNhanVien.values().forEach((nv) -> {
-                model.addRow(new Object[]{nv.getMaNv(), nv.getTenNv(), nv.getDc(), nv.getEmail(), nv.getDienThoai(), danhSachChucVu.get(nv.getMaCv()).getTenCV(), danhSachPhongBan.get(nv.getMaPb()).getTenPB(), danhSachTrinhDo.get(nv.getMaTDHV()).getTenTDHV(), nv.getMaTDNN()});
+                model.addRow(new Object[]{nv.getMaNv(), nv.getTenNv(), nv.getDc(), nv.getEmail(), nv.getDienThoai(), danhSachPhongBan.get(nv.getMaPb()).getDanhSachChucVu().get(nv.getMaCv()).getTenCV(), danhSachPhongBan.get(nv.getMaPb()).getTenPB(), danhSachTrinhDo.get(nv.getMaTDHV()).getTenTDHV(), nv.getMaTDNN()});
             });
         }
     }//GEN-LAST:event_DanhSachNvActionPerformed
@@ -237,7 +238,7 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
     }//GEN-LAST:event_ThoatKhoiHeThongActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
+        Nhap_Sua_TTNV.callrun();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void KTKLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KTKLActionPerformed

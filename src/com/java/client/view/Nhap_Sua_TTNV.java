@@ -5,22 +5,38 @@
  */
 package com.java.client.view;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import com.java.model.Huyen;
+import com.java.model.Nhanvien;
+import com.java.model.Phongban;
+import com.java.model.Tinh;
+import com.java.model.dao.QuequanDAO;
+import java.awt.Component;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Set;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTextField;
+
 
 /**
  *
  * @author Windows 8
  */
 public class Nhap_Sua_TTNV extends javax.swing.JFrame {
-
+    
+    private Nhanvien nv;
     /**
      * Creates new form Nhap_Sua_TTNV
      */
     public Nhap_Sua_TTNV() {
         initComponents();
-        
+        nv = new Nhanvien();
+    }
+    
+    public Nhap_Sua_TTNV(Nhanvien nv){
+        initComponents();
+        this.nv = nv;
     }
 
     /**
@@ -66,59 +82,94 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
         btcancel = new javax.swing.JButton();
         txtmatkhau = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Nhập thông tin nhân viên");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Enter Employee Information");
 
         jLabel2.setBackground(javax.swing.UIManager.getDefaults().getColor("ComboBox.selectionBackground"));
-        jLabel2.setText("Họ và tên:");
+        jLabel2.setText("Full name:");
 
-        jLabel3.setText("Giới tính:");
+        jLabel3.setText("Sex:");
 
-        jLabel4.setText("Địa chỉ:");
+        jLabel4.setText("Address:");
 
-        jLabel5.setText("Quận huyện:");
+        jLabel5.setText("District:");
 
-        jLabel6.setText("Tỉnh/ Thành phố:");
+        jLabel6.setText("province/ city:");
 
-        jLabel7.setText("Ngày sinh: (dd/mmm/yy)");
+        jLabel7.setText("Birthday: (dd/mm/yy)");
 
-        jLabel9.setText("Chức vụ:");
+        jLabel9.setText("Position:");
 
-        jLabel10.setText("Phòng ban công tác:");
+        jLabel10.setText("Department:");
 
-        jLabel11.setText("Điện  thoại:");
+        jLabel11.setText("Phone");
 
         jLabel12.setText("Email:");
 
-        jLabel13.setText("Mật khẩu:");
+        jLabel13.setText("Password:");
 
-        jLabel14.setText("Trình độ học vấn:");
+        jLabel14.setText("Academic Level:");
 
-        jLabel15.setText("Chuyên môn:");
+        jLabel15.setText("Technique:");
 
-        txtgioitinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "nam", "nữ" }));
+        txtname.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtnameFocusLost(evt);
+            }
+        });
+
+        txtgioitinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female", "None" }));
         txtgioitinh.setName(""); // NOI18N
+        txtgioitinh.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtgioitinhFocusLost(evt);
+            }
+        });
         txtgioitinh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtgioitinhActionPerformed(evt);
             }
         });
 
-        txtquanhuyen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quận 1", "Quận 2", "Quận 3", "Quận 4" }));
+        txtdiachi.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtdiachiFocusLost(evt);
+            }
+        });
 
-        txttinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TP Hồ Chí Minh", "Cần thơ", "Vĩnh long", "Hậu Giang", "Sóc Trăng", "Bạc Liêu", "khác" }));
+        txtquanhuyen.setModel(createComboListMaHuyen());
 
-        txtchucvu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "giám đốc", "Phó giám đốc", "Trưởng phòng", "Nhân viên" }));
+        txttinh.setModel(createComboListTinh());
 
-        txtphongbancongtac.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Phòng hành chính", "Phòng nhân sự" }));
+        txtngaysinh.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtngaysinhFocusLost(evt);
+            }
+        });
 
-        txttrinhdohocvan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cao đẳng CNTT", "Đại học CNTT" }));
+        txtchucvu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " President", "Vice President", "Manager", "Employee" }));
+
+        txtphongbancongtac.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administration Room", "Personnel Room" }));
+
+        txtemail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtemailFocusLost(evt);
+            }
+        });
+
+        txtdienthoai.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtdienthoaiFocusLost(evt);
+            }
+        });
+
+        txttrinhdohocvan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " CNTT Colleges", "CNTT University" }));
 
         txtchuyenmon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Design web", "Database designing" }));
 
-        txttrinhdongoaingu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bằng A", "Bằng B", "Bằng Topic" }));
+        txttrinhdongoaingu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Degree A", "Degree B", "Degree Topic" }));
 
-        jLabel16.setText("Trình độ ngoại ngữ:");
+        jLabel16.setText("English Level:");
 
         btback.setText("Back");
         btback.addActionListener(new java.awt.event.ActionListener() {
@@ -138,6 +189,12 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
         btcancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btcancelActionPerformed(evt);
+            }
+        });
+
+        txtmatkhau.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtmatkhauFocusLost(evt);
             }
         });
 
@@ -190,32 +247,31 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
                                 .addComponent(txtquanhuyen, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(269, 269, 269))
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtdienthoai))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(txtmatkhau, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                                        .addComponent(txtemail))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(txtchuyenmon, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+                                        .addComponent(txttrinhdohocvan, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtchucvu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtphongbancongtac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtdienthoai))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                                        .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(txtmatkhau, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
-                                            .addComponent(txtemail))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(txtchuyenmon, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-                                            .addComponent(txttrinhdohocvan, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .addComponent(txtphongbancongtac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -309,30 +365,122 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
     }//GEN-LAST:event_txtgioitinhActionPerformed
 
     private void btcancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btcancelActionPerformed
-      System.exit(0);
+        for(Component c : this.getComponents()){
+            if(c instanceof JTextField ){
+                ((JTextField) c).setText("");
+            }
+        }
     }//GEN-LAST:event_btcancelActionPerformed
 
     private void btnextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnextActionPerformed
-        NoiCongTac frame = new NoiCongTac();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+
     }//GEN-LAST:event_btnextActionPerformed
 
     private void btbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbackActionPerformed
-       txtname.setText("");
-       txtdiachi.setText("");
-       txtngaysinh.setText("");
-       txtdienthoai.setText("");
-       txtemail.setText("");
-       txtmatkhau.setText("");
-       
-       
+        this.setVisible(false);
     }//GEN-LAST:event_btbackActionPerformed
 
+    private void txtngaysinhFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtngaysinhFocusLost
+        /*RegEx Contributor: Alok Chaudhary
+         Read more: https://stackoverflow.com/questions/15491894/regex-to-validate-date-format-dd-mm-yyyy
+        */
+        if(this.txtngaysinh.getText().matches("^(?:(?:31(\\/|-|\\.)"
+                + "(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)"
+                + "(?:0?[1,3-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|"
+                + "^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|"
+                + "[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))"
+                + "$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))"
+                + "\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$"))
+        {
+            nv.setNgSinh(new Date(txtngaysinh.getText()));
+        } else {
+            txtngaysinh.setToolTipText("Format: dd/mm/yyyy");
+            txtngaysinh.requestFocus();
+        }
+    }//GEN-LAST:event_txtngaysinhFocusLost
+
+    private void txtnameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtnameFocusLost
+        // TODO add your handling code here:
+        Set<String> danhSachMa = QuanLiNhanSu.danhSachNhanVien.keySet();
+        int max = 0;
+        for(String maNV:danhSachMa){
+            if(maNV.contains("NV")){
+                int ma = Integer.parseInt(maNV.substring(2));
+                if(max < ma){
+                    max = ma;
+               }
+            }
+        }
+        nv.setTenNv(this.txtname.getText());
+        nv.setMaNv("NV"+String.format("%03d", max+1));
+        //test 
+        System.out.println(nv.getMaNv());
+        System.out.println(nv.getTenNv());
+    }//GEN-LAST:event_txtnameFocusLost
+
+    private void txtgioitinhFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtgioitinhFocusLost
+        String slt = ((String) this.txtgioitinh.getSelectedItem());
+        if(slt.equals("Male")){
+            nv.setPhai(true);
+        } else if(slt.equals("Female")){
+            nv.setPhai(false);
+        } else if(slt.equals("None")){
+            txtgioitinh.requestFocus();
+        }
+        System.out.println(slt);
+    }//GEN-LAST:event_txtgioitinhFocusLost
+
+    private void txtdiachiFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtdiachiFocusLost
+        nv.setDc(this.txtdiachi.getText());
+        System.out.println(nv.getDc());
+    }//GEN-LAST:event_txtdiachiFocusLost
+
+    private void txtdienthoaiFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtdienthoaiFocusLost
+        // TODO add your handling code here:
+        nv.setDienThoai(this.txtdienthoai.getText());
+    }//GEN-LAST:event_txtdienthoaiFocusLost
+
+    private void txtemailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtemailFocusLost
+        // TODO add your handling code here:
+        nv.setEmail(this.txtemail.getText());
+    }//GEN-LAST:event_txtemailFocusLost
+
+    private void txtmatkhauFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtmatkhauFocusLost
+        // TODO add your handling code here:
+        nv.setPassword(this.txtmatkhau.getText());
+    }//GEN-LAST:event_txtmatkhauFocusLost
+
+    private DefaultComboBoxModel createComboListMaHuyen(){
+        Vector<Huyen> list = new Vector<>();
+        String value;
+        try{
+            value = ((Tinh) this.txttinh.getSelectedItem()).getMaTinh();
+        } catch (NullPointerException ex){
+            value="51";
+        }
+        System.out.println(value);
+        QuanLiNhanSu.Quequan = QuequanDAO.getAllTinh();
+        QuanLiNhanSu.Quequan.get(value).getHuyen().values()
+                .forEach(x->list.addElement(x));
+        return new javax.swing.DefaultComboBoxModel(list);
+    }
+    
+    private DefaultComboBoxModel createComboListTinh(){
+        Vector<Tinh> list = new Vector<>();
+        QuanLiNhanSu.Quequan.values().stream().forEach(x->list.addElement(x));
+        DefaultComboBoxModel obj = new javax.swing.DefaultComboBoxModel<>(list);
+        return obj;
+    }
+    
+    private DefaultComboBoxModel createListPhongBan(){
+        Vector<Phongban> list = new Vector<>();
+        QuanLiNhanSu.danhSachPhongBan.values().stream().forEach(x->list.addElement(x));
+        return new javax.swing.DefaultComboBoxModel<>(list);
+    }
     /**
      * @param args the command line arguments
      */
-    public static void callRun(String args[]) {
+    public static void callrun() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -361,6 +509,14 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Nhap_Sua_TTNV().setVisible(true);
+            }
+        });
+    }
+    
+    public static void callRun(Nhanvien nv){
+        java.awt.EventQueue.invokeLater(new Runnable(){
+            public void run(){
+                new Nhap_Sua_TTNV(nv).setVisible(true);
             }
         });
     }

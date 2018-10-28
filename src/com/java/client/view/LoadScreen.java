@@ -10,6 +10,7 @@ import com.java.model.dao.ChucvuDAO;
 import com.java.model.dao.ChuyenmonDAO;
 import com.java.model.dao.NhanvienDAO;
 import com.java.model.dao.PhongbanDAO;
+import com.java.model.dao.QuequanDAO;
 import com.java.model.dao.TrinhDoDAO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -142,23 +143,23 @@ public class LoadScreen extends javax.swing.JFrame {
         //</editor-fold>
         this.Progress.setValue(0);
         Thread t1 = new Thread(()->{
-            QuanLiNhanSu.danhSachChucVu = ChucvuDAO.getAllChucVu();
-            this.Progress.setValue(this.Progress.getValue()+10);
-            this.LoadMess.setText("Loading 10%");
             QuanLiNhanSu.danhSachChuyenMon = ChuyenmonDAO.getDanhSachCM();
             this.Progress.setValue(this.Progress.getValue()+10);
-            this.LoadMess.setText("Loading 20%");
+            this.LoadMess.setText("Loading Technique List");
+            QuanLiNhanSu.Quequan = QuequanDAO.getAllTinh();
+            this.Progress.setValue(this.Progress.getValue()+10);
+            this.LoadMess.setText("Loading City List");
         });
         Thread t2 = new Thread(()->{
             QuanLiNhanSu.danhSachTrinhDo = TrinhDoDAO.getDanhSachTrinhDo();
             this.Progress.setValue(this.Progress.getValue()+10);
-            this.LoadMess.setText("Loading 30%");
+            this.LoadMess.setText("Loading Education List");
             QuanLiNhanSu.danhSachPhongBan = PhongbanDAO.getDanhSachPhongBan();
             this.Progress.setValue(this.Progress.getValue()+10);
-            this.LoadMess.setText("Loading 50%");
+            this.LoadMess.setText("Loading Department List");
             QuanLiNhanSu.danhSachNhanVien = NhanvienDAO.getAllNhanvien();
             this.Progress.setValue(this.Progress.getValue()+10);
-            this.LoadMess.setText("Loading 100%");
+            this.LoadMess.setText("Loading Employee List");
         });
         t1.start();
         t2.start();

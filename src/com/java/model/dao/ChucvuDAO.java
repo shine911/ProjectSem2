@@ -8,6 +8,7 @@ package com.java.model.dao;
 import com.java.config.ConnectionUtil;
 import java.sql.Connection;
 import com.java.model.Chucvu;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,14 +21,17 @@ import java.util.logging.Logger;
  * @author macos
  */
 public class ChucvuDAO {
-    private static Connection connection = ConnectionUtil.getInstance().getConnection();
-    public static Map<String, Chucvu> getAllChucVu(){
+    public static Map<String, Chucvu> getChucVuPB(String id){
                 Map<String, Chucvu> danhSach = new HashMap<>();
         try {
-            String sql = "Select * FROM CHUCVU ";
-            Statement statement = connection.createStatement();
-            statement.execute(sql);
-            ResultSet rs = statement.getResultSet();
+            String sql = "Select cv.MaCV, cv.TenCV, cv.BaoHiem, cv.TroCap, "
+                    + "cv.MaML FROM PHONGBAN_CHUCVU pbcv JOIN CHUCVU cv ON "
+                    + "pbcv.MaCV = cv.MaCV WHERE pbcv.MaPB = ?";
+            
+            PreparedStatement pre = NhanvienDAO.connection.prepareStatement(sql);
+            pre.setString(1, id);
+            pre.execute();
+            ResultSet rs = pre.getResultSet();
             while (rs.next()) {
                 Chucvu cv = new Chucvu();
                 cv.setMaCV(rs.getString(1));
