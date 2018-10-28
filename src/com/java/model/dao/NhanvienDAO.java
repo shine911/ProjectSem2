@@ -6,6 +6,7 @@
 package com.java.model.dao;
 
 import com.java.config.ConnectionUtil;
+import com.java.model.Lilichcongtac;
 import com.java.model.Nhanvien;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
@@ -25,7 +26,7 @@ import java.util.logging.Logger;
  */
 public class NhanvienDAO {
 
-    private static Connection connection = ConnectionUtil.getInstance().getConnection();
+    public static Connection connection = ConnectionUtil.getInstance().getConnection();
 
     public static Nhanvien getNhanVienbyID(String id) {
         Nhanvien nv = null;
@@ -83,6 +84,7 @@ public class NhanvienDAO {
                 nv.setMaTDHV(rs.getString(14));
                 nv.setMaTDNN(rs.getString(15));
                 nv.setDanhSachThanNhan(ThanNhanDAO.getThanNhan(nv.getMaNv()));
+                nv.setDanhSachCongTac(LiLichCongTacDAO.getDanhSachCongTac(nv.getMaNv()));
                 danhSach.put(nv.getMaNv(), nv);
             }
         } catch (SQLException ex) {
@@ -90,5 +92,4 @@ public class NhanvienDAO {
         }
         return danhSach;
     }
-
 }

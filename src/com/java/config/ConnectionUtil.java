@@ -19,9 +19,9 @@ import java.util.logging.Logger;
 public class ConnectionUtil {
     public static ConnectionUtil obj = null;
     private String user = "sa";
-    private String password = "Thiennhi1412";
+    private String password = "123456";
     private String database = "sql";
-    private String hostUrl = "jdbc:sqlserver://192.168.1.5:1433;databaseName="+database;
+    private String hostUrl = "jdbc:sqlserver://192.168.1.2;databaseName="+database;
     private ConnectionUtil(){
     }
     

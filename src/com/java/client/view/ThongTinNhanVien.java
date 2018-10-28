@@ -6,18 +6,20 @@
 package com.java.client.view;
 
 import com.java.client.controller.ThoatController;
+import com.java.model.Lilichcongtac;
 import com.java.model.Nhanvien;
 import java.awt.Window;
-
-
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Windows 8
  */
 public class ThongTinNhanVien extends javax.swing.JFrame {
-    
+
     public static Nhanvien nv = null;
+
     /**
      * Creates new form ThongTinNhanVien
      */
@@ -112,22 +114,7 @@ public class ThongTinNhanVien extends javax.swing.JFrame {
 
         ttNoiCongTac.addTab("Information", jPanel1);
 
-        ttNoiCongtac.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Bussiness", "Address", "Position", "Date"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ttNoiCongtac.setModel(createLiLichCongTac());
         jScrollPane1.setViewportView(ttNoiCongtac);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -143,22 +130,7 @@ public class ThongTinNhanVien extends javax.swing.JFrame {
 
         ttNoiCongTac.addTab("Go on bussiness", jPanel2);
 
-        ttThanNhan.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"Father Name:", nv.getDanhSachThanNhan().get("Father").getTenTN()},
-                {"Address:", nv.getDanhSachThanNhan().get("Father").getDC()},
-                {"Birthday:", nv.getDanhSachThanNhan().get("Father").getNgSinh()},
-                {"Mother Name:", "Nguyễn Thị C"},
-                {"Address:", "12/5 Nguyễn Văn Cừ Q5 TP Hồ Chí Minh"},
-                {"Birthday:", "11-09-1954"},
-                {"Husband/Wife Name:", "Nguyễn Thị D"},
-                {"Address:", "12/5 Nguyễn Văn Cừ Q5 TP Hồ Chí Minh"},
-                {"Ngày Sinh:", "11-09-1979"}
-            },
-            new String [] {
-                "Relatives Information", ""
-            }
-        ));
+        ttThanNhan.setModel(createDanhSachThanNhan());
         jScrollPane3.setViewportView(ttThanNhan);
         if (ttThanNhan.getColumnModel().getColumnCount() > 0) {
             ttThanNhan.getColumnModel().getColumn(0).setHeaderValue("Relatives Information");
@@ -197,13 +169,117 @@ public class ThongTinNhanVien extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        if(QuanLiNhanSu.obj!=null){
+        if (QuanLiNhanSu.obj != null) {
             QuanLiNhanSu.obj.setVisible(true);
             this.dispose();
         } else {
             ThoatController.Thoat(this);
         }
     }//GEN-LAST:event_formWindowClosing
+    public DefaultTableModel createLiLichCongTac() {
+
+        DefaultTableModel model = new javax.swing.table.DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Bussiness", "Address", "Position", "Date"
+                }
+        ) {
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        };
+        ArrayList arrRow = new ArrayList();
+        for(Lilichcongtac congtac:nv.getDanhSachCongTac()){
+            arrRow.add(congtac.getTenNoiCT());
+            arrRow.add(congtac.getDC());
+            arrRow.add(congtac.getThgian());
+            
+            model.addRow(arrRow.toArray());
+            arrRow.clear();
+        };
+        return model;
+    }
+
+    public DefaultTableModel createDanhSachThanNhan() {
+        if (nv.getDanhSachThanNhan().containsKey("Wife")) {
+            return new javax.swing.table.DefaultTableModel(
+                    new Object[][]{
+                        {"Father Name:", nv.getDanhSachThanNhan().get("Father").getTenTN()},
+                        {"Address:", nv.getDanhSachThanNhan().get("Father").getDC()},
+                        {"Birthday:", nv.getDanhSachThanNhan().get("Father").getNgSinh()},
+                        {"Mother Name:", nv.getDanhSachThanNhan().get("Mother").getTenTN()},
+                        {"Address:", nv.getDanhSachThanNhan().get("Mother").getDC()},
+                        {"Birthday:", nv.getDanhSachThanNhan().get("Mother").getNgSinh()},
+                        {"Husband/Wife Name:", nv.getDanhSachThanNhan().get("Wife").getTenTN()},
+                        {"Address:", nv.getDanhSachThanNhan().get("Wife").getDC()},
+                        {"Daybirth:", nv.getDanhSachThanNhan().get("Wife").getNgSinh()}
+                    },
+                    new String[]{
+                        "Relatives Information", ""
+                    }
+            ) {
+                boolean[] canEdit = new boolean[]{
+                    false, false, false, false, false, false, false, false, false
+                };
+
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit[columnIndex];
+                }
+            };
+        } else if (nv.getDanhSachThanNhan().containsKey("Husband")) {
+
+            return new javax.swing.table.DefaultTableModel(
+                    new Object[][]{
+                        {"Father Name:", nv.getDanhSachThanNhan().get("Father").getTenTN()},
+                        {"Address:", nv.getDanhSachThanNhan().get("Father").getDC()},
+                        {"Birthday:", nv.getDanhSachThanNhan().get("Father").getNgSinh()},
+                        {"Mother Name:", nv.getDanhSachThanNhan().get("Mother").getTenTN()},
+                        {"Address:", nv.getDanhSachThanNhan().get("Mother").getDC()},
+                        {"Birthday:", nv.getDanhSachThanNhan().get("Mother").getNgSinh()},
+                        {"Husband/Wife Name:", nv.getDanhSachThanNhan().get("Husband").getTenTN()},
+                        {"Address:", nv.getDanhSachThanNhan().get("Husband").getDC()},
+                        {"Daybirth:", nv.getDanhSachThanNhan().get("Husband").getNgSinh()}
+
+                    },
+                    new String[]{
+                        "Relatives Information", ""
+                    }
+            ) {
+                boolean[] canEdit = new boolean[]{
+                    false, false, false, false, false, false, false, false, false
+                };
+
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit[columnIndex];
+                }
+            };
+        }
+        return new javax.swing.table.DefaultTableModel(
+                new Object[][]{
+                    {"Father Name:", nv.getDanhSachThanNhan().get("Father").getTenTN()},
+                    {"Address:", nv.getDanhSachThanNhan().get("Father").getDC()},
+                    {"Birthday:", nv.getDanhSachThanNhan().get("Father").getNgSinh()},
+                    {"Mother Name:", nv.getDanhSachThanNhan().get("Mother").getTenTN()},
+                    {"Address:", nv.getDanhSachThanNhan().get("Mother").getDC()},
+                    {"Birthday:", nv.getDanhSachThanNhan().get("Mother").getNgSinh()}
+                },
+                new String[]{
+                    "Relatives Information", ""
+                }
+        ) {
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        };
+    }
 
     /**
      * @param args the command line arguments

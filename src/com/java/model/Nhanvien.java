@@ -8,6 +8,7 @@ package com.java.model;
 import com.java.model.dao.ThanNhanDAO;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,6 +32,7 @@ public class Nhanvien{
     private String MaTDHV;
     private String MaTDNN;
     private Map<String, ThanNhan> danhSachThanNhan;
+    private List<Lilichcongtac> danhSachCongTac;
 
     public Nhanvien() {
     }
@@ -155,6 +157,14 @@ public class Nhanvien{
 
     public void setMaCM(String MaCM) {
         this.MaCM = MaCM;
+    }
+
+    public List<Lilichcongtac> getDanhSachCongTac() {
+        return danhSachCongTac;
+    }
+
+    public void setDanhSachCongTac(List<Lilichcongtac> danhSachCongTac) {
+        this.danhSachCongTac = danhSachCongTac;
     }
 
     public Map<String, ThanNhan> getDanhSachThanNhan() {

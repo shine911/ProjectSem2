@@ -74,7 +74,7 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
         trogiup = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Manager");
+        setTitle("Management System");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
