@@ -8,7 +8,6 @@ package com.java.client.view;
 import com.java.client.controller.ThoatController;
 import com.java.model.Lilichcongtac;
 import com.java.model.Nhanvien;
-import java.awt.Window;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -181,11 +180,11 @@ public class ThongTinNhanVien extends javax.swing.JFrame {
         DefaultTableModel model = new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
                 new String[]{
-                    "Bussiness", "Address", "Position", "Date"
+                    "Bussiness", "Address", "Date"
                 }
         ) {
             boolean[] canEdit = new boolean[]{
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
