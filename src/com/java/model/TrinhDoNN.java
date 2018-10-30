@@ -33,6 +33,11 @@ public class TrinhDoNN {
     public void setTenTDNN(String TenTDNN) {
         this.TenTDNN = TenTDNN;
     }
+
+    @Override
+    public String toString() {
+        return this.TenTDNN;
+    }
     
     
 }

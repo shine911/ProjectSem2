@@ -13,14 +13,12 @@ import com.java.model.Nhanvien;
 import com.java.model.Phongban;
 import com.java.model.TDHV;
 import com.java.model.Tinh;
+import com.java.model.TrinhDoNN;
 import com.java.model.dao.QuequanDAO;
-import java.awt.Component;
-import java.util.Date;
 import java.util.Set;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
 /**
  *
@@ -36,13 +34,24 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
     public Nhap_Sua_TTNV() {
         initComponents();
         nv = new Nhanvien();
+        Set<String> danhSachMa = QuanLiNhanSu.danhSachNhanVien.keySet();
+        int max = 0;
+        for (String maNV : danhSachMa) {
+            if (maNV.contains("NV")) {
+                int ma = Integer.parseInt(maNV.substring(2));
+                if (max < ma) {
+                    max = ma;
+                }
+            }
+        }
+        nv.setMaNv("NV" + String.format("%03d", max + 1));
     }
 
     public Nhap_Sua_TTNV(Nhanvien nv) {
         initComponents();
         this.nv = nv;
         this.txtname.setText(nv.getTenNv());
-        this.txtgioitinh.setSelectedItem(nv.isPhai()?"Male":"Female");
+        this.txtgioitinh.setSelectedItem(nv.isPhai() ? "Male" : "Female");
         this.txtdiachi.setText(nv.getDc());
         this.txttinh.setSelectedItem(QuanLiNhanSu.Quequan.get(nv.getMaT()));
         this.txtquanhuyen.setSelectedItem(QuanLiNhanSu.Quequan.get(nv.getMaT()).getHuyen(nv.getMaH()));
@@ -51,7 +60,8 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
         this.txtphongbancongtac.setSelectedItem(QuanLiNhanSu.danhSachPhongBan.get(nv.getMaPb()));
         this.txttrinhdohocvan.setSelectedItem(QuanLiNhanSu.danhSachChuyenMon.get(nv.getMaCM()).getTDHV(nv.getMaTDHV()));
         this.txtchuyenmon.setSelectedItem(QuanLiNhanSu.danhSachChuyenMon.get(nv.getMaCM()));
-        this.txtmatkhau.setText(nv.getPassword());
+        this.txtmatkhau.setEnabled(false);
+        this.txttrinhdongoaingu.setSelectedItem(QuanLiNhanSu.danhSachtrinhDoNN.get(nv.getMaTDNN()));
     }
 
     /**
@@ -206,11 +216,22 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
             }
         });
 
-        txttrinhdongoaingu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Degree A", "Degree B", "Degree Topic" }));
+        txttrinhdongoaingu.setModel(this.createListTrinhDoNN());
+        txttrinhdongoaingu.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                txttrinhdongoainguItemStateChanged(evt);
+            }
+        });
+        txttrinhdongoaingu.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txttrinhdongoainguFocusLost(evt);
+            }
+        });
 
         jLabel16.setText("English Level:");
 
         btback.setText("Back");
+        btback.setEnabled(false);
         btback.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btbackActionPerformed(evt);
@@ -286,14 +307,6 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
                         .addGap(4, 4, 4)
                         .addComponent(txttrinhdohocvan, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
-                        .addComponent(txtchuyenmon, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
-                        .addComponent(txttrinhdongoaingu, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(btback)
                         .addGap(6, 6, 6)
                         .addComponent(btnext)
@@ -306,7 +319,16 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
                         .addGap(4, 4, 4)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtname, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtgioitinh, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(txtgioitinh, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(4, 4, 4)
+                            .addComponent(txttrinhdongoaingu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(4, 4, 4)
+                            .addComponent(txtchuyenmon, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -405,15 +427,15 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
     }//GEN-LAST:event_txtgioitinhActionPerformed
 
     private void btcancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btcancelActionPerformed
-        int choose = JOptionPane.showConfirmDialog(null, "Do you want to reset this form", "Reset all value of form", JOptionPane.YES_NO_OPTION);
-        if(choose == 1){
+        int choose = JOptionPane.showConfirmDialog(rootPane, "Do you want to reset this form", "Reset all value of form", JOptionPane.YES_NO_OPTION);
+        if (choose == 0) {
             Nhap_Sua_TTNV.callrun();
             this.dispose();
         }
     }//GEN-LAST:event_btcancelActionPerformed
 
     private void btnextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnextActionPerformed
-
+        
     }//GEN-LAST:event_btnextActionPerformed
 
     private void btbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbackActionPerformed
@@ -440,18 +462,9 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
 
     private void txtnameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtnameFocusLost
         // TODO add your handling code here:
-        Set<String> danhSachMa = QuanLiNhanSu.danhSachNhanVien.keySet();
-        int max = 0;
-        for (String maNV : danhSachMa) {
-            if (maNV.contains("NV")) {
-                int ma = Integer.parseInt(maNV.substring(2));
-                if (max < ma) {
-                    max = ma;
-                }
-            }
-        }
+
         nv.setTenNv(this.txtname.getText());
-        nv.setMaNv("NV" + String.format("%03d", max + 1));
+
         //test 
         System.out.println(nv.getMaNv());
         System.out.println(nv.getTenNv());
@@ -480,6 +493,7 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
     private void txtemailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtemailFocusLost
         // TODO add your handling code here:
         nv.setEmail(this.txtemail.getText());
+        System.out.println(nv.getEmail());
     }//GEN-LAST:event_txtemailFocusLost
 
     private void txtmatkhauFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtmatkhauFocusLost
@@ -513,20 +527,35 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
     private void txtquanhuyenFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtquanhuyenFocusLost
         // TODO add your handling code here:
         //Instance of String then not casting anything
-        if (!(this.txttinh.getSelectedItem() instanceof String)) {
-            String MaT = ((Tinh) this.txttinh.getSelectedItem()).getMaTinh();
-            nv.setMaT(MaT);
-            System.out.println(nv.getMaT());
+        if (!(this.txtquanhuyen.getSelectedItem() instanceof String)) {
+            String MaH = ((Huyen) this.txtquanhuyen.getSelectedItem()).getMaHuyen();
+            nv.setMaH(MaH);
+            System.out.println(nv.getMaH());
         }
     }//GEN-LAST:event_txtquanhuyenFocusLost
 
     private void txtchuyenmonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_txtchuyenmonItemStateChanged
         // TODO add your handling code here:
-        String value = ((Chuyenmon) this.txtchuyenmon.getSelectedItem()).getMaCM();
-        nv.setMaCM(value);
-        System.out.println(nv.getMaCM());
-        this.txttrinhdohocvan.setModel(this.createListTDHV());
+        // TODO add your handling code here:
+        //Instance of String then not casting anything
+        if (!(this.txttinh.getSelectedItem() instanceof String)) {
+            String value = ((Chuyenmon) this.txtchuyenmon.getSelectedItem()).getMaCM();
+            nv.setMaCM(value);
+            System.out.println(nv.getMaCM());
+            this.txttrinhdohocvan.setModel(this.createListTDHV());
+        }
     }//GEN-LAST:event_txtchuyenmonItemStateChanged
+
+    private void txttrinhdongoainguItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_txttrinhdongoainguItemStateChanged
+        // TODO add your handling code here:
+        String value = ((TrinhDoNN) this.txttrinhdongoaingu.getSelectedItem()).getMaTDNN();
+        nv.setMaTDNN(value);
+        System.out.println(nv.getMaTDNN());
+    }//GEN-LAST:event_txttrinhdongoainguItemStateChanged
+
+    private void txttrinhdongoainguFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txttrinhdongoainguFocusLost
+        this.txtchuyenmonItemStateChanged(null);
+    }//GEN-LAST:event_txttrinhdongoainguFocusLost
 
     private DefaultComboBoxModel createComboListMaHuyen() {
         Vector<Huyen> list = new Vector<>();
@@ -596,6 +625,13 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
         }
         QuanLiNhanSu.danhSachChuyenMon.get(value).getTDHV().values()
                 .stream()
+                .forEach(x -> list.addElement(x));
+        return new javax.swing.DefaultComboBoxModel<>(list);
+    }
+
+    private DefaultComboBoxModel createListTrinhDoNN() {
+        Vector<TrinhDoNN> list = new Vector<>();
+        QuanLiNhanSu.danhSachtrinhDoNN.values().stream()
                 .forEach(x -> list.addElement(x));
         return new javax.swing.DefaultComboBoxModel<>(list);
     }
