@@ -11,6 +11,7 @@ import com.java.model.Nhanvien;
 import com.java.model.TDHV;
 import com.java.model.Phongban;
 import com.java.model.Tinh;
+import com.java.model.TrinhDoNN;
 import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -28,6 +29,7 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
     public static Map<String, Chuyenmon> danhSachChuyenMon;
     public static Map<String, Phongban> danhSachPhongBan;
     public static Map<String, Tinh> Quequan;
+    public static Map<String, TrinhDoNN> danhSachtrinhDoNN;
 
     public static QuanLiNhanSu getForm(String user) {
         if (obj == null) {
@@ -231,7 +233,7 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
                     danhSachPhongBan.get(nv.getMaPb()).getDanhSachChucVu().get(nv.getMaCv()).getTenCV(),
                     danhSachPhongBan.get(nv.getMaPb()).getTenPB(),
                     danhSachChuyenMon.get(nv.getMaCM()).getTDHV(nv.getMaTDHV()).getTenTDHV(),
-                    nv.getMaTDNN()});
+                    danhSachtrinhDoNN.get(nv.getMaTDNN()).getTenTDNN()});
             });
         }
     }//GEN-LAST:event_DanhSachNvActionPerformed

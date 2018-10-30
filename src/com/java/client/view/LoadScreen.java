@@ -12,6 +12,7 @@ import com.java.model.dao.NhanvienDAO;
 import com.java.model.dao.PhongbanDAO;
 import com.java.model.dao.QuequanDAO;
 import com.java.model.dao.TrinhDoDAO;
+import com.java.model.dao.TrinhDoNNDAO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -149,6 +150,9 @@ public class LoadScreen extends javax.swing.JFrame {
             QuanLiNhanSu.Quequan = QuequanDAO.getAllTinh();
             this.Progress.setValue(this.Progress.getValue()+10);
             this.LoadMess.setText("Loading City List");
+            QuanLiNhanSu.danhSachtrinhDoNN = TrinhDoNNDAO.getListTrinhDoNN();
+            this.Progress.setValue(this.Progress.getValue()+10);
+            this.LoadMess.setText("Loading Foreign Language Level"); 
         });
         Thread t2 = new Thread(()->{
             this.LoadMess.setText("Loading Education Level List");
