@@ -75,8 +75,8 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <Component id="jLabel14" min="-2" pref="147" max="-2" attributes="0"/>
-                      <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
-                      <Component id="txttrinhdohocvan" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                      <Component id="txttrinhdohocvan" min="-2" pref="115" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Component id="jLabel15" min="-2" pref="147" max="-2" attributes="0"/>
@@ -306,10 +306,9 @@
     <Component class="javax.swing.JComboBox" name="txtgioitinh">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="3">
+          <StringArray count="2">
             <StringItem index="0" value="Male"/>
             <StringItem index="1" value="Female"/>
-            <StringItem index="2" value="None"/>
           </StringArray>
         </Property>
         <Property name="name" type="java.lang.String" value="" noResource="true"/>
@@ -333,6 +332,9 @@
           <Connection code="createComboListMaHuyen()" type="code"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtquanhuyenFocusLost"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
@@ -361,6 +363,9 @@
           <Connection code="this.createListChucVu()" type="code"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtchucvuFocusLost"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
@@ -390,11 +395,8 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="txttrinhdohocvan">
       <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="2">
-            <StringItem index="0" value=" CNTT Colleges"/>
-            <StringItem index="1" value="CNTT University"/>
-          </StringArray>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="this.createListTDHV()" type="code"/>
         </Property>
       </Properties>
       <AuxValues>
@@ -403,13 +405,13 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="txtchuyenmon">
       <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="2">
-            <StringItem index="0" value="Design web"/>
-            <StringItem index="1" value="Database designing"/>
-          </StringArray>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="this.createListChuyenMon()" type="code"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="txtchuyenmonItemStateChanged"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>

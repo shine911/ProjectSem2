@@ -5,6 +5,7 @@
  */
 package com.java.client.view;
 
+import com.java.client.controller.DateController;
 import com.java.client.controller.ThoatController;
 import com.java.model.Lilichcongtac;
 import com.java.model.Nhanvien;
@@ -81,7 +82,7 @@ public class ThongTinNhanVien extends javax.swing.JFrame {
                 {"Department:", QuanLiNhanSu.danhSachPhongBan.get(nv.getMaPb()).getTenPB()},
                 {"Phone:", nv.getDienThoai()},
                 {"Email:", nv.getEmail()},
-                {"Education:", QuanLiNhanSu.danhSachTrinhDo.get(nv.getMaTDHV()).getTenTDHV()},
+                {"Education:", QuanLiNhanSu.danhSachChuyenMon.get(nv.getMaCM()).getTDHV(nv.getMaTDHV())},
                 {"Technique:", QuanLiNhanSu.danhSachChuyenMon.get(nv.getMaCM()).getTenCM()},
                 {"Foreign Language:", nv.getMaTDNN()},
                 {"Password (only 3 character of password):", nv.getPassword().substring(0, 3)}

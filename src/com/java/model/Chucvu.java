@@ -66,5 +66,11 @@ public class Chucvu {
     public void setMaMl(String MaMl) {
         this.MaMl = MaMl;
     }
+
+    @Override
+    public String toString() {
+        return this.getTenCV();
+    }
+    
     
 }

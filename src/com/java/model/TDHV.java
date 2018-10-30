@@ -34,6 +34,9 @@ public class TDHV{
         this.tenTDHV = tenTDHV;
     }
 
- 
+    @Override
+    public String toString() {
+        return this.tenTDHV;
+    }
     
 }

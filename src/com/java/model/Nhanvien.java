@@ -5,6 +5,7 @@
  */
 package com.java.model;
 
+import com.java.client.controller.DateController;
 import com.java.model.dao.ThanNhanDAO;
 import java.io.Serializable;
 import java.util.Date;
@@ -55,8 +56,8 @@ public class Nhanvien{
         this.MaTDNN = MaTDNN;
     }
 
-    public Date getNgSinh() {
-        return NgSinh;
+    public String getNgSinh() {
+        return DateController.dateToString(NgSinh);
     }
 
     public void setNgSinh(Date NgSinh) {

@@ -5,6 +5,7 @@
  */
 package com.java.model;
 
+import com.java.client.controller.DateController;
 import java.util.Date;
 
 /**
@@ -28,8 +29,8 @@ public class ThanNhan {
         this.QuanHe = QuanHe;
     }
 
-    public Date getNgSinh() {
-        return NgSinh;
+    public String getNgSinh() {
+        return DateController.dateToString(NgSinh);
     }
 
     public void setNgSinh(Date NgSinh) {

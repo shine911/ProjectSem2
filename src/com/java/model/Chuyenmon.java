@@ -5,6 +5,9 @@
  */
 package com.java.model;
 
+import com.java.model.dao.CM_TDHVDAO;
+import java.util.Map;
+
 /**
  *
  * @author macos
@@ -12,10 +15,12 @@ package com.java.model;
 public class Chuyenmon {
     private String maCM;
     private String tenCM;
+    private Map<String, TDHV> TDHV;
 
     public Chuyenmon(String maCM, String tenCM) {
         this.maCM = maCM;
         this.tenCM = tenCM;
+        this.TDHV = CM_TDHVDAO.getTrinhTheoCM(this.maCM);
     }
 
     public String getMaCM() {
@@ -33,5 +38,24 @@ public class Chuyenmon {
     public void setTenCM(String tenCM) {
         this.tenCM = tenCM;
     }
+
+    public Map<String, TDHV> getTDHV() {
+        return TDHV;
+    }
+
+    public void setTDHV(Map<String, TDHV> TDHV) {
+        this.TDHV = TDHV;
+    }
+    
+    public TDHV getTDHV(String MaTDHV){
+        return this.getTDHV().get(MaTDHV);
+    }
+
+    @Override
+    public String toString() {
+        return this.tenCM;
+    }
+    
+    
     
 }

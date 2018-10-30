@@ -5,10 +5,13 @@
  */
 package com.java.client.view;
 
+import com.java.client.controller.DateController;
 import com.java.model.Chucvu;
+import com.java.model.Chuyenmon;
 import com.java.model.Huyen;
 import com.java.model.Nhanvien;
 import com.java.model.Phongban;
+import com.java.model.TDHV;
 import com.java.model.Tinh;
 import com.java.model.dao.QuequanDAO;
 import java.awt.Component;
@@ -16,16 +19,17 @@ import java.util.Date;
 import java.util.Set;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
 
 /**
  *
  * @author Windows 8
  */
 public class Nhap_Sua_TTNV extends javax.swing.JFrame {
-    
+
     private Nhanvien nv;
+
     /**
      * Creates new form Nhap_Sua_TTNV
      */
@@ -33,10 +37,21 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
         initComponents();
         nv = new Nhanvien();
     }
-    
-    public Nhap_Sua_TTNV(Nhanvien nv){
+
+    public Nhap_Sua_TTNV(Nhanvien nv) {
         initComponents();
         this.nv = nv;
+        this.txtname.setText(nv.getTenNv());
+        this.txtgioitinh.setSelectedItem(nv.isPhai()?"Male":"Female");
+        this.txtdiachi.setText(nv.getDc());
+        this.txttinh.setSelectedItem(QuanLiNhanSu.Quequan.get(nv.getMaT()));
+        this.txtquanhuyen.setSelectedItem(QuanLiNhanSu.Quequan.get(nv.getMaT()).getHuyen(nv.getMaH()));
+        this.txtngaysinh.setText(nv.getNgSinh());
+        this.txtchucvu.setSelectedItem(QuanLiNhanSu.danhSachPhongBan.get(nv.getMaPb()).getChucvu(nv.getMaCv()));
+        this.txtphongbancongtac.setSelectedItem(QuanLiNhanSu.danhSachPhongBan.get(nv.getMaPb()));
+        this.txttrinhdohocvan.setSelectedItem(QuanLiNhanSu.danhSachChuyenMon.get(nv.getMaCM()).getTDHV(nv.getMaTDHV()));
+        this.txtchuyenmon.setSelectedItem(QuanLiNhanSu.danhSachChuyenMon.get(nv.getMaCM()));
+        this.txtmatkhau.setText(nv.getPassword());
     }
 
     /**
@@ -117,7 +132,7 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
             }
         });
 
-        txtgioitinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female", "None" }));
+        txtgioitinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
         txtgioitinh.setName(""); // NOI18N
         txtgioitinh.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -137,6 +152,11 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
         });
 
         txtquanhuyen.setModel(createComboListMaHuyen());
+        txtquanhuyen.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtquanhuyenFocusLost(evt);
+            }
+        });
 
         txttinh.setModel(createComboListTinh());
         txttinh.addItemListener(new java.awt.event.ItemListener() {
@@ -152,6 +172,11 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
         });
 
         txtchucvu.setModel(this.createListChucVu());
+        txtchucvu.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtchucvuFocusLost(evt);
+            }
+        });
 
         txtphongbancongtac.setModel(createListPhongBan());
         txtphongbancongtac.addItemListener(new java.awt.event.ItemListener() {
@@ -172,9 +197,14 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
             }
         });
 
-        txttrinhdohocvan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " CNTT Colleges", "CNTT University" }));
+        txttrinhdohocvan.setModel(this.createListTDHV());
 
-        txtchuyenmon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Design web", "Database designing" }));
+        txtchuyenmon.setModel(this.createListChuyenMon());
+        txtchuyenmon.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                txtchuyenmonItemStateChanged(evt);
+            }
+        });
 
         txttrinhdongoaingu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Degree A", "Degree B", "Degree Topic" }));
 
@@ -254,7 +284,7 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(4, 4, 4)
-                        .addComponent(txttrinhdohocvan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txttrinhdohocvan, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(4, 4, 4)
@@ -375,10 +405,10 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
     }//GEN-LAST:event_txtgioitinhActionPerformed
 
     private void btcancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btcancelActionPerformed
-        for(Component c : this.getComponents()){
-            if(c instanceof JTextField ){
-                ((JTextField) c).setText("");
-            }
+        int choose = JOptionPane.showConfirmDialog(null, "Do you want to reset this form", "Reset all value of form", JOptionPane.YES_NO_OPTION);
+        if(choose == 1){
+            Nhap_Sua_TTNV.callrun();
+            this.dispose();
         }
     }//GEN-LAST:event_btcancelActionPerformed
 
@@ -393,16 +423,15 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
     private void txtngaysinhFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtngaysinhFocusLost
         /*RegEx Contributor: Alok Chaudhary
          Read more: https://stackoverflow.com/questions/15491894/regex-to-validate-date-format-dd-mm-yyyy
-        */
-        if(this.txtngaysinh.getText().matches("^(?:(?:31(\\/|-|\\.)"
+         */
+        if (this.txtngaysinh.getText().matches("^(?:(?:31(\\/|-|\\.)"
                 + "(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)"
                 + "(?:0?[1,3-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|"
                 + "^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|"
                 + "[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))"
                 + "$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))"
-                + "\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$"))
-        {
-            nv.setNgSinh(new Date(txtngaysinh.getText()));
+                + "\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$")) {
+            nv.setNgSinh(DateController.parseStringtoDate(this.txtngaysinh.getText()));
         } else {
             txtngaysinh.setToolTipText("Format: dd/mm/yyyy");
             txtngaysinh.requestFocus();
@@ -413,16 +442,16 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
         // TODO add your handling code here:
         Set<String> danhSachMa = QuanLiNhanSu.danhSachNhanVien.keySet();
         int max = 0;
-        for(String maNV:danhSachMa){
-            if(maNV.contains("NV")){
+        for (String maNV : danhSachMa) {
+            if (maNV.contains("NV")) {
                 int ma = Integer.parseInt(maNV.substring(2));
-                if(max < ma){
+                if (max < ma) {
                     max = ma;
-               }
+                }
             }
         }
         nv.setTenNv(this.txtname.getText());
-        nv.setMaNv("NV"+String.format("%03d", max+1));
+        nv.setMaNv("NV" + String.format("%03d", max + 1));
         //test 
         System.out.println(nv.getMaNv());
         System.out.println(nv.getTenNv());
@@ -430,14 +459,12 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
 
     private void txtgioitinhFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtgioitinhFocusLost
         String slt = ((String) this.txtgioitinh.getSelectedItem());
-        if(slt.equals("Male")){
+        if (slt.equals("Male")) {
             nv.setPhai(true);
-        } else if(slt.equals("Female")){
+        } else {
             nv.setPhai(false);
-        } else if(slt.equals("None")){
-            txtgioitinh.requestFocus();
         }
-        System.out.println(slt);
+        System.out.println(nv.isPhai());
     }//GEN-LAST:event_txtgioitinhFocusLost
 
     private void txtdiachiFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtdiachiFocusLost
@@ -469,58 +496,110 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
     private void txtphongbancongtacItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_txtphongbancongtacItemStateChanged
         // TODO add your handling code here:
         this.txtchucvu.setModel(this.createListChucVu());
-        nv.setMaT(((Phongban) this.txtquanhuyen.getSelectedItem()).getMaPB());
+        nv.setMaPb(((Phongban) this.txtphongbancongtac.getSelectedItem()).getMaPB());
+        System.out.println(nv.getMaPb());
     }//GEN-LAST:event_txtphongbancongtacItemStateChanged
 
-    private DefaultComboBoxModel createComboListMaHuyen(){
+    private void txtchucvuFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtchucvuFocusLost
+        // TODO add your handling code here:
+        //Instance of String then not casting anything
+        if (!(this.txtchucvu.getSelectedItem() instanceof String)) {
+            String MaCv = ((Chucvu) this.txtchucvu.getSelectedItem()).getMaCV();
+            nv.setMaCv(MaCv);
+            System.out.println(nv.getMaCv());
+        }
+    }//GEN-LAST:event_txtchucvuFocusLost
+
+    private void txtquanhuyenFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtquanhuyenFocusLost
+        // TODO add your handling code here:
+        //Instance of String then not casting anything
+        if (!(this.txttinh.getSelectedItem() instanceof String)) {
+            String MaT = ((Tinh) this.txttinh.getSelectedItem()).getMaTinh();
+            nv.setMaT(MaT);
+            System.out.println(nv.getMaT());
+        }
+    }//GEN-LAST:event_txtquanhuyenFocusLost
+
+    private void txtchuyenmonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_txtchuyenmonItemStateChanged
+        // TODO add your handling code here:
+        String value = ((Chuyenmon) this.txtchuyenmon.getSelectedItem()).getMaCM();
+        nv.setMaCM(value);
+        System.out.println(nv.getMaCM());
+        this.txttrinhdohocvan.setModel(this.createListTDHV());
+    }//GEN-LAST:event_txtchuyenmonItemStateChanged
+
+    private DefaultComboBoxModel createComboListMaHuyen() {
         Vector<Huyen> list = new Vector<>();
         String value;
-        try{
+        try {
             value = ((Tinh) this.txttinh.getSelectedItem()).getMaTinh();
-        } catch (NullPointerException ex){
+        } catch (NullPointerException ex) {
             String[] a = {"Select city first"};
             return new javax.swing.DefaultComboBoxModel<>(a);
         }
         System.out.println(value);
         QuanLiNhanSu.Quequan = QuequanDAO.getAllTinh();
         QuanLiNhanSu.Quequan.get(value).getHuyen().values()
-                .forEach(x->list.addElement(x));
+                .forEach(x -> list.addElement(x));
         return new javax.swing.DefaultComboBoxModel(list);
     }
-    
-    private DefaultComboBoxModel createComboListTinh(){
+
+    private DefaultComboBoxModel createComboListTinh() {
         Vector<Tinh> list = new Vector<>();
-        QuanLiNhanSu.Quequan.values().stream().forEach(x->list.addElement(x));
+        QuanLiNhanSu.Quequan.values().stream().forEach(x -> list.addElement(x));
         DefaultComboBoxModel obj = new javax.swing.DefaultComboBoxModel<>(list);
         obj.setSelectedItem("Select a option");
         return obj;
     }
-    
-    private DefaultComboBoxModel createListPhongBan(){
+
+    private DefaultComboBoxModel createListPhongBan() {
         Vector<Phongban> list = new Vector<>();
-        QuanLiNhanSu.danhSachPhongBan.values().stream().forEach(x->list.addElement(x));
+        QuanLiNhanSu.danhSachPhongBan.values().stream().forEach(x -> list.addElement(x));
         DefaultComboBoxModel obj = new javax.swing.DefaultComboBoxModel<>(list);
         obj.setSelectedItem("Select a Department");
         return obj;
     }
-    
-    private DefaultComboBoxModel createListChucVu(){
+
+    private DefaultComboBoxModel createListChucVu() {
         Vector<Chucvu> list = new Vector<>();
         String value;
-        try{
+        try {
             value = ((Phongban) this.txtphongbancongtac.getSelectedItem()).getMaPB();
-        } catch (NullPointerException ex){
+        } catch (NullPointerException ex) {
             String[] a = {"Select Department First"};
             return new javax.swing.DefaultComboBoxModel<>(a);
         }
         System.out.println(value);
         QuanLiNhanSu.danhSachPhongBan.get(value).getDanhSachChucVu().values()
                 .stream()
-                .forEach(x->list.addElement(x));
+                .forEach(x -> list.addElement(x));
         return new javax.swing.DefaultComboBoxModel(list);
     }
-    
-    
+
+    private DefaultComboBoxModel createListChuyenMon() {
+        Vector<Chuyenmon> list = new Vector<>();
+        QuanLiNhanSu.danhSachChuyenMon.values().stream()
+                .forEach(x -> list.addElement(x));
+        DefaultComboBoxModel obj = new DefaultComboBoxModel(list);
+        obj.setSelectedItem("Select a Technique");
+        return obj;
+    }
+
+    private DefaultComboBoxModel createListTDHV() {
+        Vector<TDHV> list = new Vector<>();
+        String value;
+        try {
+            value = ((Chuyenmon) this.txtchuyenmon.getSelectedItem()).getMaCM();
+        } catch (NullPointerException ex) {
+            String[] a = {"Select Department First"};
+            return new javax.swing.DefaultComboBoxModel<>(a);
+        }
+        QuanLiNhanSu.danhSachChuyenMon.get(value).getTDHV().values()
+                .stream()
+                .forEach(x -> list.addElement(x));
+        return new javax.swing.DefaultComboBoxModel<>(list);
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -549,17 +628,16 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Nhap_Sua_TTNV().setVisible(true);
             }
         });
     }
-    
-    public static void callRun(Nhanvien nv){
-        java.awt.EventQueue.invokeLater(new Runnable(){
-            public void run(){
+
+    public static void callRun(Nhanvien nv) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
                 new Nhap_Sua_TTNV(nv).setVisible(true);
             }
         });

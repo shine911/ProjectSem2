@@ -6,7 +6,6 @@
 package com.java.client.view;
 
 import com.java.client.controller.ThoatController;
-import com.java.model.Chucvu;
 import com.java.model.Chuyenmon;
 import com.java.model.Nhanvien;
 import com.java.model.TDHV;
@@ -27,7 +26,6 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
     public static QuanLiNhanSu obj = null;
     public static Map<String, Nhanvien> danhSachNhanVien;
     public static Map<String, Chuyenmon> danhSachChuyenMon;
-    public static Map<String, TDHV> danhSachTrinhDo;
     public static Map<String, Phongban> danhSachPhongBan;
     public static Map<String, Tinh> Quequan;
 
@@ -115,6 +113,11 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
         });
 
         jButton3.setText("Edit");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Delete");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -223,14 +226,20 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
         }
         if (model.getRowCount() == 0) {
             danhSachNhanVien.values().forEach((nv) -> {
-                model.addRow(new Object[]{nv.getMaNv(), nv.getTenNv(), nv.getDc(), nv.getEmail(), nv.getDienThoai(), danhSachPhongBan.get(nv.getMaPb()).getDanhSachChucVu().get(nv.getMaCv()).getTenCV(), danhSachPhongBan.get(nv.getMaPb()).getTenPB(), danhSachTrinhDo.get(nv.getMaTDHV()).getTenTDHV(), nv.getMaTDNN()});
+                model.addRow(new Object[]{nv.getMaNv(), nv.getTenNv(), nv.getDc(),
+                    nv.getEmail(), nv.getDienThoai(),
+                    danhSachPhongBan.get(nv.getMaPb()).getDanhSachChucVu().get(nv.getMaCv()).getTenCV(),
+                    danhSachPhongBan.get(nv.getMaPb()).getTenPB(),
+                    danhSachChuyenMon.get(nv.getMaCM()).getTDHV(nv.getMaTDHV()).getTenTDHV(),
+                    nv.getMaTDNN()});
             });
         }
     }//GEN-LAST:event_DanhSachNvActionPerformed
 
     private void ThoatKhoiHeThongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThoatKhoiHeThongActionPerformed
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        int choose = JOptionPane.showConfirmDialog(rootPane, "Do you want quit?", "Confirmation", JOptionPane.YES_NO_OPTION);
+        int choose = JOptionPane.showConfirmDialog(rootPane, "Do you want quit?",
+                 "Confirmation", JOptionPane.YES_NO_OPTION);
         if (choose == 0) {
             this.dispose();
             DangNhap.callRun();
@@ -264,6 +273,12 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         ThoatController.Thoat(this);
     }//GEN-LAST:event_formWindowClosing
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        int row = Bang.getSelectedRow();
+        Nhap_Sua_TTNV.callRun(QuanLiNhanSu.danhSachNhanVien.get(Bang.getValueAt(row, 0)));
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     public void callRun() {
         /* Set the Nimbus look and feel */

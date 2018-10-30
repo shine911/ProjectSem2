@@ -46,6 +46,10 @@ public class Tinh {
     public void setHuyen(HashMap<String, Huyen> huyen) {
         this.huyen = huyen;
     }
+    
+    public Huyen getHuyen(String id){
+        return this.huyen.get(id);
+    }
     @Override
     public String toString(){
         return this.getTenTinh();

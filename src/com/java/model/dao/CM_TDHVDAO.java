@@ -8,6 +8,7 @@ package com.java.model.dao;
 import com.java.config.ConnectionUtil;
 import com.java.model.TDHV;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -24,26 +25,25 @@ public class CM_TDHVDAO {
 
     public static Connection connection = ConnectionUtil.getInstance().getConnection();
 
-    public static Map<String, Map<String, TDHV>> getTrinhTheoCM() {
-        Map<String, TDHV> danhSachTrinhDo = TrinhDoDAO.getDanhSachTrinhDo();
-        Map<String, Map<String, TDHV>> danhSach = new HashMap<>();
+    public static Map<String, TDHV> getTrinhTheoCM(String id) {
+        Map<String, TDHV> danhSachTrinhDo = new HashMap<>();
         try {
-            String cmtd = "select * from CHUYENMON_TRINHDOHV";
-            Statement st = connection.createStatement();
-            st.execute(cmtd);
-            ResultSet rs = st.getResultSet();
+            String cmtd = "SELECT cm.MaTDHV, td.TenTDHV "
+                    + "FROM CHUYENMON_TRINHDOHV cm "
+                    + "JOIN TRINHDOHV td "
+                    + "ON cm.MaTDHV = td.MaTDHV WHERE cm.MaCM = ?";
+            PreparedStatement pre = NhanvienDAO.connection.prepareStatement(cmtd);
+            pre.setString(1, id);
+            pre.execute();
+            ResultSet rs = pre.getResultSet();
             while (rs.next()) {
-                String keyCM = rs.getString(1);
-                String keyTD = rs.getString(2);
-                if (!danhSach.containsKey(keyCM)) {
-                    danhSach.put(keyCM, new HashMap<>());
-                }
-                danhSach.get(keyCM).put(keyTD, danhSachTrinhDo.get(keyTD));
+                TDHV td = new TDHV(rs.getString(1), rs.getString(2));
+                danhSachTrinhDo.put(td.getMaTDHV(), td);
             }
         } catch (SQLException ex) {
             Logger.getLogger(CM_TDHVDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return danhSach;
+        return danhSachTrinhDo;
     }
 
 }
