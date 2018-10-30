@@ -12,6 +12,7 @@ import com.java.model.Phongban;
 import com.java.model.Tinh;
 import com.java.model.TrinhDoNN;
 import java.util.Map;
+import java.util.SortedMap;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -22,9 +23,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class QuanLiNhanSu extends javax.swing.JFrame {
 
-    private final String username;
+    public static String username;
     public static QuanLiNhanSu obj = null;
-    public static Map<String, Nhanvien> danhSachNhanVien;
+    public static SortedMap<String, Nhanvien> danhSachNhanVien;
     public static Map<String, Chuyenmon> danhSachChuyenMon;
     public static Map<String, Phongban> danhSachPhongBan;
     public static Map<String, Tinh> Quequan;
@@ -42,8 +43,8 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
      */
     private QuanLiNhanSu(String username) {
         initComponents();
-        this.username = username;
-        if (!this.username.equals("ADMIN")) {
+        username = username;
+        if (!username.equals("ADMIN")) {
             danhSachNhanVien.values().removeIf(x -> x.getMaNv().equals("ADMIN")); // Remove if none ADMIN
         }
         this.setLocationRelativeTo(null);
@@ -210,37 +211,30 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    public void callUpdate() {
+        this.DanhSachNvActionPerformed(null);
+    }
     private void DanhSachNvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DanhSachNvActionPerformed
         DefaultTableModel model = (DefaultTableModel) Bang.getModel();
-        if (model.getColumnCount() != 9) {
-            Bang.setModel(new javax.swing.table.DefaultTableModel(
-                    new Object[][]{},
-                    new String[]{
-                        "ID", "Name", "Address", "Mail", "Phone", "Position", "Dep No", "Edu", "Foregin Language"
-                    }
-            ) {
-                boolean[] canEdit = new boolean[]{
-                    false, false, false, false, false, false, false, false, false
-                };
-            });
+        if(model.getRowCount()!=0){
+            model.setRowCount(0);
         }
-        if (model.getRowCount() == 0) {
-            danhSachNhanVien.values().forEach((nv) -> {
-                model.addRow(new Object[]{nv.getMaNv(), nv.getTenNv(), nv.getDc(),
-                    nv.getEmail(), nv.getDienThoai(),
-                    danhSachPhongBan.get(nv.getMaPb()).getDanhSachChucVu().get(nv.getMaCv()).getTenCV(),
-                    danhSachPhongBan.get(nv.getMaPb()).getTenPB(),
-                    danhSachChuyenMon.get(nv.getMaCM()).getTDHV(nv.getMaTDHV()).getTenTDHV(),
-                    danhSachtrinhDoNN.get(nv.getMaTDNN()).getTenTDNN()});
-            });
-        }
+        
+        danhSachNhanVien.values().forEach((nv) -> {
+            model.addRow(new Object[]{nv.getMaNv(), nv.getTenNv(), nv.getDc(),
+                nv.getEmail(), nv.getDienThoai(),
+                danhSachPhongBan.get(nv.getMaPb()).getDanhSachChucVu().get(nv.getMaCv()).getTenCV(),
+                danhSachPhongBan.get(nv.getMaPb()).getTenPB(),
+                danhSachChuyenMon.get(nv.getMaCM()).getTDHV(nv.getMaTDHV()).getTenTDHV(),
+                danhSachtrinhDoNN.get(nv.getMaTDNN()).getTenTDNN()});
+        });
+
     }//GEN-LAST:event_DanhSachNvActionPerformed
 
     private void ThoatKhoiHeThongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThoatKhoiHeThongActionPerformed
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         int choose = JOptionPane.showConfirmDialog(rootPane, "Do you want quit?",
-                 "Confirmation", JOptionPane.YES_NO_OPTION);
+                "Confirmation", JOptionPane.YES_NO_OPTION);
         if (choose == 0) {
             this.dispose();
             DangNhap.callRun();

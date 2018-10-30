@@ -6,17 +6,14 @@
 package com.java.model.dao;
 
 import com.java.config.ConnectionUtil;
-import com.java.model.Lilichcongtac;
 import com.java.model.Nhanvien;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -59,8 +56,8 @@ public class NhanvienDAO {
         return nv;
     }
 
-    public static Map<String, Nhanvien> getAllNhanvien() {
-        Map<String, Nhanvien> danhSach = new HashMap<>();
+    public static SortedMap<String, Nhanvien> getAllNhanvien() {
+        SortedMap<String, Nhanvien> danhSach = new TreeMap<>();
         try {
             String sql = "Select * FROM NHANVIEN";
             Statement statement = connection.createStatement();

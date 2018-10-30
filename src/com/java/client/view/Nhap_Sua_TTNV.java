@@ -27,7 +27,7 @@ import javax.swing.JOptionPane;
 public class Nhap_Sua_TTNV extends javax.swing.JFrame {
 
     private Nhanvien nv;
-
+    public static Nhap_Sua_TTNV obj = null;
     /**
      * Creates new form Nhap_Sua_TTNV
      */
@@ -61,6 +61,8 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
         this.txttrinhdohocvan.setSelectedItem(QuanLiNhanSu.danhSachChuyenMon.get(nv.getMaCM()).getTDHV(nv.getMaTDHV()));
         this.txtchuyenmon.setSelectedItem(QuanLiNhanSu.danhSachChuyenMon.get(nv.getMaCM()));
         this.txtmatkhau.setEnabled(false);
+        this.txtemail.setText(nv.getEmail());
+        this.txtdienthoai.setText(nv.getDienThoai());
         this.txttrinhdongoaingu.setSelectedItem(QuanLiNhanSu.danhSachtrinhDoNN.get(nv.getMaTDNN()));
     }
 
@@ -162,9 +164,9 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
         });
 
         txtquanhuyen.setModel(createComboListMaHuyen());
-        txtquanhuyen.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtquanhuyenFocusLost(evt);
+        txtquanhuyen.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                txtquanhuyenItemStateChanged(evt);
             }
         });
 
@@ -182,9 +184,9 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
         });
 
         txtchucvu.setModel(this.createListChucVu());
-        txtchucvu.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtchucvuFocusLost(evt);
+        txtchucvu.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                txtchucvuItemStateChanged(evt);
             }
         });
 
@@ -208,6 +210,11 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
         });
 
         txttrinhdohocvan.setModel(this.createListTDHV());
+        txttrinhdohocvan.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                txttrinhdohocvanItemStateChanged(evt);
+            }
+        });
 
         txtchuyenmon.setModel(this.createListChuyenMon());
         txtchuyenmon.addItemListener(new java.awt.event.ItemListener() {
@@ -435,11 +442,13 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
     }//GEN-LAST:event_btcancelActionPerformed
 
     private void btnextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnextActionPerformed
-        
+        this.setVisible(false);
+        this.txttrinhdongoainguItemStateChanged(null);
+        NoiCongTac.callRun(nv);
     }//GEN-LAST:event_btnextActionPerformed
 
     private void btbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbackActionPerformed
-        this.setVisible(false);
+
     }//GEN-LAST:event_btbackActionPerformed
 
     private void txtngaysinhFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtngaysinhFocusLost
@@ -504,6 +513,7 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
     private void txttinhItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_txttinhItemStateChanged
         this.txtquanhuyen.setModel(createComboListMaHuyen());
         nv.setMaT(((Tinh) this.txttinh.getSelectedItem()).getMaTinh());
+        nv.setMaH(((Huyen) this.txtquanhuyen.getSelectedItem()).getMaHuyen());
         System.out.println(nv.getMaT());
     }//GEN-LAST:event_txttinhItemStateChanged
 
@@ -511,39 +521,19 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.txtchucvu.setModel(this.createListChucVu());
         nv.setMaPb(((Phongban) this.txtphongbancongtac.getSelectedItem()).getMaPB());
+        nv.setMaCv(((Chucvu) this.txtchucvu.getSelectedItem()).getMaCV());
         System.out.println(nv.getMaPb());
     }//GEN-LAST:event_txtphongbancongtacItemStateChanged
-
-    private void txtchucvuFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtchucvuFocusLost
-        // TODO add your handling code here:
-        //Instance of String then not casting anything
-        if (!(this.txtchucvu.getSelectedItem() instanceof String)) {
-            String MaCv = ((Chucvu) this.txtchucvu.getSelectedItem()).getMaCV();
-            nv.setMaCv(MaCv);
-            System.out.println(nv.getMaCv());
-        }
-    }//GEN-LAST:event_txtchucvuFocusLost
-
-    private void txtquanhuyenFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtquanhuyenFocusLost
-        // TODO add your handling code here:
-        //Instance of String then not casting anything
-        if (!(this.txtquanhuyen.getSelectedItem() instanceof String)) {
-            String MaH = ((Huyen) this.txtquanhuyen.getSelectedItem()).getMaHuyen();
-            nv.setMaH(MaH);
-            System.out.println(nv.getMaH());
-        }
-    }//GEN-LAST:event_txtquanhuyenFocusLost
 
     private void txtchuyenmonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_txtchuyenmonItemStateChanged
         // TODO add your handling code here:
         // TODO add your handling code here:
         //Instance of String then not casting anything
-        if (!(this.txttinh.getSelectedItem() instanceof String)) {
+            this.txttrinhdohocvan.setModel(this.createListTDHV());
             String value = ((Chuyenmon) this.txtchuyenmon.getSelectedItem()).getMaCM();
             nv.setMaCM(value);
+            nv.setMaTDHV(((TDHV) this.txttrinhdohocvan.getSelectedItem()).getMaTDHV());
             System.out.println(nv.getMaCM());
-            this.txttrinhdohocvan.setModel(this.createListTDHV());
-        }
     }//GEN-LAST:event_txtchuyenmonItemStateChanged
 
     private void txttrinhdongoainguItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_txttrinhdongoainguItemStateChanged
@@ -556,6 +546,25 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
     private void txttrinhdongoainguFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txttrinhdongoainguFocusLost
         this.txtchuyenmonItemStateChanged(null);
     }//GEN-LAST:event_txttrinhdongoainguFocusLost
+
+    private void txttrinhdohocvanItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_txttrinhdohocvanItemStateChanged
+        // TODO add your handling code here:
+        if (!(this.txttrinhdohocvan.getSelectedItem() instanceof String)) {
+            String value = ((TDHV) this.txttrinhdohocvan.getSelectedItem()).getMaTDHV();
+            nv.setMaTDHV(value);
+            System.out.println(nv.getMaTDHV());
+        }
+    }//GEN-LAST:event_txttrinhdohocvanItemStateChanged
+
+    private void txtchucvuItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_txtchucvuItemStateChanged
+        // TODO add your handling code here:
+        nv.setMaCv(((Chucvu) this.txtchucvu.getSelectedItem()).getMaCV());
+    }//GEN-LAST:event_txtchucvuItemStateChanged
+
+    private void txtquanhuyenItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_txtquanhuyenItemStateChanged
+        // TODO add your handling code here:
+        nv.setMaH(((Huyen) this.txtquanhuyen.getSelectedItem()).getMaHuyen());
+    }//GEN-LAST:event_txtquanhuyenItemStateChanged
 
     private DefaultComboBoxModel createComboListMaHuyen() {
         Vector<Huyen> list = new Vector<>();
@@ -666,7 +675,8 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Nhap_Sua_TTNV().setVisible(true);
+                obj = new Nhap_Sua_TTNV();
+                obj.setVisible(true);
             }
         });
     }
@@ -674,11 +684,11 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
     public static void callRun(Nhanvien nv) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Nhap_Sua_TTNV(nv).setVisible(true);
+                obj = new Nhap_Sua_TTNV(nv);
+                obj.setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btback;
     private javax.swing.JButton btcancel;
@@ -714,11 +724,4 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> txttrinhdongoaingu;
     // End of variables declaration//GEN-END:variables
 
-    void ShowDialog() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    void setVissible(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

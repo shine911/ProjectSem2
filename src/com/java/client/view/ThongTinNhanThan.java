@@ -3,9 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package thu;
+package com.java.client.view;
 
-import java.awt.event.ActionListener;
+import com.java.client.controller.DateController;
+import com.java.model.Nhanvien;
+import com.java.model.ThanNhan;
+import java.awt.Component;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JTextField;
 
 /**
  *
@@ -13,11 +19,30 @@ import java.awt.event.ActionListener;
  */
 public class ThongTinNhanThan extends javax.swing.JFrame {
 
+    private Nhanvien nv;
+    private Map<String, ThanNhan> danhSachThanNhan = new HashMap<>();
+
     /**
      * Creates new form ThongTinNhanThan
      */
-    public ThongTinNhanThan() {
+    public ThongTinNhanThan(Nhanvien nv) {
         initComponents();
+        this.nv = nv;
+        if (nv.getDanhSachThanNhan() != null) {
+            this.danhSachThanNhan = nv.getDanhSachThanNhan();
+            this.addThanNhanInfo("Father", this.danhSachThanNhan.get("Father").getTenTN(), this.txtten1);
+            this.addThanNhanInfo("Father", this.danhSachThanNhan.get("Father").getDC(), this.txtdiachi1);
+            this.addThanNhanInfo("Father", this.danhSachThanNhan.get("Father").getNgSinh(), this.txtngaysinh1);
+            this.addThanNhanInfo("Mother", this.danhSachThanNhan.get("Mother").getTenTN(), this.txtten2);
+            this.addThanNhanInfo("Mother", this.danhSachThanNhan.get("Mother").getDC(), this.txtdiachi2);
+            this.addThanNhanInfo("Mother", this.danhSachThanNhan.get("Mother").getNgSinh(), this.txtngaysinh2);
+        }
+    }
+
+    private void addThanNhanInfo(String QuanHe, String str, JTextField tf) {
+        if (this.nv.getDanhSachThanNhan() != null) {
+            tf.setText(str);
+        }
     }
 
     /**
@@ -62,13 +87,13 @@ public class ThongTinNhanThan extends javax.swing.JFrame {
 
         jLabel3.setText("Birthday (dd/mmm/yy):");
 
-        jLabel4.setText("mother's full name:");
+        jLabel4.setText("Mother's full name:");
 
         jLabel5.setText("Address:");
 
         jLabel6.setText("Birthday (dd/mmm/yy):");
 
-        jLabel7.setText("Wife/husband full name:");
+        jLabel7.setText("Wife/Husband full name:");
 
         jLabel8.setText("Address:");
 
@@ -76,13 +101,71 @@ public class ThongTinNhanThan extends javax.swing.JFrame {
 
         jLabel10.setText("Relations with employees:");
 
-        txtten1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtten1ActionPerformed(evt);
+        txtten1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtten1FocusLost(evt);
             }
         });
 
-        txtquanhenhanthan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Wife", "Husband", "Children" }));
+        txtdiachi1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtdiachi1FocusLost(evt);
+            }
+        });
+
+        txtngaysinh1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtngaysinh1FocusLost(evt);
+            }
+        });
+
+        txtten2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtten2FocusLost(evt);
+            }
+        });
+
+        txtdiachi2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtdiachi2FocusLost(evt);
+            }
+        });
+
+        txtngaysinh2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtngaysinh2FocusLost(evt);
+            }
+        });
+
+        txtten3.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtten3FocusLost(evt);
+            }
+        });
+
+        txtdiachi3.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtdiachi3FocusLost(evt);
+            }
+        });
+
+        txtngaysinh3.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtngaysinh3FocusLost(evt);
+            }
+        });
+
+        txtquanhenhanthan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Wife", "Husband", "None" }));
+        txtquanhenhanthan.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                txtquanhenhanthanItemStateChanged(evt);
+            }
+        });
+        txtquanhenhanthan.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtquanhenhanthanFocusLost(evt);
+            }
+        });
 
         btback.setText("Back");
         btback.addActionListener(new java.awt.event.ActionListener() {
@@ -115,7 +198,7 @@ public class ThongTinNhanThan extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -201,34 +284,225 @@ public class ThongTinNhanThan extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtten1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtten1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtten1ActionPerformed
-
     private void btcancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btcancelActionPerformed
-       System.exit(0);
+
     }//GEN-LAST:event_btcancelActionPerformed
 
     private void btbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbackActionPerformed
-txtten1.setText("");
-txtdiachi1.setText("");
-txtngaysinh1.setText("");
-txtten2.setText("");
-txtdiachi2.setText("");
-txtngaysinh2.setText("");
-txtten3.setText("");
-txtdiachi3.setText("");
-txtngaysinh3.setText("");
+        NoiCongTac.obj.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btbackActionPerformed
 
     private void btfinishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btfinishActionPerformed
         // TODO add your handling code here:
+        nv.setDanhSachThanNhan(danhSachThanNhan);
+        for (Component c : this.getComponents()) {
+            if (c instanceof JTextField) {
+                JTextField tf = (JTextField) c;
+                if (tf.getText().isEmpty()) {
+                    tf.requestFocus();
+                }
+            }
+        }
+        QuanLiNhanSu.danhSachNhanVien.put(nv.getMaNv(), nv);
+        System.out.println(QuanLiNhanSu.danhSachNhanVien.get(nv.getMaNv()).getTenNv());
+        System.out.println(nv.getMaPb());
+        System.out.println(nv.getMaCv());
+        System.out.println(QuanLiNhanSu.danhSachPhongBan.get(nv.getMaPb()).getTenPB());
+        System.out.println(QuanLiNhanSu.danhSachPhongBan.get(nv.getMaPb()).getChucvu(nv.getMaCv()).getTenCV());
+        
+        this.dispose();
     }//GEN-LAST:event_btfinishActionPerformed
+    private void setTenTN(String QuanHe, String Ten) {
+        if (this.danhSachThanNhan.isEmpty() || !this.danhSachThanNhan.containsKey(QuanHe)) {
+            ThanNhan obj = new ThanNhan();
+            obj.setMaNV(nv.getMaNv());
+            obj.setTenTN(Ten);
+            obj.setQuanHe(QuanHe);
+            this.danhSachThanNhan.put(obj.getQuanHe(), obj);
+        } else {
+            ThanNhan obj = this.danhSachThanNhan.get(QuanHe);
+            obj.setTenTN(Ten);
+            this.danhSachThanNhan.put(obj.getQuanHe(), obj);
+        }
+    }
+
+    private void setDcTN(String QuanHe, String DC) {
+        if (this.danhSachThanNhan.isEmpty() || !this.danhSachThanNhan.containsKey(QuanHe)) {
+            ThanNhan obj = new ThanNhan();
+            obj.setMaNV(nv.getMaNv());
+            obj.setDC(DC);
+            obj.setQuanHe(QuanHe);
+            this.danhSachThanNhan.put(obj.getQuanHe(), obj);
+        } else {
+            ThanNhan obj = this.danhSachThanNhan.get(QuanHe);
+            obj.setDC(DC);
+            this.danhSachThanNhan.put(obj.getQuanHe(), obj);
+        }
+    }
+
+    private void setNgSinhTN(String QuanHe, String NgSinh) {
+        if (this.danhSachThanNhan.isEmpty() || !this.danhSachThanNhan.containsKey(QuanHe)) {
+            ThanNhan obj = new ThanNhan();
+            obj.setMaNV(nv.getMaNv());
+            obj.setNgSinh(DateController.parseStringtoDate(NgSinh));
+            obj.setQuanHe(QuanHe);
+            this.danhSachThanNhan.put(obj.getQuanHe(), obj);
+        } else {
+            ThanNhan obj = this.danhSachThanNhan.get(QuanHe);
+            obj.setNgSinh(DateController.parseStringtoDate(NgSinh));
+            this.danhSachThanNhan.put(obj.getQuanHe(), obj);
+        }
+    }
+    private void txtten1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtten1FocusLost
+        this.setTenTN("Father", this.txtten1.getText());
+    }//GEN-LAST:event_txtten1FocusLost
+
+    private void txtdiachi1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtdiachi1FocusLost
+        this.setDcTN("Father", this.txtdiachi1.getText());
+    }//GEN-LAST:event_txtdiachi1FocusLost
+
+    private void txtngaysinh1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtngaysinh1FocusLost
+        // TODO add your handling code here:
+        this.setNgSinhTN("Father", this.txtngaysinh1.getText());
+    }//GEN-LAST:event_txtngaysinh1FocusLost
+
+    private void txtten2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtten2FocusLost
+        // TODO add your handling code here:
+        this.setTenTN("Mother", this.txtten2.getText());
+    }//GEN-LAST:event_txtten2FocusLost
+
+    private void txtdiachi2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtdiachi2FocusLost
+        // TODO add your handling code here:
+        this.setDcTN("Mother", this.txtdiachi2.getText());
+    }//GEN-LAST:event_txtdiachi2FocusLost
+
+    private void txtngaysinh2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtngaysinh2FocusLost
+        this.setNgSinhTN("Mother", this.txtngaysinh2.getText());
+    }//GEN-LAST:event_txtngaysinh2FocusLost
+
+    private void txtten3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtten3FocusLost
+        try {
+            String QuanHe = (String) this.txtquanhenhanthan.getSelectedItem();
+            if (QuanHe.equals("Wife")) {
+                if (!this.danhSachThanNhan.containsKey("Husband")) {
+                    this.setTenTN("Wife", this.txtten3.getText());
+                } else {
+                    this.danhSachThanNhan.remove("Husband");
+                    this.setTenTN("Wife", this.txtten3.getText());
+                }
+            } else {
+                if (!this.danhSachThanNhan.containsKey("Wife")) {
+                    this.setTenTN("Husband", this.txtten3.getText());
+                } else {
+                    this.danhSachThanNhan.remove("Wife");
+                    this.setTenTN("Husband", this.txtten3.getText());
+                }
+            }
+        } catch (NullPointerException ex) {
+            System.out.println("Nothing to do");
+        }
+    }//GEN-LAST:event_txtten3FocusLost
+
+    private void txtdiachi3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtdiachi3FocusLost
+        // TODO add your handling code here:
+        try {
+            String QuanHe = (String) this.txtquanhenhanthan.getSelectedItem();
+            if (QuanHe.equals("Wife")) {
+                if (!this.danhSachThanNhan.containsKey("Husband")) {
+                    this.setDcTN("Wife", this.txtdiachi3.getText());
+                } else {
+                    this.danhSachThanNhan.remove("Husband");
+                    this.setDcTN("Wife", this.txtdiachi3.getText());
+                }
+            } else {
+                if (!this.danhSachThanNhan.containsKey("Wife")) {
+                    this.setDcTN("Husband", this.txtdiachi3.getText());
+                } else {
+                    this.danhSachThanNhan.remove("Wife");
+                    this.setDcTN("Husband", this.txtdiachi3.getText());
+                }
+            }
+        } catch (NullPointerException ex) {
+            System.out.println("Nothing to do");
+        }
+    }//GEN-LAST:event_txtdiachi3FocusLost
+
+    private void txtngaysinh3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtngaysinh3FocusLost
+        // TODO add your handling code here:
+        try {
+            String QuanHe = (String) this.txtquanhenhanthan.getSelectedItem();
+            if (QuanHe.equals("Wife")) {
+                if (!this.danhSachThanNhan.containsKey("Husband")) {
+                    this.setTenTN("Wife", this.txtngaysinh3.getText());
+                } else {
+                    this.danhSachThanNhan.remove("Husband");
+                    this.setTenTN("Wife", this.txtngaysinh3.getText());
+                }
+            } else {
+                if (!this.danhSachThanNhan.containsKey("Wife")) {
+                    this.setTenTN("Husband", this.txtngaysinh3.getText());
+                } else {
+                    this.danhSachThanNhan.remove("Wife");
+                    this.setTenTN("Husband", this.txtngaysinh3.getText());
+                }
+            }
+        } catch (NullPointerException ex) {
+            System.out.println("Nothing to do");
+        }
+    }//GEN-LAST:event_txtngaysinh3FocusLost
+
+    private void txtquanhenhanthanItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_txtquanhenhanthanItemStateChanged
+        // TODO add your handling code here:
+        String value = this.txtquanhenhanthan.getSelectedItem().toString();
+        if (value.equals("Husband")) {
+            //Check disabled fields
+            if (!this.txtten3.isEnabled()) {
+                this.txtten3.setEnabled(true);
+                this.txtngaysinh3.setEnabled(true);
+                this.txtdiachi3.setEnabled(true);
+            }
+            if (this.danhSachThanNhan.containsKey("Wife")) {
+                ThanNhan obj = this.danhSachThanNhan.get("Wife");
+                obj.setQuanHe("Husband");
+                this.danhSachThanNhan.put(obj.getQuanHe(), obj);
+                this.danhSachThanNhan.remove("Wife");
+            }
+        } else if (value.equals("Wife")) {
+            //Check disabled fields
+            if (!this.txtten3.isEnabled()) {
+                this.txtten3.setEnabled(true);
+                this.txtngaysinh3.setEnabled(true);
+                this.txtdiachi3.setEnabled(true);
+            }
+
+            if (this.danhSachThanNhan.containsKey("Husband")) {
+                ThanNhan obj = this.danhSachThanNhan.get("Husband");
+                obj.setQuanHe("Wife");
+                this.danhSachThanNhan.put(obj.getQuanHe(), obj);
+                this.danhSachThanNhan.remove("Husband");
+            }
+        } else if(value.equals("None")) {
+            if (this.danhSachThanNhan.containsKey("Wife")) {
+                this.danhSachThanNhan.remove("Wife");
+            } else if (this.danhSachThanNhan.containsKey("Husband")) {
+                this.danhSachThanNhan.remove("Husband");
+            }
+            this.txtten3.setEnabled(false);
+            this.txtngaysinh3.setEnabled(false);
+            this.txtdiachi3.setEnabled(false);
+        }
+    }//GEN-LAST:event_txtquanhenhanthanItemStateChanged
+
+    private void txtquanhenhanthanFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtquanhenhanthanFocusLost
+        // TODO add your handling code here:
+        this.txtquanhenhanthanItemStateChanged(null);
+    }//GEN-LAST:event_txtquanhenhanthanFocusLost
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void callRun(Nhanvien nv) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -255,7 +529,7 @@ txtngaysinh3.setText("");
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ThongTinNhanThan().setVisible(true);
+                new ThongTinNhanThan(nv).setVisible(true);
             }
         });
     }

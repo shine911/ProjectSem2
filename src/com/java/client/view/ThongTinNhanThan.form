@@ -30,7 +30,7 @@
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jLabel1" max="32767" attributes="0"/>
                           <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jLabel3" alignment="0" pref="133" max="32767" attributes="0"/>
+                          <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
                           <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
                           <Component id="jLabel5" alignment="0" max="32767" attributes="0"/>
                           <Component id="jLabel6" alignment="0" max="32767" attributes="0"/>
@@ -154,7 +154,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="mother&apos;s full name:"/>
+        <Property name="text" type="java.lang.String" value="Mother&apos;s full name:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
@@ -169,7 +169,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Wife/husband full name:"/>
+        <Property name="text" type="java.lang.String" value="Wife/Husband full name:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
@@ -189,24 +189,48 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtten1">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtten1ActionPerformed"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtten1FocusLost"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtdiachi1">
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtdiachi1FocusLost"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtngaysinh1">
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtngaysinh1FocusLost"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtten2">
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtten2FocusLost"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtdiachi2">
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtdiachi2FocusLost"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtngaysinh2">
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtngaysinh2FocusLost"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtten3">
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtten3FocusLost"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtdiachi3">
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtdiachi3FocusLost"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtngaysinh3">
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtngaysinh3FocusLost"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="txtquanhenhanthan">
       <Properties>
@@ -214,10 +238,14 @@
           <StringArray count="3">
             <StringItem index="0" value="Wife"/>
             <StringItem index="1" value="Husband"/>
-            <StringItem index="2" value="Children"/>
+            <StringItem index="2" value="None"/>
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="txtquanhenhanthanItemStateChanged"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtquanhenhanthanFocusLost"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>

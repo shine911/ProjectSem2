@@ -20,6 +20,10 @@ public class ThanNhan {
     private Date NgSinh;
     private String QuanHe;
 
+    public ThanNhan() {
+    }
+    
+
     public ThanNhan(String MaNV, String TenTN, boolean Phai, String DC, Date NgSinh, String QuanHe) {
         this.MaNV = MaNV;
         this.TenTN = TenTN;
