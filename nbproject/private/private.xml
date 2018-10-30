@@ -3,27 +3,40 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/bangmucluong.java</file>
             <file>file:/Users/macos/Documents/Project2/Client/src/com/java/model/dao/ThanNhanDAO.java</file>
-            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/QuanLiNhanSu.java</file>
-            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/DangNhap.java</file>
-            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/model/dao/PhongbanDAO.java</file>
-            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/controller/DangNhapController.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/model/Huyen.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/bangluongtheochucvu.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/them_mucluong.java</file>
             <file>file:/Users/macos/Documents/Project2/Client/src/com/java/model/Lilichcongtac.java</file>
-            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/Nhap_Thong_Tin_KTKL.java</file>
-            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/NoiCongTac.java</file>
-            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/Nhap_Sua_TTNV.java</file>
-            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/model/dao/ChuyenmonDAO.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/model/dao/QuequanDAO.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/bangluongtheophongban.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/model/QueQuan.java</file>
             <file>file:/Users/macos/Documents/Project2/Client/src/com/java/model/Nhanvien.java</file>
-            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/model/dao/NhanvienDAO.java</file>
-            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/LoadScreen.java</file>
-            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/model/ThanNhan.java</file>
-            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/config/ConnectionUtil.java</file>
-            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/controller/ThoatController.java</file>
-            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/ThongTinNhanThan.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/b_mucluong.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/model/Chuyenmon.java</file>
             <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/ThongTinNhanVien.java</file>
-            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/model/Nhanvien_Lilichct.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/nhapthongtinkiluat2.java</file>
             <file>file:/Users/macos/Documents/Project2/Client/src/com/java/model/Chucvu.java</file>
-            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/Main.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/bangkhenthuongkiluat_2.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/nhapthongtinkhenthuong2.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/model/dao/LiLichCongTacDAO.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/QuanLiNhanSu.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/model/dao/PhongbanDAO.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/model/Chuyenmon_Trinhdo.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/model/dao/ChucvuDAO.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/model/Tinh.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/model/Phongban.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/thongtinNV4.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/Nhap_Sua_TTNV.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/nhapthongtin_KTKL.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/model/dao/NhanvienDAO.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/quanliluong.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/LoadScreen.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/config/ConnectionUtil.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/model/dao/CM_TDHVDAO.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/thaydoi_mucluong.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/Danhsachnhanvien.java</file>
         </group>
     </open-files>
 </project-private>
