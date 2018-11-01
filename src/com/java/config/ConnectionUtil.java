@@ -21,7 +21,7 @@ public class ConnectionUtil {
     private String user = "sa";
     private String password = "123456";
     private String database = "sql";
-    private String hostUrl = "jdbc:sqlserver://192.168.1.5;databaseName="+database;
+    private String hostUrl = "jdbc:sqlserver://192.168.1.4;databaseName="+database;
     private ConnectionUtil(){
     }
     

@@ -6,7 +6,8 @@
 package com.java.model;
 
 import com.java.client.controller.DateController;
-import java.util.Date;
+import java.time.LocalDate;
+
 
 /**
  *
@@ -17,14 +18,14 @@ public class ThanNhan {
     private String TenTN;
     private boolean Phai;
     private String DC;
-    private Date NgSinh;
+    private LocalDate NgSinh;
     private String QuanHe;
 
     public ThanNhan() {
     }
     
 
-    public ThanNhan(String MaNV, String TenTN, boolean Phai, String DC, Date NgSinh, String QuanHe) {
+    public ThanNhan(String MaNV, String TenTN, boolean Phai, String DC, LocalDate NgSinh, String QuanHe) {
         this.MaNV = MaNV;
         this.TenTN = TenTN;
         this.Phai = Phai;
@@ -37,7 +38,7 @@ public class ThanNhan {
         return DateController.dateToString(NgSinh);
     }
 
-    public void setNgSinh(Date NgSinh) {
+    public void setNgSinh(LocalDate NgSinh) {
         this.NgSinh = NgSinh;
     }
     

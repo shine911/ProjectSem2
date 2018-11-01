@@ -11,16 +11,18 @@ package com.java.model;
  * @author macos
  */
 public class Lilichcongtac {
-    private String MaNoiCT;
     private String TenNoiCT;
     private String DC;
     private String Thgian;
 
-    public Lilichcongtac(String MaNoiCT, String TenNoiCT, String DC, String Thgian) {
-        this.MaNoiCT = MaNoiCT;
+    public Lilichcongtac(String TenNoiCT, String DC, String Thgian) {
         this.TenNoiCT = TenNoiCT;
         this.DC = DC;
         this.Thgian = Thgian;
+    }
+    
+    public Lilichcongtac(){
+        
     }
 
     public String getThgian() {
@@ -29,15 +31,6 @@ public class Lilichcongtac {
 
     public void setThgian(String Thgian) {
         this.Thgian = Thgian;
-    }
-
-
-    public String getMaNoiCT() {
-        return MaNoiCT;
-    }
-
-    public void setMaNoiCT(String MaNoiCT) {
-        this.MaNoiCT = MaNoiCT;
     }
 
     public String getTenNoiCT() {

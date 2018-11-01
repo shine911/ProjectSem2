@@ -11,6 +11,7 @@ import com.java.model.Nhanvien;
 import com.java.model.Phongban;
 import com.java.model.Tinh;
 import com.java.model.TrinhDoNN;
+import com.java.model.dao.NhanvienDAO;
 import java.util.Map;
 import java.util.SortedMap;
 import javax.swing.JFrame;
@@ -41,9 +42,9 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
     /**
      * Creates new form QuanLiNhanSu
      */
-    private QuanLiNhanSu(String username) {
+    private QuanLiNhanSu(String user) {
         initComponents();
-        username = username;
+        username = user;
         if (!username.equals("ADMIN")) {
             danhSachNhanVien.values().removeIf(x -> x.getMaNv().equals("ADMIN")); // Remove if none ADMIN
         }
@@ -216,10 +217,10 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
     }
     private void DanhSachNvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DanhSachNvActionPerformed
         DefaultTableModel model = (DefaultTableModel) Bang.getModel();
-        if(model.getRowCount()!=0){
+        if (model.getRowCount() != 0) {
             model.setRowCount(0);
         }
-        
+
         danhSachNhanVien.values().forEach((nv) -> {
             model.addRow(new Object[]{nv.getMaNv(), nv.getTenNv(), nv.getDc(),
                 nv.getEmail(), nv.getDienThoai(),
@@ -254,7 +255,13 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
     }//GEN-LAST:event_ThoatActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-
+        int row = Bang.getSelectedRow();
+        int choose = JOptionPane.showConfirmDialog(rootPane, "Do you want delete: " + Bang.getValueAt(row, 2), "Confirm Dialog", JOptionPane.YES_NO_OPTION);
+        if (choose == 0) {
+            NhanvienDAO.deleteNhanVien(QuanLiNhanSu.danhSachNhanVien.get(Bang.getValueAt(row, 0)));
+            danhSachNhanVien.remove(Bang.getValueAt(row, 0));
+            ((DefaultTableModel) Bang.getModel()).removeRow(row);
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void BtnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnViewActionPerformed
@@ -266,6 +273,7 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnViewActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        obj=null;
         ThoatController.Thoat(this);
     }//GEN-LAST:event_formWindowClosing
 

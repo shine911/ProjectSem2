@@ -28,18 +28,31 @@ public class NoiCongTac extends javax.swing.JFrame {
      * Creates new form NoiCongTac
      */
     public NoiCongTac(Nhanvien nv) {
-        initComponents();
         this.nv = nv;
-        this.createBangCongTac();
+        initComponents();
     }
-    
-    public void createBangCongTac(){
-        if(nv.getDanhSachCongTac() != null){
-            DefaultTableModel model = (DefaultTableModel) this.table.getModel();
-            nv.getDanhSachCongTac().stream()
-                    .forEach(x->model.addRow(new String[]{x.getMaNoiCT(), x.getTenNoiCT(), x.getDC(), x.getThgian()}));
+
+    public DefaultTableModel createBangCongTac() {
+        DefaultTableModel model = new javax.swing.table.DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Bussiness", "Address", "Date"
+                }
+        );
+        if (nv.getDanhSachCongTac() != null) {
+            ArrayList arrRow = new ArrayList();
+            for (Lilichcongtac congtac : nv.getDanhSachCongTac()) {
+                arrRow.add(congtac.getTenNoiCT());
+                arrRow.add(congtac.getDC());
+                arrRow.add(congtac.getThgian());
+
+                model.addRow(arrRow.toArray());
+                arrRow.clear();
+            };
         }
+        return model;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -94,25 +107,12 @@ public class NoiCongTac extends javax.swing.JFrame {
         });
 
         table.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null}
-            },
-            new String [] {
-                "ID", "Work place", "Address", "Date"
-            }
-        ));
-        table.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                tableFocusLost(evt);
-            }
-        });
+        table.setModel(this.createBangCongTac());
         jScrollPane1.setViewportView(table);
         if (table.getColumnModel().getColumnCount() > 0) {
             table.getColumnModel().getColumn(0).setResizable(false);
             table.getColumnModel().getColumn(1).setResizable(false);
             table.getColumnModel().getColumn(2).setResizable(false);
-            table.getColumnModel().getColumn(3).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -173,8 +173,26 @@ public class NoiCongTac extends javax.swing.JFrame {
     }//GEN-LAST:event_CancelBtnActionPerformed
 
     private void NextBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NextBtnActionPerformed
+        List<Lilichcongtac> danhSach = new ArrayList<>();
+        try{
+            table.getCellEditor().stopCellEditing();
+        }catch(NullPointerException ex){
+            System.out.println("Fucking wow shit");
+        }
+        
+        for (int row = 0; row < table.getRowCount(); row++) {
+            Lilichcongtac obj = new Lilichcongtac();
+            String TenNoiCT = table.getValueAt(row, 0).toString();
+            String DC = table.getValueAt(row, 1).toString();
+            String ThGian = table.getValueAt(row, 2).toString();
+            obj.setTenNoiCT(TenNoiCT);
+            obj.setDC(DC);
+            obj.setThgian(ThGian);
+            danhSach.add(obj);
+        }
+        nv.setDanhSachCongTac(danhSach);
+        System.out.println(nv.getDanhSachCongTac().get(0).getTenNoiCT());
         this.setVisible(false);
-        tableFocusLost(null);
         ThongTinNhanThan.callRun(nv);
     }//GEN-LAST:event_NextBtnActionPerformed
 
@@ -189,27 +207,8 @@ public class NoiCongTac extends javax.swing.JFrame {
         model.addRow(new Object[]{"", "", "", ""});
     }//GEN-LAST:event_addRowActionPerformed
 
-    private void tableFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tableFocusLost
-        // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel) this.table.getModel();
-        try {
-            for (Object row : model.getDataVector()) {
-                List<Lilichcongtac> danhSachLiLich = new ArrayList<>();
-                Vector data = (Vector) row;
-                Lilichcongtac obj = new Lilichcongtac(data.elementAt(0).toString(), data.elementAt(1).toString(),
-                        data.elementAt(2).toString(), data.elementAt(3).toString());
-                danhSachLiLich.add(obj);
-                nv.setDanhSachCongTac(danhSachLiLich);
-            }
-            System.out.println(nv.getDanhSachCongTac().get(0).getTenNoiCT());
-        } catch (NullPointerException ex) {
-            nv.setDanhSachCongTac(new ArrayList<>());
-            System.out.println("Nothing on Table");
-        }
-        
-    }//GEN-LAST:event_tableFocusLost
-
     /**
+     * @param nv
      * @param args the command line arguments
      */
     public static void callRun(Nhanvien nv) {

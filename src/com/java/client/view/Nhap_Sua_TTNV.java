@@ -444,6 +444,7 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
     private void btnextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnextActionPerformed
         this.setVisible(false);
         this.txttrinhdongoainguItemStateChanged(null);
+        this.txtquanhuyenItemStateChanged(null);
         NoiCongTac.callRun(nv);
     }//GEN-LAST:event_btnextActionPerformed
 
@@ -462,7 +463,7 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
                 + "[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))"
                 + "$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))"
                 + "\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$")) {
-            nv.setNgSinh(DateController.parseStringtoDate(this.txtngaysinh.getText()));
+            nv.setNgSinh(DateController.parseStringtoLocalDate(this.txtngaysinh.getText()));
         } else {
             txtngaysinh.setToolTipText("Format: dd/mm/yyyy");
             txtngaysinh.requestFocus();
@@ -513,7 +514,6 @@ public class Nhap_Sua_TTNV extends javax.swing.JFrame {
     private void txttinhItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_txttinhItemStateChanged
         this.txtquanhuyen.setModel(createComboListMaHuyen());
         nv.setMaT(((Tinh) this.txttinh.getSelectedItem()).getMaTinh());
-        nv.setMaH(((Huyen) this.txtquanhuyen.getSelectedItem()).getMaHuyen());
         System.out.println(nv.getMaT());
     }//GEN-LAST:event_txttinhItemStateChanged
 

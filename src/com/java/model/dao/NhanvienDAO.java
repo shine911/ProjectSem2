@@ -5,10 +5,12 @@
  */
 package com.java.model.dao;
 
+import com.java.client.controller.DateController;
 import com.java.config.ConnectionUtil;
 import com.java.model.Nhanvien;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -22,9 +24,9 @@ import java.util.logging.Logger;
  * @author macos
  */
 public class NhanvienDAO {
-
+    
     public static Connection connection = ConnectionUtil.getInstance().getConnection();
-
+    
     public static Nhanvien getNhanVienbyID(String id) {
         Nhanvien nv = null;
         try {
@@ -38,7 +40,7 @@ public class NhanvienDAO {
             nv.setMaNv(rs.getString(1));
             nv.setTenNv(rs.getString(2));
             nv.setPhai(rs.getBoolean(3));
-            nv.setNgSinh(rs.getDate(4));
+            nv.setNgSinh(rs.getDate(4).toLocalDate());
             nv.setDc(rs.getString(5));
             nv.setDienThoai(rs.getString(6));
             nv.setEmail(rs.getString(7));
@@ -55,7 +57,7 @@ public class NhanvienDAO {
         }
         return nv;
     }
-
+    
     public static SortedMap<String, Nhanvien> getAllNhanvien() {
         SortedMap<String, Nhanvien> danhSach = new TreeMap<>();
         try {
@@ -68,7 +70,7 @@ public class NhanvienDAO {
                 nv.setMaNv(rs.getString(1));
                 nv.setTenNv(rs.getString(2));
                 nv.setPhai(rs.getBoolean(3));
-                nv.setNgSinh(rs.getDate(4));
+                nv.setNgSinh(rs.getDate(4).toLocalDate());
                 nv.setDc(rs.getString(5));
                 nv.setDienThoai(rs.getString(6));
                 nv.setEmail(rs.getString(7));
@@ -88,5 +90,89 @@ public class NhanvienDAO {
             Logger.getLogger(NhanvienDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return danhSach;
+    }
+    
+    public static void createNhanVien(Nhanvien nv) {
+        try {
+            String sql = "INSERT INTO NHANVIEN VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setString(1, nv.getMaNv());
+            pre.setString(2, nv.getTenNv());
+            pre.setBoolean(3, nv.isPhai());
+            pre.setDate(4, Date.valueOf(DateController.parseStringtoLocalDate(nv.getNgSinh())));
+            pre.setString(5, nv.getDc());
+            pre.setString(6, nv.getDienThoai());
+            pre.setString(7, nv.getEmail());
+            pre.setString(8, nv.getPassword());
+            pre.setString(9, nv.getMaPb());
+            pre.setString(10, nv.getMaCv());
+            pre.setString(11, nv.getMaT());
+            pre.setString(12, nv.getMaH());
+            pre.setString(13, nv.getMaCM());
+            pre.setString(14, nv.getMaTDHV());
+            pre.setString(15, nv.getMaTDNN());
+            pre.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(NhanvienDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        LiLichCongTacDAO.createDanhSachCongTac(nv);
+        ThanNhanDAO.insertThanNhan(nv);
+    }
+    
+    public static void updateNhanVien(Nhanvien nv) {
+        try {
+            String sql = "UPDATE NHANVIEN nv SET"
+                    + "nv.HoTen = ?,"
+                    + "nv.Phai = ?,"
+                    + "nv.NgSinh = ?,"
+                    + "nv.DC = ?,"
+                    + "nv.DienThoai = ?,"
+                    + "nv.Email = ?,"
+                    + "nv.Password = ?,"
+                    + "nv.MaPB = ?,"
+                    + "nv.MaCV = ?,"
+                    + "nv.MaT = ?,"
+                    + "nv.MaH = ?,"
+                    + "nv.MaCM = ?,"
+                    + "nv.MaTDHV = ?,"
+                    + "nv.TDNN = ?"
+                    + "WHERE nv.MaNV = ?";
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setString(15, nv.getMaNv());//get ID
+            pre.setString(1, nv.getTenNv());
+            pre.setBoolean(2, nv.isPhai());
+            pre.setDate(3, Date.valueOf(DateController.parseStringtoLocalDate(nv.getNgSinh())));
+            pre.setString(4, nv.getDc());
+            pre.setString(5, nv.getDienThoai());
+            pre.setString(6, nv.getEmail());
+            pre.setString(7, nv.getPassword());
+            pre.setString(8, nv.getMaPb());
+            pre.setString(9, nv.getMaCv());
+            pre.setString(10, nv.getMaT());
+            pre.setString(11, nv.getMaH());
+            pre.setString(12, nv.getMaCM());
+            pre.setString(13, nv.getMaTDHV());
+            pre.setString(14, nv.getMaTDNN());
+        } catch (SQLException ex) {
+            Logger.getLogger(NhanvienDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        LiLichCongTacDAO.UpdateDanhSachCongTac(nv);
+        ThanNhanDAO.updateThanNhan(nv);
+    }
+    
+    public static void deleteNhanVien(Nhanvien nv) {
+        try {
+            //Remove FK first
+            LiLichCongTacDAO.deleteDanhSachCongTac(nv.getMaNv());
+            ThanNhanDAO.deleteThanNhan(nv);
+            
+            String sql = "DELETE FROM NHANVIEN WHERE MaNV=?";
+            PreparedStatement pre = connection.prepareStatement(sql);
+            pre.setString(1, nv.getMaNv());
+            pre.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(NhanvienDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 }

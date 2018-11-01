@@ -6,9 +6,7 @@
 package com.java.model;
 
 import com.java.client.controller.DateController;
-import com.java.model.dao.ThanNhanDAO;
-import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +18,7 @@ public class Nhanvien{
     private String maNv;
     private String tenNv;
     private boolean Phai;
-    private Date NgSinh;
+    private LocalDate NgSinh;
     private String Dc;
     private String DienThoai;
     private String Email;
@@ -38,29 +36,12 @@ public class Nhanvien{
     public Nhanvien() {
     }
 
-    public Nhanvien(String maNv, String tenNv, boolean Phai, Date NgSinh, String Dc, String DienThoai, String Email, String Password, String maPb, String MaCv, String MaT, String MaH, String MaCM, String MaTDHV, String MaTDNN) {
-        this.maNv = maNv;
-        this.tenNv = tenNv;
-        this.Phai = Phai;
-        this.NgSinh = NgSinh;
-        this.Dc = Dc;
-        this.DienThoai = DienThoai;
-        this.Email = Email;
-        this.Password = Password;
-        this.maPb = maPb;
-        this.MaCv = MaCv;
-        this.MaT = MaT;
-        this.MaH = MaH;
-        this.MaCM = MaCM;
-        this.MaTDHV = MaTDHV;
-        this.MaTDNN = MaTDNN;
-    }
 
     public String getNgSinh() {
         return DateController.dateToString(NgSinh);
     }
 
-    public void setNgSinh(Date NgSinh) {
+    public void setNgSinh(LocalDate NgSinh) {
         this.NgSinh = NgSinh;
     }
 
