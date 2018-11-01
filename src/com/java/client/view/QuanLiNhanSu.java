@@ -16,6 +16,8 @@ import java.util.Map;
 import java.util.SortedMap;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -48,6 +50,7 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
         if (!username.equals("ADMIN")) {
             danhSachNhanVien.values().removeIf(x -> x.getMaNv().equals("ADMIN")); // Remove if none ADMIN
         }
+
         this.setLocationRelativeTo(null);
     }
 
@@ -88,20 +91,21 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Name", "Address", "Mail", "Phone", "Position", "Dep No", "Edu", "Foregin Language"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+            }
+        ));
+        Bang.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                BangFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                BangFocusLost(evt);
             }
         });
         jScrollPane2.setViewportView(Bang);
 
         BtnView.setText("View");
+        BtnView.setEnabled(false);
         BtnView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnViewActionPerformed(evt);
@@ -109,6 +113,7 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
         });
 
         jButton2.setText("Add");
+        jButton2.setEnabled(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -116,6 +121,7 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
         });
 
         jButton3.setText("Edit");
+        jButton3.setEnabled(false);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -123,6 +129,7 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
         });
 
         jButton4.setText("Delete");
+        jButton4.setEnabled(false);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -216,7 +223,20 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
         this.DanhSachNvActionPerformed(null);
     }
     private void DanhSachNvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DanhSachNvActionPerformed
-        DefaultTableModel model = (DefaultTableModel) Bang.getModel();
+        DefaultTableModel model = new javax.swing.table.DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "ID", "Name", "Address", "Mail", "Phone", "Position", "Dep No", "Edu", "Foregin Language"
+                }
+        ) {
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        };
         if (model.getRowCount() != 0) {
             model.setRowCount(0);
         }
@@ -229,7 +249,7 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
                 danhSachChuyenMon.get(nv.getMaCM()).getTDHV(nv.getMaTDHV()).getTenTDHV(),
                 danhSachtrinhDoNN.get(nv.getMaTDNN()).getTenTDNN()});
         });
-
+        Bang.setModel(model);
     }//GEN-LAST:event_DanhSachNvActionPerformed
 
     private void ThoatKhoiHeThongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThoatKhoiHeThongActionPerformed
@@ -268,12 +288,14 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
         // TODO add your handling code here:
         int row = Bang.getSelectedRow();
         ThongTinNhanVien.nv = QuanLiNhanSu.danhSachNhanVien.get(Bang.getValueAt(row, 0));
-        ThongTinNhanVien.callRun();
+        if (ThongTinNhanVien.nv != null) {
+            ThongTinNhanVien.callRun();
+        }
         this.setVisible(false);
     }//GEN-LAST:event_BtnViewActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        obj=null;
+        obj = null;
         ThoatController.Thoat(this);
     }//GEN-LAST:event_formWindowClosing
 
@@ -282,6 +304,22 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
         int row = Bang.getSelectedRow();
         Nhap_Sua_TTNV.callRun(QuanLiNhanSu.danhSachNhanVien.get(Bang.getValueAt(row, 0)));
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void BangFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_BangFocusGained
+        // TODO add your handling code here:
+        BtnView.setEnabled(true);
+        jButton2.setEnabled(true);
+        jButton3.setEnabled(true);
+        jButton4.setEnabled(true);
+    }//GEN-LAST:event_BangFocusGained
+
+    private void BangFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_BangFocusLost
+        // TODO add your handling code here:
+        BtnView.setEnabled(false);
+        jButton2.setEnabled(false);
+        jButton3.setEnabled(false);
+        jButton4.setEnabled(false);
+    }//GEN-LAST:event_BangFocusLost
 
     public void callRun() {
         /* Set the Nimbus look and feel */
