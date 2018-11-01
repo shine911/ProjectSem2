@@ -14,6 +14,7 @@ import com.java.model.dao.ThanNhanDAO;
 import java.awt.Component;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -40,13 +41,13 @@ public class ThongTinNhanThan extends javax.swing.JFrame {
             this.addThanNhanInfo("Mother", this.danhSachThanNhan.get("Mother").getDC(), this.txtdiachi2);
             this.addThanNhanInfo("Mother", this.danhSachThanNhan.get("Mother").getNgSinh(), this.txtngaysinh2);
             String key = "Wife";
-            if(!this.danhSachThanNhan.containsKey(key)){
+            if (!this.danhSachThanNhan.containsKey(key)) {
                 key = "Husband";
-                if(!this.danhSachThanNhan.containsKey(key)){
+                if (!this.danhSachThanNhan.containsKey(key)) {
                     key = "None";
                 }
             }
-            if(!key.equals("None")){
+            if (!key.equals("None")) {
                 this.addThanNhanInfo(key, this.danhSachThanNhan.get(key).getTenTN(), txtten3);
                 this.addThanNhanInfo(key, this.danhSachThanNhan.get(key).getDC(), txtdiachi3);
                 this.addThanNhanInfo(key, this.danhSachThanNhan.get(key).getNgSinh(), txtngaysinh3);
@@ -363,10 +364,14 @@ public class ThongTinNhanThan extends javax.swing.JFrame {
         } else {
             obj = danhSachThanNhan.get(QuanHe);
         }
-        obj.setMaNV(nv.getMaNv());
-        obj.setNgSinh(DateController.parseStringtoLocalDate(NgSinh));
-        obj.setQuanHe(QuanHe);
-        this.danhSachThanNhan.put(obj.getQuanHe(), obj);
+        if (DateController.checkDateFormat(NgSinh)) {
+            obj.setMaNV(nv.getMaNv());
+            obj.setNgSinh(DateController.parseStringtoLocalDate(NgSinh));
+            obj.setQuanHe(QuanHe);
+            this.danhSachThanNhan.put(obj.getQuanHe(), obj);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Error date time format", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
     private void txtten1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtten1FocusLost
     }//GEN-LAST:event_txtten1FocusLost
@@ -423,12 +428,10 @@ public class ThongTinNhanThan extends javax.swing.JFrame {
             this.txtten3.setEnabled(false);
             this.txtngaysinh3.setEnabled(false);
             this.txtdiachi3.setEnabled(false);
-            if(this.danhSachThanNhan.containsKey("Husband"))
-            {
+            if (this.danhSachThanNhan.containsKey("Husband")) {
                 this.danhSachThanNhan.remove("Husband");
             }
-            if(this.danhSachThanNhan.containsKey("Wife"))
-            {
+            if (this.danhSachThanNhan.containsKey("Wife")) {
                 this.danhSachThanNhan.remove("Wife");
             }
         }

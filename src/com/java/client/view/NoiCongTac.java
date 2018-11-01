@@ -13,6 +13,7 @@ import java.awt.event.FocusEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -169,31 +170,36 @@ public class NoiCongTac extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelBtnActionPerformed
-        this.dispose();
+        int choose = JOptionPane.showConfirmDialog(rootPane, "Do you want to empty table?", "Question", JOptionPane.YES_NO_OPTION);
+        if(choose == 0){
+            this.nv.getDanhSachCongTac().clear();
+            table.setModel(this.createBangCongTac());
+        }
     }//GEN-LAST:event_CancelBtnActionPerformed
 
     private void NextBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NextBtnActionPerformed
         List<Lilichcongtac> danhSach = new ArrayList<>();
-        try{
+        if (table.isEditing()) {
             table.getCellEditor().stopCellEditing();
-        }catch(NullPointerException ex){
-            System.out.println("Fucking wow shit");
         }
-        
-        for (int row = 0; row < table.getRowCount(); row++) {
-            Lilichcongtac obj = new Lilichcongtac();
-            String TenNoiCT = table.getValueAt(row, 0).toString();
-            String DC = table.getValueAt(row, 1).toString();
-            String ThGian = table.getValueAt(row, 2).toString();
-            obj.setTenNoiCT(TenNoiCT);
-            obj.setDC(DC);
-            obj.setThgian(ThGian);
-            danhSach.add(obj);
+        if (table.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Empty table are not allowed", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            for (int row = 0; row < table.getRowCount(); row++) {
+                Lilichcongtac obj = new Lilichcongtac();
+                String TenNoiCT = table.getValueAt(row, 0).toString();
+                String DC = table.getValueAt(row, 1).toString();
+                String ThGian = table.getValueAt(row, 2).toString();
+                obj.setTenNoiCT(TenNoiCT);
+                obj.setDC(DC);
+                obj.setThgian(ThGian);
+                danhSach.add(obj);
+            }
+            nv.setDanhSachCongTac(danhSach);
+            System.out.println(nv.getDanhSachCongTac().get(0).getTenNoiCT());
+            this.setVisible(false);
+            ThongTinNhanThan.callRun(nv);
         }
-        nv.setDanhSachCongTac(danhSach);
-        System.out.println(nv.getDanhSachCongTac().get(0).getTenNoiCT());
-        this.setVisible(false);
-        ThongTinNhanThan.callRun(nv);
     }//GEN-LAST:event_NextBtnActionPerformed
 
     private void BackBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackBtnActionPerformed
