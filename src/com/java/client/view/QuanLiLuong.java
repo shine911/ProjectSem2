@@ -5,21 +5,36 @@
  */
 package com.java.client.view;
 
+import com.java.client.controller.ThoatController;
+import com.java.model.Chucvu;
 import com.java.model.Mucluong;
+import com.java.model.dao.ChucvuDAO;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Set;
 import java.util.SortedMap;
+import java.util.TreeSet;
+import javax.swing.Action;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author MR.K
  */
 public class QuanLiLuong extends javax.swing.JFrame {
+
     private static QuanLiLuong obj = null;
     public static SortedMap<String, Mucluong> danhSachMucLuong;
+    public static Set<Chucvu> danhSachChucVu;
+
     /**
      * Creates new form quanliluong
      */
     public QuanLiLuong() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -31,11 +46,17 @@ public class QuanLiLuong extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        bang = new javax.swing.JTable();
+        BtnAdd = new javax.swing.JButton();
+        BtnEdit = new javax.swing.JButton();
+        BtnDel = new javax.swing.JButton();
+        BtnQuit = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        SalaryPosition = new javax.swing.JMenu();
+        SalaryTable = new javax.swing.JMenuItem();
+        SalaryPos = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -46,29 +67,77 @@ public class QuanLiLuong extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Quản lí lương");
 
+        bang.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        bang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bangMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(bang);
+
+        BtnAdd.setText("Add");
+        BtnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAddActionPerformed(evt);
+            }
+        });
+
+        BtnEdit.setText("Edit");
+        BtnEdit.setEnabled(false);
+        BtnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEditActionPerformed(evt);
+            }
+        });
+
+        BtnDel.setText("Delete");
+        BtnDel.setEnabled(false);
+        BtnDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnDelActionPerformed(evt);
+            }
+        });
+
+        BtnQuit.setText("Quit");
+        BtnQuit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnQuitActionPerformed(evt);
+            }
+        });
+
         jMenu1.setText("Menu");
 
-        jMenu3.setText(" Payroll");
+        SalaryPosition.setText("Payroll");
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem3.setText("Salary table");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        SalaryTable.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
+        SalaryTable.setText("Salary table");
+        SalaryTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                SalaryTableActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem3);
+        SalaryPosition.add(SalaryTable);
 
-        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem5.setText("Payroll table by positon");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        SalaryPos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
+        SalaryPos.setText("Salary table of position");
+        SalaryPos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                SalaryPosActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem5);
+        SalaryPosition.add(SalaryPos);
 
-        jMenu1.add(jMenu3);
+        jMenu1.add(SalaryPosition);
 
         jMenu4.setText("Reward table-discipline");
 
@@ -100,23 +169,164 @@ public class QuanLiLuong extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 646, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 717, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(BtnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(BtnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BtnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(BtnQuit)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {BtnAdd, BtnDel, BtnEdit, BtnQuit});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 251, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(BtnQuit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BtnDel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BtnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BtnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(34, 34, 34))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    private void SalaryPosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalaryPosActionPerformed
+        this.bang.setModel(this.salaryTablePosModel());
+        //Check and change action
+        if (this.BtnAdd.isEnabled()) {
+            this.BtnAdd.setEnabled(false);
+            removeActionList(BtnEdit);
+            this.BtnDel.setEnabled(false);
+            BtnEdit.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int row = bang.getSelectedRow();
+                    NhapMucLuong_TheoChucVu.CallRun(bang.getValueAt(row, 0).toString(), bang.getValueAt(row, 2).toString());
+                }
+            });
+        }
+    }//GEN-LAST:event_SalaryPosActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void SalaryTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalaryTableActionPerformed
+        this.bang.setModel(this.salaryTableModel());
+        //Check and change action
+        if (!BtnAdd.isEnabled()) {
+            BtnAdd.setEnabled(true);
+            BtnDel.setEnabled(true);
+            removeActionList(BtnEdit);
+            BtnEdit.addActionListener((e) -> {
+                this.BtnEditActionPerformed(e);
+            });
+        }
+    }//GEN-LAST:event_SalaryTableActionPerformed
+
+    public void refresh() {
+        this.SalaryTableActionPerformed(null);
+    }
+
+    public void refreshPos() {
+        this.SalaryPosActionPerformed(null);
+    }
+
+    private void removeActionList(JButton btn) {
+        ActionListener[] al = btn.getActionListeners();
+        for (ActionListener a : al) {
+            btn.removeActionListener(a);
+        }
+    }
+
+    private DefaultTableModel salaryTableModel() {
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+        DefaultTableModel model = new DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Salary Level", "Amount"
+                }
+        ) {
+            boolean[] canEdit = new boolean[]{
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        };
+        danhSachMucLuong.values().stream().forEach(luong -> model.addRow(new Object[]{luong.getMaML(),
+            luong.getSoTien()
+        }));
+        return model;
+    }
+
+    private DefaultTableModel salaryTablePosModel() {
+        // TODO add your handling code here:
+        DefaultTableModel model = new DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Position ID", "Position Name", "Salary Level", "Amount"
+                }
+        ) {
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        };
+
+        danhSachChucVu.stream()
+                .forEach(cv -> model.addRow(new Object[]{cv.getMaCV(), cv.getTenCV(),
+            cv.getMucluong().getMaML(), cv.getMucluong().getSoTien()
+        }));
+        return model;
+    }
+    private void BtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAddActionPerformed
+        // TODO add your handling code here:
+        Them_MucLuong.callRun();
+    }//GEN-LAST:event_BtnAddActionPerformed
+
+    private void BtnQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnQuitActionPerformed
+        // TODO add your handling code here:
+        ThoatController.Thoat(this);
+    }//GEN-LAST:event_BtnQuitActionPerformed
+
+    private void bangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bangMouseClicked
+        // TODO add your handling code here:
+        if (bang.getSelectedRow() != -1) {
+            this.BtnEdit.setEnabled(true);
+            this.BtnDel.setEnabled(true);
+        }
+    }//GEN-LAST:event_bangMouseClicked
+
+    private void BtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditActionPerformed
+        // TODO add your handling code here:
+        int row = this.bang.getSelectedRow();
+        String value = this.bang.getValueAt(row, 0).toString();
+        Sua_MucLuong.callRun(danhSachMucLuong.get(value));
+    }//GEN-LAST:event_BtnEditActionPerformed
+
+    private void BtnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDelActionPerformed
+        // TODO add your handling code here:
+        int row = bang.getSelectedRow();
+        int choose = JOptionPane.showConfirmDialog(rootPane, "Do you want delete: " + bang.getValueAt(row, 0), "Confirm Dialog", JOptionPane.YES_NO_OPTION);
+        if (choose == 0) {
+            ((DefaultTableModel) bang.getModel()).removeRow(row);
+        }
+    }//GEN-LAST:event_BtnDelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -147,27 +357,29 @@ public class QuanLiLuong extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                if(obj == null){
-                    obj = new QuanLiLuong();
-                }
-            }
-        });
+        if (obj == null) {
+            obj = new QuanLiLuong();
+        }
         return obj;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnAdd;
+    private javax.swing.JButton BtnDel;
+    private javax.swing.JButton BtnEdit;
+    private javax.swing.JButton BtnQuit;
+    private javax.swing.JMenuItem SalaryPos;
+    private javax.swing.JMenu SalaryPosition;
+    private javax.swing.JMenuItem SalaryTable;
+    private javax.swing.JTable bang;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

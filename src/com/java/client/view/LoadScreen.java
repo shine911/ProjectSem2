@@ -156,11 +156,12 @@ public class LoadScreen extends javax.swing.JFrame {
             this.LoadMess.setText("Loading Foreign Language Level"); 
         });
         Thread t2 = new Thread(()->{
-            
             this.LoadMess.setText("Loading Salary");
             QuanLiLuong.danhSachMucLuong = MucLuongDAO.getAllMucLuong();
             this.Progress.setValue(this.Progress.getValue() + 10);
             QuanLiNhanSu.danhSachPhongBan = PhongbanDAO.getDanhSachPhongBan();
+            this.Progress.setValue(this.Progress.getValue()+10);
+            QuanLiLuong.danhSachChucVu = ChucvuDAO.getDanhSachChucVu();
             this.Progress.setValue(this.Progress.getValue()+10);
             this.LoadMess.setText("Loading Department List");
             QuanLiNhanSu.danhSachNhanVien = NhanvienDAO.getAllNhanvien();

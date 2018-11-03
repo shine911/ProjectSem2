@@ -34,19 +34,11 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
     public static Map<String, Tinh> Quequan;
     public static Map<String, TrinhDoNN> danhSachtrinhDoNN;
 
-    public static QuanLiNhanSu getForm(String user) {
-        if (obj == null) {
-            obj = new QuanLiNhanSu(user);
-        }
-        return obj;
-    }
-
     /**
      * Creates new form QuanLiNhanSu
      */
-    private QuanLiNhanSu(String user) {
+    private QuanLiNhanSu() {
         initComponents();
-        username = user;
         if (!username.equals("ADMIN")) {
             danhSachNhanVien.values().removeIf(x -> x.getMaNv().equals("ADMIN")); // Remove if none ADMIN
         }
@@ -94,12 +86,9 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
 
             }
         ));
-        Bang.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                BangFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                BangFocusLost(evt);
+        Bang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BangMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(Bang);
@@ -305,25 +294,17 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
         Nhap_Sua_TTNV.callRun(QuanLiNhanSu.danhSachNhanVien.get(Bang.getValueAt(row, 0)));
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void BangFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_BangFocusGained
+    private void BangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BangMouseClicked
         // TODO add your handling code here:
-        BtnView.setEnabled(true);
-        jButton2.setEnabled(true);
-        jButton3.setEnabled(true);
-        jButton4.setEnabled(true);
-    }//GEN-LAST:event_BangFocusGained
-
-    private void BangFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_BangFocusLost
-        // TODO add your handling code here:
-        if(Bang.getSelectedRow()==-1){
-            BtnView.setEnabled(false);
-            jButton2.setEnabled(false);
-            jButton3.setEnabled(false);
-            jButton4.setEnabled(false);
+        if(Bang.getSelectedRow() != -1){
+            this.BtnView.setEnabled(true);
+            this.jButton2.setEnabled(true);
+            this.jButton3.setEnabled(true);
+            this.jButton4.setEnabled(true);
         }
-    }//GEN-LAST:event_BangFocusLost
+    }//GEN-LAST:event_BangMouseClicked
 
-    public void callRun() {
+    public static QuanLiNhanSu callRun() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -356,11 +337,10 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                obj.setVisible(true);
-            }
-        });
+        if(obj == null){
+            obj = new QuanLiNhanSu();
+        }
+        return obj;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

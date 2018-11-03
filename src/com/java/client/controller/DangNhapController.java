@@ -5,6 +5,7 @@
  */
 package com.java.client.controller;
 
+import com.java.client.view.QuanLiLuong;
 import com.java.client.view.QuanLiNhanSu;
 import com.java.client.view.ThongTinNhanVien;
 import com.java.model.dao.NhanvienDAO;
@@ -25,8 +26,10 @@ public class DangNhapController {
     }
 
     public static void QuyenDangNhap(String user) {
+        QuanLiNhanSu.username = user;
         if (user.equals("ADMIN")) {
-            QuanLiNhanSu.getForm(user).callRun();
+            QuanLiNhanSu.callRun().setVisible(true);
+            QuanLiLuong.callRun().setVisible(true);
         } else {
             ThongTinNhanVien.nv = QuanLiNhanSu.danhSachNhanVien.get(user);
             ThongTinNhanVien.callRun();

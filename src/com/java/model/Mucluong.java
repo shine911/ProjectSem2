@@ -33,5 +33,10 @@ public class Mucluong {
     public void setSoTien(int SoTien) {
         this.SoTien = SoTien;
     }
+
+    @Override
+    public String toString() {
+        return this.getMaML() +" - "+ this.getSoTien();
+    }
     
 }
