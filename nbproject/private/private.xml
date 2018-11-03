@@ -3,15 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/bangmucluong.java</file>
-            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/bangkhenthuongkiluat_2.java</file>
-            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/nhapthongtinkhenthuong2.java</file>
-            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/danhsach_luongnhanvien.java</file>
-            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/BangKTKLQLNS.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/NhapMucLuong_TheoChucVu.java</file>
             <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/QuanLiNhanSu.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/controller/MucLuongController.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/LoadScreen.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/model/dao/ChucvuDAO.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/Sua_MucLuong.java</file>
             <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/QuanLiLuong.java</file>
-            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/model/Phongban.java</file>
-            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/Danhsachnhanvien.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/view/LapPhieuLuong.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/model/PhieuLuong.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/model/dao/PhieuLuongDAO.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/client/controller/DateController.java</file>
+            <file>file:/Users/macos/Documents/Project2/Client/src/com/java/model/dao/MucLuongDAO.java</file>
         </group>
     </open-files>
 </project-private>

@@ -1,21 +1,40 @@
+package com.java.client.view;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package thu;
+import com.java.client.controller.DateController;
+import com.java.model.Nhanvien;
+import com.java.model.PhieuLuong;
+import com.java.model.dao.ChucvuDAO;
+import java.time.LocalDate;
+import java.util.SortedMap;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author MR.K
  */
-public class lapphieuluongNV extends javax.swing.JFrame {
+public class LapPhieuLuong extends javax.swing.JFrame {
+
+    private static LapPhieuLuong obj = null;
+    public static Nhanvien nv;
+    public static SortedMap<LocalDate, PhieuLuong> phieuLuong;
+    private PhieuLuong pl;
 
     /**
      * Creates new form lapphieuluongNV
      */
-    public lapphieuluongNV() {
+    public LapPhieuLuong() {
         initComponents();
+        String MaNgPhat = String.valueOf(LocalDate.now().getYear())
+                + String.valueOf(LocalDate.now().getMonthValue());
+        String MaPl = "PL" + MaNgPhat;
+        pl = new PhieuLuong(MaPl, 0, LocalDate.now(), nv.getMaNv());
+        this.formCode.setText(MaPl);
+        this.Day.setText(DateController.dateToString(LocalDate.now()));
     }
 
     /**
@@ -30,15 +49,15 @@ public class lapphieuluongNV extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        formCode = new javax.swing.JTextField();
+        Day = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        table = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tableEmp = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tableOwner = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
@@ -52,10 +71,14 @@ public class lapphieuluongNV extends javax.swing.JFrame {
 
         jLabel3.setText("Day:");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel4.setText("EMPLOYEE PAY SLIP");
+        formCode.setEnabled(false);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Day.setEnabled(false);
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel4.setText("EMPLOYEE PAYSLIP");
+
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -66,23 +89,21 @@ public class lapphieuluongNV extends javax.swing.JFrame {
                 "STT", "Category", "Explain", "Number of money:"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(table);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tableEmp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Frist and last name:", null},
-                {"Employee code: ", null},
-                {"Position:", null},
-                {"Working Committee:", null},
-                {"Wage:", null}
-            },
-            new String [] {
-                "", ""
-            }
+                {"Frist and last name:", this.nv.getTenNv()},
+                {"Employee code: ", this.nv.getMaNv()},
+                {"Position:", QuanLiNhanSu.danhSachPhongBan.get(nv.getMaPb()).getChucvu(nv.getMaCv())},
+                {"Working Committee:", QuanLiNhanSu.danhSachPhongBan.get(nv.getMaPb())},
+                {"Salary Level", ChucvuDAO.getChucvu(nv.getMaCv()).getMucluong().getSoTien()}
+            }, new String[]{"",""}
         ));
-        jScrollPane2.setViewportView(jTable2);
+        tableEmp.setTableHeader(null);
+        jScrollPane2.setViewportView(tableEmp);
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tableOwner.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -90,7 +111,7 @@ public class lapphieuluongNV extends javax.swing.JFrame {
                 "The person making the votes:", "", ""
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(tableOwner);
 
         jButton3.setText("Ok");
 
@@ -124,8 +145,8 @@ public class lapphieuluongNV extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-                    .addComponent(jTextField1)))
+                    .addComponent(Day, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                    .addComponent(formCode)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,19 +156,19 @@ public class lapphieuluongNV extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(formCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Day, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
@@ -158,10 +179,11 @@ public class lapphieuluongNV extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static LapPhieuLuong callRun() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -175,25 +197,25 @@ public class lapphieuluongNV extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(lapphieuluongNV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LapPhieuLuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(lapphieuluongNV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LapPhieuLuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(lapphieuluongNV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LapPhieuLuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(lapphieuluongNV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LapPhieuLuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new lapphieuluongNV().setVisible(true);
-            }
-        });
+        //</editor-fold>
+        if (obj == null) {
+            obj = new LapPhieuLuong();
+        }
+        return obj;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Day;
+    private javax.swing.JTextField formCode;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
@@ -203,10 +225,8 @@ public class lapphieuluongNV extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTable table;
+    private javax.swing.JTable tableEmp;
+    private javax.swing.JTable tableOwner;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,7 @@
  */
 package com.java.model.dao;
 
+import com.java.client.view.QuanLiLuong;
 import static com.java.client.view.QuanLiLuong.danhSachChucVu;
 import com.java.client.view.QuanLiNhanSu;
 import com.java.model.Chucvu;
@@ -56,5 +57,14 @@ public class ChucvuDAO {
                 .forEach(pb -> pb.getDanhSachChucVu().values().stream()
                 .forEach(cv -> danhSachChucVu.add(cv)));
         return danhSachChucVu;
+    }
+
+    public static Chucvu getChucvu(String maCV) {
+        for (Chucvu cv : QuanLiLuong.danhSachChucVu) {
+            if (cv.getMaCV().equals(maCV)) {
+                return cv;
+            }
+        }
+        return null;
     }
 }

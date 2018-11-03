@@ -211,8 +211,8 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
     public void callUpdate() {
         this.DanhSachNvActionPerformed(null);
     }
-    private void DanhSachNvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DanhSachNvActionPerformed
-        DefaultTableModel model = new javax.swing.table.DefaultTableModel(
+    public DefaultTableModel callModel(){
+              DefaultTableModel model = new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
                 new String[]{
                     "ID", "Name", "Address", "Mail", "Phone", "Position", "Dep No", "Edu", "Foregin Language"
@@ -238,7 +238,11 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
                 danhSachChuyenMon.get(nv.getMaCM()).getTDHV(nv.getMaTDHV()).getTenTDHV(),
                 danhSachtrinhDoNN.get(nv.getMaTDNN()).getTenTDNN()});
         });
-        Bang.setModel(model);
+        return model;
+    }
+    private void DanhSachNvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DanhSachNvActionPerformed
+  
+        Bang.setModel(this.callModel());
     }//GEN-LAST:event_DanhSachNvActionPerformed
 
     private void ThoatKhoiHeThongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThoatKhoiHeThongActionPerformed

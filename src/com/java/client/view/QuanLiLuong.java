@@ -34,7 +34,7 @@ public class QuanLiLuong extends javax.swing.JFrame {
      */
     public QuanLiLuong() {
         initComponents();
-        this.setLocationRelativeTo(null);
+        this.setLocation(300, 500);
     }
 
     /**
@@ -48,9 +48,10 @@ public class QuanLiLuong extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         bang = new javax.swing.JTable();
-        BtnAdd = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
         BtnEdit = new javax.swing.JButton();
         BtnDel = new javax.swing.JButton();
+        BtnAdd = new javax.swing.JButton();
         BtnQuit = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -60,12 +61,12 @@ public class QuanLiLuong extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        paySlip = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Quản lí lương");
+        setTitle("Salary Management");
 
         bang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -85,13 +86,6 @@ public class QuanLiLuong extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(bang);
 
-        BtnAdd.setText("Add");
-        BtnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnAddActionPerformed(evt);
-            }
-        });
-
         BtnEdit.setText("Edit");
         BtnEdit.setEnabled(false);
         BtnEdit.addActionListener(new java.awt.event.ActionListener() {
@@ -108,12 +102,49 @@ public class QuanLiLuong extends javax.swing.JFrame {
             }
         });
 
+        BtnAdd.setText("Add");
+        BtnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAddActionPerformed(evt);
+            }
+        });
+
         BtnQuit.setText("Quit");
         BtnQuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnQuitActionPerformed(evt);
             }
         });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(BtnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(BtnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BtnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(BtnQuit)
+                .addContainerGap())
+        );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {BtnAdd, BtnDel, BtnEdit, BtnQuit});
+
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(BtnQuit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BtnDel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BtnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BtnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
 
         jMenu1.setText("Menu");
 
@@ -151,8 +182,13 @@ public class QuanLiLuong extends javax.swing.JFrame {
 
         jMenu1.add(jMenu4);
 
-        jMenuItem1.setText("Make a paycheck");
-        jMenu1.add(jMenuItem1);
+        paySlip.setText("Make payslip");
+        paySlip.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                paySlipActionPerformed(evt);
+            }
+        });
+        jMenu1.add(paySlip);
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem2.setText("Exit the system");
@@ -175,29 +211,16 @@ public class QuanLiLuong extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(BtnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(BtnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(BtnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(BtnQuit)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {BtnAdd, BtnDel, BtnEdit, BtnQuit});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(BtnQuit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BtnDel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BtnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BtnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(34, 34, 34))
         );
 
@@ -208,6 +231,16 @@ public class QuanLiLuong extends javax.swing.JFrame {
         this.bang.setModel(this.salaryTablePosModel());
         //Check and change action
         if (this.BtnAdd.isEnabled()) {
+            //goback from payslip
+            if (!BtnAdd.isVisible()) {
+                BtnAdd.setVisible(true);
+                BtnEdit.setText("Edit");
+                BtnDel.setText("Delete");
+                removeActionList(BtnDel);
+                BtnDel.addActionListener((e) -> {
+                    BtnDelActionPerformed(e);
+                });
+            }
             this.BtnAdd.setEnabled(false);
             removeActionList(BtnEdit);
             this.BtnDel.setEnabled(false);
@@ -227,10 +260,21 @@ public class QuanLiLuong extends javax.swing.JFrame {
         if (!BtnAdd.isEnabled()) {
             BtnAdd.setEnabled(true);
             BtnDel.setEnabled(true);
+            //goback from payslip
+            if (!BtnAdd.isVisible()) {
+                BtnAdd.setVisible(true);
+                BtnEdit.setText("Edit");
+                BtnDel.setText("Delete");
+                removeActionList(BtnDel);
+                BtnDel.addActionListener((e) -> {
+                    this.BtnDelActionPerformed(e);
+                });
+            }
             removeActionList(BtnEdit);
             BtnEdit.addActionListener((e) -> {
                 this.BtnEditActionPerformed(e);
             });
+
         }
     }//GEN-LAST:event_SalaryTableActionPerformed
 
@@ -328,6 +372,24 @@ public class QuanLiLuong extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BtnDelActionPerformed
 
+    private void paySlipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paySlipActionPerformed
+        // TODO add your handling code here:
+        bang.setModel(QuanLiNhanSu.callRun().callModel());
+        this.BtnAdd.setVisible(false);
+        this.BtnEdit.setText("View");
+        this.BtnDel.setText("Make payslip");
+        removeActionList(BtnEdit);
+        removeActionList(BtnDel);
+        this.BtnEdit.addActionListener(e->{
+            
+        });
+        this.BtnDel.addActionListener((e)->{
+            int row = bang.getSelectedRow();
+            LapPhieuLuong.nv = QuanLiNhanSu.danhSachNhanVien.get(bang.getValueAt(row, 0));
+            LapPhieuLuong.callRun().setVisible(true);
+        });
+    }//GEN-LAST:event_paySlipActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -376,10 +438,11 @@ public class QuanLiLuong extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenuItem paySlip;
     // End of variables declaration//GEN-END:variables
 }
