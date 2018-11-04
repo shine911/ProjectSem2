@@ -84,6 +84,7 @@ public class NhanvienDAO {
                 nv.setMaTDNN(rs.getString(15));
                 nv.setDanhSachThanNhan(ThanNhanDAO.getThanNhan(nv.getMaNv()));
                 nv.setDanhSachCongTac(LiLichCongTacDAO.getDanhSachCongTac(nv.getMaNv()));
+                nv.setDanhSachKTKL(KTKLDAO.getDanhSachKTKL(nv.getMaNv()));
                 danhSach.put(nv.getMaNv(), nv);
             }
         } catch (SQLException ex) {

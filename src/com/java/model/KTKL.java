@@ -47,14 +47,16 @@ public class KTKL {
     }
 
     public int getSotien() {
-        if(this.HinhThuc.equals("Reward")){
-            return Sotien;
-        }
-        return -Sotien;
+        return Sotien;
     }
 
     public void setSotien(int Sotien) {
         this.Sotien = Sotien;
+    }
+
+    @Override
+    public String toString() {
+        return this.maKTKL;
     }
     
 }

@@ -22,15 +22,17 @@ import javax.swing.table.DefaultTableModel;
 public class LapPhieuLuong extends javax.swing.JFrame {
 
     private static LapPhieuLuong obj = null;
-    public static Nhanvien nv;
+    private Nhanvien nv;
     public static SortedMap<String, PhieuLuong> phieuLuong;
-    public static Nhanvien payer;
+    private Nhanvien payer;
     private PhieuLuong pl;
 
     /**
      * Creates new form lapphieuluongNV
      */
-    public LapPhieuLuong() {
+    public LapPhieuLuong(Nhanvien nv, Nhanvien payer) {
+        this.nv = nv;
+        this.payer = payer;
         initComponents();
         String MaNgPhat = String.valueOf(LocalDate.now().getYear())
                 + String.valueOf(LocalDate.now().getMonthValue());
@@ -201,7 +203,7 @@ public class LapPhieuLuong extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static LapPhieuLuong callRun() {
+    public static void callRun(Nhanvien nv, Nhanvien payer) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -225,28 +227,31 @@ public class LapPhieuLuong extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        if (obj == null) {
-            obj = new LapPhieuLuong();
-        }
-        return obj;
+        new LapPhieuLuong(nv, payer).setVisible(true);
     }
 
     private DefaultTableModel bangLuongModel() {
         DefaultTableModel model = new DefaultTableModel(
-                new Object[][]{
-                },
+                new Object[][]{},
                 new String[]{
                     "STT", "Category", "Explain", "Number of money:"
                 }
         );
-        String tenMl = "Level"+QuanLiLuong.danhSachChucVu.get(nv.getMaCv()).getMucluong().getMaML().substring(3);
+        String tenMl = "Level" + QuanLiLuong.danhSachChucVu.get(nv.getMaCv()).getMucluong().getMaML().substring(3);
         int salaryValue = QuanLiLuong.danhSachChucVu.get(nv.getMaCv()).getMucluong().getSoTien();
-        model.addRow(new String[]{"1", "Salary",tenMl, String.valueOf(salaryValue)});
+        model.addRow(new String[]{"1", "Salary", tenMl, String.valueOf(salaryValue)});
+        int index = 2;
+        nv.getDanhSachKTKL().values().stream()
+                .forEach(ktkl -> {
+                    model.addRow(new String[]{String.valueOf(index), ktkl.getTenKTKL(), ktkl.getHinhThuc(),
+                        String.valueOf(ktkl.getSotien())});
+                });
+
         int value = 0;
-        for(int i = 0; i<model.getRowCount(); i++){
+        for (int i = 0; i < model.getRowCount(); i++) {
             value += Integer.parseInt(model.getValueAt(i, 3).toString());
         }
-        model.addRow(new String[]{"","","Total", String.valueOf(value)});
+        model.addRow(new String[]{"", "", "Total", String.valueOf(value)});
         return model;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

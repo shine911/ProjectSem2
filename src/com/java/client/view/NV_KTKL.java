@@ -3,21 +3,53 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package thu;
+package com.java.client.view;
+
+import com.java.model.KTKL;
+import com.java.model.Nhanvien;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
  * @author MR.K
  */
-public class nhapthongtin_KTKL extends javax.swing.JFrame {
+public class NV_KTKL extends javax.swing.JFrame {
 
     /**
      * Creates new form nhapthongtin_KTKL
      */
-    public nhapthongtin_KTKL() {
+    private String HT;
+    public NV_KTKL(String HT, Nhanvien nv, KTKL ktkl) {
+        this.HT = HT;
         initComponents();
+        if(nv!=null){
+            this.jComboBox1.setSelectedItem(nv);
+            this.jComboBox1.setEditable(false);
+        }
+        if(ktkl!=null){
+            this.jComboBox2.setSelectedItem(ktkl);
+        }
+        this.jTextField1.setText(((Nhanvien) this.jComboBox1.getSelectedItem()).getTenNv());
+        this.jTextField2.setText(((KTKL)this.jComboBox2.getSelectedItem()).getTenKTKL());
     }
 
+    private DefaultComboBoxModel nhanVienBox(){
+        Vector<Nhanvien> list = new Vector<>();
+        QuanLiNhanSu.danhSachNhanVien.values()
+                .stream()
+                .forEach(nv->list.addElement(nv));
+        return new DefaultComboBoxModel(list);
+    }
+    
+    private DefaultComboBoxModel ktklBox(){
+        Vector<KTKL> list = new Vector<>();
+        BangKTKL.danhSachKTKL.values()
+                .stream()
+                .filter(ktkl->ktkl.getHinhThuc().equals(this.HT))
+                .forEachOrdered(ktkl->list.addElement(ktkl));
+        return new DefaultComboBoxModel(list);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,15 +77,34 @@ public class nhapthongtin_KTKL extends javax.swing.JFrame {
 
         jLabel2.setText("Employee name:");
 
-        jLabel3.setText(" KTKL code :");
+        jLabel3.setText("KTKL code :");
 
-        jLabel4.setText(" KTKL name :");
+        jLabel4.setText("KTKL name :");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(this.nhanVienBox());
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jTextField1.setEnabled(false);
 
-        jButton1.setText("Ok");
+        jComboBox2.setModel(this.ktklBox());
+        jComboBox2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox2ItemStateChanged(evt);
+            }
+        });
+
+        jTextField2.setEnabled(false);
+
+        jButton1.setText("OK");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancel");
 
@@ -62,13 +113,13 @@ public class nhapthongtin_KTKL extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
                             .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2)
                             .addComponent(jLabel1))
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -77,7 +128,7 @@ public class nhapthongtin_KTKL extends javax.swing.JFrame {
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
+                        .addGap(65, 65, 65)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -111,10 +162,31 @@ public class nhapthongtin_KTKL extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        // TODO add your handling code here:
+        Nhanvien nv =(Nhanvien) jComboBox1.getSelectedItem();
+        this.jTextField1.setText(nv.getTenNv());
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    private void jComboBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox2ItemStateChanged
+        // TODO add your handling code here:
+        KTKL ktkl = (KTKL) jComboBox2.getSelectedItem();
+        this.jTextField2.setText(ktkl.getTenKTKL());
+    }//GEN-LAST:event_jComboBox2ItemStateChanged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Nhanvien nv =(Nhanvien) jComboBox1.getSelectedItem();
+        KTKL ktkl = (KTKL) jComboBox2.getSelectedItem();
+        nv.getDanhSachKTKL().put(ktkl.getMaKTKL(), ktkl);
+        BangKTKL.callRun().callUpdate();
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void callRun(String HT, Nhanvien nv, KTKL ktkl) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -128,20 +200,21 @@ public class nhapthongtin_KTKL extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(nhapthongtin_KTKL.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NV_KTKL.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(nhapthongtin_KTKL.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NV_KTKL.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(nhapthongtin_KTKL.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NV_KTKL.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(nhapthongtin_KTKL.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NV_KTKL.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new nhapthongtin_KTKL().setVisible(true);
+                new NV_KTKL(HT, nv, ktkl).setVisible(true);
             }
         });
     }

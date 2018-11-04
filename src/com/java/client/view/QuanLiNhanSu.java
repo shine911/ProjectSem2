@@ -146,7 +146,7 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
         Action.add(DanhSachNv);
 
         KTKL.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_K, java.awt.event.InputEvent.CTRL_MASK));
-        KTKL.setText("View Reward and Discipline");
+        KTKL.setText("Reward and Discipline Tool");
         KTKL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 KTKLActionPerformed(evt);
@@ -268,6 +268,7 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
 
     private void KTKLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KTKLActionPerformed
         // TODO add your handling code here:
+        BangKTKL.callRun().setVisible(true);
     }//GEN-LAST:event_KTKLActionPerformed
 
     private void ThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThoatActionPerformed

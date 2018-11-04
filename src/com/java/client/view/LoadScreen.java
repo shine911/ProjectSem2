@@ -9,6 +9,7 @@ import com.java.client.Main;
 import com.java.config.LookConfig;
 import com.java.model.dao.ChucvuDAO;
 import com.java.model.dao.ChuyenmonDAO;
+import com.java.model.dao.KTKLDAO;
 import com.java.model.dao.MucLuongDAO;
 import com.java.model.dao.NhanvienDAO;
 import com.java.model.dao.PhieuLuongDAO;
@@ -161,6 +162,8 @@ public class LoadScreen extends javax.swing.JFrame {
         });
         Thread t2 = new Thread(()->{
             this.LoadMess.setText("Loading Salary");
+            BangKTKL.danhSachKTKL = KTKLDAO.getAllKTKL();
+            this.Progress.setValue(this.Progress.getValue() + 10);
             QuanLiLuong.danhSachMucLuong = MucLuongDAO.getAllMucLuong();
             this.Progress.setValue(this.Progress.getValue() + 10);
             QuanLiNhanSu.danhSachPhongBan = PhongbanDAO.getDanhSachPhongBan();

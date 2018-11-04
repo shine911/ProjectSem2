@@ -9,6 +9,7 @@ import com.java.client.controller.DateController;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
 
 /**
  *
@@ -32,6 +33,7 @@ public class Nhanvien{
     private String MaTDNN;
     private Map<String, ThanNhan> danhSachThanNhan;
     private List<Lilichcongtac> danhSachCongTac;
+    private SortedMap<String, KTKL> danhSachKTKL;
 
     public Nhanvien() {
     }
@@ -171,6 +173,19 @@ public class Nhanvien{
 
     public void setMaTDNN(String MaTDNN) {
         this.MaTDNN = MaTDNN;
+    }
+
+    public SortedMap<String, KTKL> getDanhSachKTKL() {
+        return danhSachKTKL;
+    }
+
+    public void setDanhSachKTKL(SortedMap<String, KTKL> danhSachKTKL) {
+        this.danhSachKTKL = danhSachKTKL;
+    }
+
+    @Override
+    public String toString() {
+        return this.getMaNv();
     }
     
     
