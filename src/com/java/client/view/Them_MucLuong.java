@@ -6,8 +6,8 @@
 package com.java.client.view;
 
 import com.java.client.controller.MucLuongController;
-import com.java.client.view.QuanLiLuong;
 import com.java.model.Mucluong;
+import com.java.model.dao.MucLuongDAO;
 import javax.swing.JOptionPane;
 
 /**
@@ -104,6 +104,7 @@ public class Them_MucLuong extends javax.swing.JFrame {
         Mucluong ml = new Mucluong(newKey, value);
         if (MucLuongController.KiemTraMucLuong(mlTruoc, ml)) {
             QuanLiLuong.danhSachMucLuong.put(ml.getMaML(), ml);
+            MucLuongDAO.insertMucLuong(ml);
             QuanLiLuong.callRun().refresh();
             this.dispose();
         } else {

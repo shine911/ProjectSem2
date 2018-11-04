@@ -121,22 +121,22 @@ public class NhanvienDAO {
     
     public static void updateNhanVien(Nhanvien nv) {
         try {
-            String sql = "UPDATE NHANVIEN nv SET"
-                    + "nv.HoTen = ?,"
-                    + "nv.Phai = ?,"
-                    + "nv.NgSinh = ?,"
-                    + "nv.DC = ?,"
-                    + "nv.DienThoai = ?,"
-                    + "nv.Email = ?,"
-                    + "nv.Password = ?,"
-                    + "nv.MaPB = ?,"
-                    + "nv.MaCV = ?,"
-                    + "nv.MaT = ?,"
-                    + "nv.MaH = ?,"
-                    + "nv.MaCM = ?,"
-                    + "nv.MaTDHV = ?,"
-                    + "nv.TDNN = ?"
-                    + "WHERE nv.MaNV = ?";
+            String sql = "UPDATE NHANVIEN SET "
+                    + "HoTen = ?,"
+                    + "Phai = ?,"
+                    + "NgSinh = ?,"
+                    + "DC = ?,"
+                    + "DienThoai = ?,"
+                    + "Email = ?,"
+                    + "Password = ?,"
+                    + "MaPB = ?,"
+                    + "MaCV = ?,"
+                    + "MaT = ?,"
+                    + "MaH = ?,"
+                    + "MaCM = ?,"
+                    + "MaTDHV = ?,"
+                    + "MaTDNN = ?"
+                    + " WHERE MaNV = ?";
             PreparedStatement pre = connection.prepareStatement(sql);
             pre.setString(15, nv.getMaNv());//get ID
             pre.setString(1, nv.getTenNv());
@@ -153,6 +153,7 @@ public class NhanvienDAO {
             pre.setString(12, nv.getMaCM());
             pre.setString(13, nv.getMaTDHV());
             pre.setString(14, nv.getMaTDNN());
+            pre.execute();
         } catch (SQLException ex) {
             Logger.getLogger(NhanvienDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

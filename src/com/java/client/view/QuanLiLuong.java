@@ -8,13 +8,11 @@ package com.java.client.view;
 import com.java.client.controller.ThoatController;
 import com.java.model.Chucvu;
 import com.java.model.Mucluong;
-import com.java.model.dao.ChucvuDAO;
+import com.java.model.dao.MucLuongDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Set;
 import java.util.SortedMap;
-import java.util.TreeSet;
-import javax.swing.Action;
+import java.util.TreeMap;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -27,14 +25,18 @@ public class QuanLiLuong extends javax.swing.JFrame {
 
     private static QuanLiLuong obj = null;
     public static SortedMap<String, Mucluong> danhSachMucLuong;
-    public static Set<Chucvu> danhSachChucVu;
+    public static SortedMap<String, Chucvu> danhSachChucVu = new TreeMap<>();
 
     /**
      * Creates new form quanliluong
      */
     public QuanLiLuong() {
         initComponents();
-        this.setLocation(300, 500);
+        if (QuanLiNhanSu.callRun().isVisible()) {
+            this.setLocation(200, 100);
+        } else {
+            this.setLocationRelativeTo(null);
+        }
     }
 
     /**
@@ -58,7 +60,7 @@ public class QuanLiLuong extends javax.swing.JFrame {
         SalaryPosition = new javax.swing.JMenu();
         SalaryTable = new javax.swing.JMenuItem();
         SalaryPos = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
+        RDmenu = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         paySlip = new javax.swing.JMenuItem();
@@ -103,6 +105,7 @@ public class QuanLiLuong extends javax.swing.JFrame {
         });
 
         BtnAdd.setText("Add");
+        BtnAdd.setEnabled(false);
         BtnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnAddActionPerformed(evt);
@@ -170,17 +173,17 @@ public class QuanLiLuong extends javax.swing.JFrame {
 
         jMenu1.add(SalaryPosition);
 
-        jMenu4.setText("Reward table-discipline");
+        RDmenu.setText("Reward table-discipline");
 
         jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem6.setText("Reward table");
-        jMenu4.add(jMenuItem6);
+        RDmenu.add(jMenuItem6);
 
         jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_K, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem7.setText(" Discipline table");
-        jMenu4.add(jMenuItem7);
+        RDmenu.add(jMenuItem7);
 
-        jMenu1.add(jMenu4);
+        jMenu1.add(RDmenu);
 
         paySlip.setText("Make payslip");
         paySlip.addActionListener(new java.awt.event.ActionListener() {
@@ -229,52 +232,71 @@ public class QuanLiLuong extends javax.swing.JFrame {
 
     private void SalaryPosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalaryPosActionPerformed
         this.bang.setModel(this.salaryTablePosModel());
-        //Check and change action
-        if (this.BtnAdd.isEnabled()) {
-            //goback from payslip
-            if (!BtnAdd.isVisible()) {
-                BtnAdd.setVisible(true);
-                BtnEdit.setText("Edit");
-                BtnDel.setText("Delete");
-                removeActionList(BtnDel);
-                BtnDel.addActionListener((e) -> {
-                    BtnDelActionPerformed(e);
+        if ((QuanLiNhanSu.danhSachNhanVien.get(QuanLiNhanSu.username).getMaCv().equals("ADMIN")
+                || QuanLiNhanSu.danhSachNhanVien.get(QuanLiNhanSu.username).getMaCv().equals("MGL"))) {
+            //Check and change action
+            if (this.BtnAdd.isEnabled()) {
+                //goback from payslip
+                if (!BtnAdd.isVisible()) {
+                    BtnAdd.setVisible(true);
+                    BtnEdit.setText("Edit");
+                    BtnDel.setText("Delete");
+                    removeActionList(BtnDel);
+                    BtnDel.addActionListener((e) -> {
+                        BtnDelActionPerformed(e);
+                    });
+                }
+                this.BtnAdd.setEnabled(false);
+                this.BtnDel.setEnabled(false);
+                this.BtnEdit.setEnabled(false);
+                this.BtnDel.setVisible(false);
+                removeActionList(BtnEdit);
+                BtnEdit.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        int row = bang.getSelectedRow();
+                        NhapMucLuong_TheoChucVu.CallRun(bang.getValueAt(row, 0).toString(), bang.getValueAt(row, 2).toString());
+                    }
                 });
             }
-            this.BtnAdd.setEnabled(false);
-            removeActionList(BtnEdit);
-            this.BtnDel.setEnabled(false);
-            BtnEdit.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    int row = bang.getSelectedRow();
-                    NhapMucLuong_TheoChucVu.CallRun(bang.getValueAt(row, 0).toString(), bang.getValueAt(row, 2).toString());
-                }
-            });
+        } else {
+            this.BtnAdd.setVisible(false);
+            this.BtnEdit.setVisible(false);
+            this.BtnDel.setVisible(false);
         }
     }//GEN-LAST:event_SalaryPosActionPerformed
 
     private void SalaryTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalaryTableActionPerformed
         this.bang.setModel(this.salaryTableModel());
         //Check and change action
-        if (!BtnAdd.isEnabled()) {
-            BtnAdd.setEnabled(true);
-            BtnDel.setEnabled(true);
-            //goback from payslip
-            if (!BtnAdd.isVisible()) {
-                BtnAdd.setVisible(true);
-                BtnEdit.setText("Edit");
-                BtnDel.setText("Delete");
-                removeActionList(BtnDel);
-                BtnDel.addActionListener((e) -> {
-                    this.BtnDelActionPerformed(e);
+        if ((QuanLiNhanSu.danhSachNhanVien.get(QuanLiNhanSu.username).getMaCv().equals("AD")
+                || QuanLiNhanSu.danhSachNhanVien.get(QuanLiNhanSu.username).getMaCv().equals("MGL"))) {
+            if (!BtnAdd.isEnabled()) {
+                BtnAdd.setEnabled(true);
+                BtnDel.setVisible(true);
+                BtnDel.setEnabled(false);
+                BtnEdit.setEnabled(false);
+                //goback from payslip
+                if (!BtnAdd.isVisible()) {
+                    BtnAdd.setVisible(true);
+                    BtnEdit.setText("Edit");
+                    BtnDel.setText("Delete");
+                    removeActionList(BtnDel);
+                    BtnDel.addActionListener((e) -> {
+                        this.BtnDelActionPerformed(e);
+                    });
+                }
+                removeActionList(BtnEdit);
+                BtnEdit.addActionListener((e) -> {
+                    this.BtnEditActionPerformed(e);
                 });
             }
-            removeActionList(BtnEdit);
-            BtnEdit.addActionListener((e) -> {
-                this.BtnEditActionPerformed(e);
-            });
-
+        } else {
+            this.BtnAdd.setVisible(false);
+            this.BtnEdit.setVisible(false);
+            this.BtnDel.setVisible(false);
+            this.RDmenu.setVisible(false);
+            this.paySlip.setVisible(false);
         }
     }//GEN-LAST:event_SalaryTableActionPerformed
 
@@ -332,7 +354,7 @@ public class QuanLiLuong extends javax.swing.JFrame {
             }
         };
 
-        danhSachChucVu.stream()
+        danhSachChucVu.values().stream()
                 .forEach(cv -> model.addRow(new Object[]{cv.getMaCV(), cv.getTenCV(),
             cv.getMucluong().getMaML(), cv.getMucluong().getSoTien()
         }));
@@ -368,6 +390,9 @@ public class QuanLiLuong extends javax.swing.JFrame {
         int row = bang.getSelectedRow();
         int choose = JOptionPane.showConfirmDialog(rootPane, "Do you want delete: " + bang.getValueAt(row, 0), "Confirm Dialog", JOptionPane.YES_NO_OPTION);
         if (choose == 0) {
+            String key = bang.getValueAt(row, 0).toString();
+            Mucluong ml = QuanLiLuong.danhSachMucLuong.remove(key);
+            MucLuongDAO.deleteMucLuong(ml);
             ((DefaultTableModel) bang.getModel()).removeRow(row);
         }
     }//GEN-LAST:event_BtnDelActionPerformed
@@ -376,16 +401,19 @@ public class QuanLiLuong extends javax.swing.JFrame {
         // TODO add your handling code here:
         bang.setModel(QuanLiNhanSu.callRun().callModel());
         this.BtnAdd.setVisible(false);
+        this.BtnEdit.setEnabled(false);
+        this.BtnDel.setEnabled(false);
         this.BtnEdit.setText("View");
         this.BtnDel.setText("Make payslip");
         removeActionList(BtnEdit);
         removeActionList(BtnDel);
-        this.BtnEdit.addActionListener(e->{
-            
+        this.BtnEdit.addActionListener(e -> {
+
         });
-        this.BtnDel.addActionListener((e)->{
+        this.BtnDel.addActionListener((e) -> {
             int row = bang.getSelectedRow();
             LapPhieuLuong.nv = QuanLiNhanSu.danhSachNhanVien.get(bang.getValueAt(row, 0));
+            LapPhieuLuong.payer = QuanLiNhanSu.danhSachNhanVien.get(QuanLiNhanSu.username);
             LapPhieuLuong.callRun().setVisible(true);
         });
     }//GEN-LAST:event_paySlipActionPerformed
@@ -430,13 +458,13 @@ public class QuanLiLuong extends javax.swing.JFrame {
     private javax.swing.JButton BtnDel;
     private javax.swing.JButton BtnEdit;
     private javax.swing.JButton BtnQuit;
+    private javax.swing.JMenu RDmenu;
     private javax.swing.JMenuItem SalaryPos;
     private javax.swing.JMenu SalaryPosition;
     private javax.swing.JMenuItem SalaryTable;
     private javax.swing.JTable bang;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem6;

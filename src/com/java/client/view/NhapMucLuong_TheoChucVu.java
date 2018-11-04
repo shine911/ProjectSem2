@@ -8,6 +8,7 @@ package com.java.client.view;
 import com.java.model.Chucvu;
 import com.java.model.Mucluong;
 import com.java.model.dao.ChucvuDAO;
+import com.java.model.dao.MucLuongDAO;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 
@@ -23,7 +24,7 @@ public class NhapMucLuong_TheoChucVu extends javax.swing.JFrame {
     public NhapMucLuong_TheoChucVu(String MaCV, String MaMl) {
         initComponents();
         this.jComboBox1.setModel(this.danhSachChucvu());
-        this.jComboBox1.setSelectedItem(ChucvuDAO.getChucvu(MaCV));
+        this.jComboBox1.setSelectedItem(QuanLiLuong.danhSachChucVu.get(MaCV));
         this.jComboBox2.setModel(this.danhSachMaML());
         this.jComboBox2.setSelectedItem(QuanLiLuong.danhSachMucLuong.get(MaMl));
     }
@@ -105,9 +106,8 @@ public class NhapMucLuong_TheoChucVu extends javax.swing.JFrame {
         // TODO add your handling code here:
         Chucvu CV = (Chucvu) this.jComboBox1.getSelectedItem();
         Mucluong ml = (Mucluong) this.jComboBox2.getSelectedItem();
-        QuanLiNhanSu.danhSachPhongBan.values().stream()
-                .filter(pb->pb.getChucvu(CV.getMaCV())!=null)
-                .forEachOrdered(pb->pb.getChucvu(CV.getMaCV()).setMucluong(ml));
+        CV.setMucluong(ml);
+        MucLuongDAO.updateCV_ML(CV, ml);
         QuanLiLuong.callRun().refreshPos();
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -115,7 +115,8 @@ public class NhapMucLuong_TheoChucVu extends javax.swing.JFrame {
     
     private DefaultComboBoxModel danhSachChucvu(){
         Vector<Chucvu> listCv = new Vector<>();
-        QuanLiLuong.danhSachChucVu.forEach(cv -> listCv.addElement(cv));
+        QuanLiLuong.danhSachChucVu.values().stream()
+                .forEach(cv->listCv.addElement(cv));
         return new DefaultComboBoxModel(listCv);
     }
     

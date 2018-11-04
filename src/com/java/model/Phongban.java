@@ -24,7 +24,7 @@ public class Phongban {
         this.MaPB = MaPB;
         this.tenPB = tenPB;
         this.DC = DC;
-        this.danhSachChucVu = ChucvuDAO.getChucVuPB(this.MaPB);
+        this.danhSachChucVu = ChucvuDAO.getDSChucVu(MaPB);
     }
 
     public String getDC() {

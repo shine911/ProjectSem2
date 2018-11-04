@@ -6,6 +6,7 @@
 package com.java.client.view;
 
 import com.java.client.controller.ThoatController;
+import com.java.model.Chucvu;
 import com.java.model.Chuyenmon;
 import com.java.model.Nhanvien;
 import com.java.model.Phongban;
@@ -58,9 +59,9 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         Bang = new javax.swing.JTable();
         BtnView = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        BtnAdd = new javax.swing.JButton();
+        BtnEdit = new javax.swing.JButton();
+        BtnDel = new javax.swing.JButton();
         Thoat = new javax.swing.JButton();
         Menu = new javax.swing.JMenuBar();
         Action = new javax.swing.JMenu();
@@ -101,27 +102,27 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Add");
-        jButton2.setEnabled(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        BtnAdd.setText("Add");
+        BtnAdd.setEnabled(false);
+        BtnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                BtnAddActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Edit");
-        jButton3.setEnabled(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        BtnEdit.setText("Edit");
+        BtnEdit.setEnabled(false);
+        BtnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                BtnEditActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Delete");
-        jButton4.setEnabled(false);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        BtnDel.setText("Delete");
+        BtnDel.setEnabled(false);
+        BtnDel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                BtnDelActionPerformed(evt);
             }
         });
 
@@ -153,6 +154,11 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
         Action.add(KTKL);
 
         BangLuong.setText("View Salary List");
+        BangLuong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BangLuongActionPerformed(evt);
+            }
+        });
         Action.add(BangLuong);
 
         ThoatKhoiHeThong.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
@@ -181,11 +187,11 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(BtnView, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(BtnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(BtnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(BtnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Thoat, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -199,9 +205,9 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(BtnView)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
+                    .addComponent(BtnAdd)
+                    .addComponent(BtnEdit)
+                    .addComponent(BtnDel)
                     .addComponent(Thoat))
                 .addGap(36, 36, 36))
         );
@@ -255,9 +261,9 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ThoatKhoiHeThongActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void BtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAddActionPerformed
         Nhap_Sua_TTNV.callrun();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_BtnAddActionPerformed
 
     private void KTKLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KTKLActionPerformed
         // TODO add your handling code here:
@@ -267,7 +273,7 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
         ThoatController.Thoat(this);
     }//GEN-LAST:event_ThoatActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void BtnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDelActionPerformed
         int row = Bang.getSelectedRow();
         int choose = JOptionPane.showConfirmDialog(rootPane, "Do you want delete: " + Bang.getValueAt(row, 2), "Confirm Dialog", JOptionPane.YES_NO_OPTION);
         if (choose == 0) {
@@ -275,7 +281,7 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
             danhSachNhanVien.remove(Bang.getValueAt(row, 0));
             ((DefaultTableModel) Bang.getModel()).removeRow(row);
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_BtnDelActionPerformed
 
     private void BtnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnViewActionPerformed
         // TODO add your handling code here:
@@ -292,21 +298,26 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
         ThoatController.Thoat(this);
     }//GEN-LAST:event_formWindowClosing
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void BtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditActionPerformed
         // TODO add your handling code here:
         int row = Bang.getSelectedRow();
         Nhap_Sua_TTNV.callRun(QuanLiNhanSu.danhSachNhanVien.get(Bang.getValueAt(row, 0)));
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_BtnEditActionPerformed
 
     private void BangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BangMouseClicked
         // TODO add your handling code here:
         if(Bang.getSelectedRow() != -1){
             this.BtnView.setEnabled(true);
-            this.jButton2.setEnabled(true);
-            this.jButton3.setEnabled(true);
-            this.jButton4.setEnabled(true);
+            this.BtnAdd.setEnabled(true);
+            this.BtnEdit.setEnabled(true);
+            this.BtnDel.setEnabled(true);
         }
     }//GEN-LAST:event_BangMouseClicked
+
+    private void BangLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BangLuongActionPerformed
+        // TODO add your handling code here:
+        QuanLiLuong.callRun().setVisible(true);
+    }//GEN-LAST:event_BangLuongActionPerformed
 
     public static QuanLiNhanSu callRun() {
         /* Set the Nimbus look and feel */
@@ -351,15 +362,15 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
     private javax.swing.JMenu Action;
     private javax.swing.JTable Bang;
     private javax.swing.JMenuItem BangLuong;
+    private javax.swing.JButton BtnAdd;
+    private javax.swing.JButton BtnDel;
+    private javax.swing.JButton BtnEdit;
     private javax.swing.JButton BtnView;
     private javax.swing.JMenuItem DanhSachNv;
     private javax.swing.JMenuItem KTKL;
     private javax.swing.JMenuBar Menu;
     private javax.swing.JButton Thoat;
     private javax.swing.JMenuItem ThoatKhoiHeThong;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JMenu trogiup;
     // End of variables declaration//GEN-END:variables

@@ -6,8 +6,8 @@
 package com.java.client.view;
 
 import com.java.model.Mucluong;
+import com.java.model.dao.MucLuongDAO;
 import java.util.Vector;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -120,6 +120,7 @@ public class Sua_MucLuong extends javax.swing.JFrame {
         if (value >= obj.getSoTien()) {
             obj.setSoTien(value);
             QuanLiLuong.danhSachMucLuong.put(obj.getMaML(), obj);
+            MucLuongDAO.updateMucLuong(obj);
             QuanLiLuong.callRun().refresh();
             this.dispose();
         } else {

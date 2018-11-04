@@ -31,8 +31,15 @@ public class DangNhapController {
             QuanLiNhanSu.callRun().setVisible(true);
             QuanLiLuong.callRun().setVisible(true);
         } else {
-            ThongTinNhanVien.nv = QuanLiNhanSu.danhSachNhanVien.get(user);
-            ThongTinNhanVien.callRun();
+            Nhanvien nv = QuanLiNhanSu.danhSachNhanVien.get(user);
+            if (nv.getMaCv().equals("MGH")) {
+                QuanLiNhanSu.callRun().setVisible(true);
+            } else if (nv.getMaCv().equals("MGL")) {
+                QuanLiLuong.callRun().setVisible(true);
+            } else {
+                ThongTinNhanVien.nv = QuanLiNhanSu.danhSachNhanVien.get(user);
+                ThongTinNhanVien.callRun();
+            }
         }
     }
 }

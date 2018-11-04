@@ -9,6 +9,7 @@ import com.java.client.controller.DateController;
 import com.java.model.Nhanvien;
 import com.java.model.PhieuLuong;
 import com.java.model.dao.ChucvuDAO;
+import com.java.model.dao.PhieuLuongDAO;
 import java.time.LocalDate;
 import java.util.SortedMap;
 import javax.swing.table.DefaultTableModel;
@@ -21,7 +22,8 @@ public class LapPhieuLuong extends javax.swing.JFrame {
 
     private static LapPhieuLuong obj = null;
     public static Nhanvien nv;
-    public static SortedMap<LocalDate, PhieuLuong> phieuLuong;
+    public static SortedMap<String, PhieuLuong> phieuLuong;
+    public static Nhanvien payer;
     private PhieuLuong pl;
 
     /**
@@ -58,11 +60,11 @@ public class LapPhieuLuong extends javax.swing.JFrame {
         tableEmp = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         tableOwner = new javax.swing.JTable();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        okBtn = new javax.swing.JButton();
+        CancelBtn = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Phiếu lương nhân viên");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Payslip");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("CRYSTAL COMPANY SOLUTION");
@@ -78,17 +80,7 @@ public class LapPhieuLuong extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel4.setText("EMPLOYEE PAYSLIP");
 
-        table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "STT", "Category", "Explain", "Number of money:"
-            }
-        ));
+        table.setModel(this.bangLuongModel());
         jScrollPane1.setViewportView(table);
 
         tableEmp.setModel(new javax.swing.table.DefaultTableModel(
@@ -97,7 +89,7 @@ public class LapPhieuLuong extends javax.swing.JFrame {
                 {"Employee code: ", this.nv.getMaNv()},
                 {"Position:", QuanLiNhanSu.danhSachPhongBan.get(nv.getMaPb()).getChucvu(nv.getMaCv())},
                 {"Working Committee:", QuanLiNhanSu.danhSachPhongBan.get(nv.getMaPb())},
-                {"Salary Level", ChucvuDAO.getChucvu(nv.getMaCv()).getMucluong().getSoTien()}
+                {"Salary Level", QuanLiLuong.danhSachChucVu.get(nv.getMaCv()).getMucluong().getSoTien()}
             }, new String[]{"",""}
         ));
         tableEmp.setTableHeader(null);
@@ -105,17 +97,29 @@ public class LapPhieuLuong extends javax.swing.JFrame {
 
         tableOwner.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {"Payer", QuanLiNhanSu.username, QuanLiNhanSu.danhSachPhongBan.get(payer.getMaPb()).getTenPB()}
             },
             new String [] {
-                "The person making the votes:", "", ""
+                "", "", ""
             }
         ));
+        tableOwner.setEnabled(false);
+        tableOwner.setTableHeader(null);
         jScrollPane3.setViewportView(tableOwner);
 
-        jButton3.setText("Ok");
+        okBtn.setText("OK");
+        okBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                okBtnActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Cancel");
+        CancelBtn.setText("Cancel");
+        CancelBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,9 +133,9 @@ public class LapPhieuLuong extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(267, 267, 267)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(okBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(CancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 168, Short.MAX_VALUE)
@@ -171,14 +175,27 @@ public class LapPhieuLuong extends javax.swing.JFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(okBtn)
+                    .addComponent(CancelBtn))
                 .addGap(21, 21, 21))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void okBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okBtnActionPerformed
+        // TODO add your handling code here:
+        int row = table.getRowCount() - 1;
+        String value = table.getValueAt(row, 3).toString();
+        pl.setTongSoTien(Integer.parseInt(value));
+        PhieuLuongDAO.lapPhieuLuong(pl);
+        this.dispose();
+    }//GEN-LAST:event_okBtnActionPerformed
+
+    private void CancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelBtnActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_CancelBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,11 +230,28 @@ public class LapPhieuLuong extends javax.swing.JFrame {
         return obj;
     }
 
+    private DefaultTableModel bangLuongModel() {
+        DefaultTableModel model = new DefaultTableModel(
+                new Object[][]{
+                },
+                new String[]{
+                    "STT", "Category", "Explain", "Number of money:"
+                }
+        );
+        String tenMl = "Level"+QuanLiLuong.danhSachChucVu.get(nv.getMaCv()).getMucluong().getMaML().substring(3);
+        int salaryValue = QuanLiLuong.danhSachChucVu.get(nv.getMaCv()).getMucluong().getSoTien();
+        model.addRow(new String[]{"1", "Salary",tenMl, String.valueOf(salaryValue)});
+        int value = 0;
+        for(int i = 0; i<model.getRowCount(); i++){
+            value += Integer.parseInt(model.getValueAt(i, 3).toString());
+        }
+        model.addRow(new String[]{"","","Total", String.valueOf(value)});
+        return model;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CancelBtn;
     private javax.swing.JTextField Day;
     private javax.swing.JTextField formCode;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -225,6 +259,7 @@ public class LapPhieuLuong extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JButton okBtn;
     private javax.swing.JTable table;
     private javax.swing.JTable tableEmp;
     private javax.swing.JTable tableOwner;

@@ -7,6 +7,7 @@ package com.java.client.controller;
 
 import com.java.client.view.DangNhap;
 import com.java.client.view.QuanLiLuong;
+import com.java.client.view.QuanLiNhanSu;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -20,8 +21,11 @@ public class ThoatController {
         int choose = JOptionPane.showConfirmDialog(null, "Do you want quit?", "Confirmation", JOptionPane.YES_NO_OPTION);
         if (choose == 0) {
             frame.dispose();
-            QuanLiLuong.callRun().dispose();
-            QuanLiLuong.callRun().dispose();
+            if(QuanLiNhanSu.username.equals("ADMIN")){
+                QuanLiNhanSu.callRun().dispose();
+                QuanLiLuong.callRun().dispose();
+            }
+            QuanLiNhanSu.username="";
             DangNhap.callRun();
         }
     }

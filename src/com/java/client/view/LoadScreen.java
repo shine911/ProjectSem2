@@ -10,6 +10,7 @@ import com.java.model.dao.ChucvuDAO;
 import com.java.model.dao.ChuyenmonDAO;
 import com.java.model.dao.MucLuongDAO;
 import com.java.model.dao.NhanvienDAO;
+import com.java.model.dao.PhieuLuongDAO;
 import com.java.model.dao.PhongbanDAO;
 import com.java.model.dao.QuequanDAO;
 import com.java.model.dao.TrinhDoDAO;
@@ -151,17 +152,17 @@ public class LoadScreen extends javax.swing.JFrame {
             QuanLiNhanSu.Quequan = QuequanDAO.getAllTinh();
             this.Progress.setValue(this.Progress.getValue()+10);
             this.LoadMess.setText("Loading City List");
+            LapPhieuLuong.phieuLuong = PhieuLuongDAO.getDanhSachPhieuLuong();
             QuanLiNhanSu.danhSachtrinhDoNN = TrinhDoNNDAO.getListTrinhDoNN();
             this.Progress.setValue(this.Progress.getValue()+10);
             this.LoadMess.setText("Loading Foreign Language Level"); 
+            
         });
         Thread t2 = new Thread(()->{
             this.LoadMess.setText("Loading Salary");
             QuanLiLuong.danhSachMucLuong = MucLuongDAO.getAllMucLuong();
             this.Progress.setValue(this.Progress.getValue() + 10);
             QuanLiNhanSu.danhSachPhongBan = PhongbanDAO.getDanhSachPhongBan();
-            this.Progress.setValue(this.Progress.getValue()+10);
-            QuanLiLuong.danhSachChucVu = ChucvuDAO.getDanhSachChucVu();
             this.Progress.setValue(this.Progress.getValue()+10);
             this.LoadMess.setText("Loading Department List");
             QuanLiNhanSu.danhSachNhanVien = NhanvienDAO.getAllNhanvien();

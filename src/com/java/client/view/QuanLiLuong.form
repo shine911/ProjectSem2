@@ -38,7 +38,7 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
-            <Menu class="javax.swing.JMenu" name="jMenu4">
+            <Menu class="javax.swing.JMenu" name="RDmenu">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Reward table-discipline"/>
               </Properties>
@@ -216,6 +216,7 @@
         <Component class="javax.swing.JButton" name="BtnAdd">
           <Properties>
             <Property name="text" type="java.lang.String" value="Add"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnAddActionPerformed"/>
