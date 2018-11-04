@@ -6,6 +6,7 @@
 package com.java.client.view;
 
 import com.java.client.controller.DateController;
+import com.java.config.LookConfig;
 import com.java.model.Nhanvien;
 import com.java.model.ThanNhan;
 import com.java.model.dao.LiLichCongTacDAO;
@@ -452,7 +453,7 @@ public class ThongTinNhanThan extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if (LookConfig.LookAndFeel.equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

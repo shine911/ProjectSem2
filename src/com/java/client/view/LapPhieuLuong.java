@@ -6,6 +6,7 @@ package com.java.client.view;
  * and open the template in the editor.
  */
 import com.java.client.controller.DateController;
+import com.java.config.LookConfig;
 import com.java.model.Nhanvien;
 import com.java.model.PhieuLuong;
 import com.java.model.dao.ChucvuDAO;
@@ -208,7 +209,7 @@ public class LapPhieuLuong extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if (LookConfig.LookAndFeel.equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

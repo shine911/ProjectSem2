@@ -6,6 +6,7 @@
 package com.java.client.view;
 
 import com.java.client.controller.ThoatController;
+import com.java.config.LookConfig;
 import com.java.model.Chucvu;
 import com.java.model.Mucluong;
 import com.java.model.dao.MucLuongDAO;
@@ -15,6 +16,7 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.LookAndFeel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -232,7 +234,7 @@ public class QuanLiLuong extends javax.swing.JFrame {
 
     private void SalaryPosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalaryPosActionPerformed
         this.bang.setModel(this.salaryTablePosModel());
-        if ((QuanLiNhanSu.danhSachNhanVien.get(QuanLiNhanSu.username).getMaCv().equals("ADMIN")
+        if ((QuanLiNhanSu.danhSachNhanVien.get(QuanLiNhanSu.username).getMaCv().equals("AD")
                 || QuanLiNhanSu.danhSachNhanVien.get(QuanLiNhanSu.username).getMaCv().equals("MGL"))) {
             //Check and change action
             if (this.BtnAdd.isEnabled()) {
@@ -429,7 +431,7 @@ public class QuanLiLuong extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if (LookConfig.LookAndFeel.equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

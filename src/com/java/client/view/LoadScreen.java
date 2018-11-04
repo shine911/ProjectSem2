@@ -6,6 +6,7 @@
 package com.java.client.view;
 
 import com.java.client.Main;
+import com.java.config.LookConfig;
 import com.java.model.dao.ChucvuDAO;
 import com.java.model.dao.ChuyenmonDAO;
 import com.java.model.dao.MucLuongDAO;
@@ -128,7 +129,7 @@ public class LoadScreen extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if (LookConfig.LookAndFeel.equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

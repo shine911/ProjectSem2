@@ -6,6 +6,7 @@
 package com.java.client.view;
 
 import com.java.client.controller.DangNhapController;
+import com.java.config.LookConfig;
 import javax.swing.JOptionPane;
 
 /**
@@ -171,7 +172,7 @@ public class DangNhap extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if (LookConfig.LookAndFeel.equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

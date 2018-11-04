@@ -7,6 +7,7 @@ package com.java.client.view;
 
 import com.java.client.controller.DateController;
 import com.java.client.controller.ThoatController;
+import com.java.config.LookConfig;
 import com.java.model.Lilichcongtac;
 import com.java.model.Nhanvien;
 import java.util.ArrayList;
@@ -292,7 +293,7 @@ public class ThongTinNhanVien extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if (LookConfig.LookAndFeel.equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
