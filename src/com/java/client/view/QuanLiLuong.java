@@ -17,7 +17,6 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.LookAndFeel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -39,6 +38,11 @@ public class QuanLiLuong extends javax.swing.JFrame {
             this.setLocation(200, 100);
         } else {
             this.setLocationRelativeTo(null);
+        }
+        if(!QuanLiNhanSu.danhSachNhanVien.get(QuanLiNhanSu.username).getMaCv().equals("MGL")
+                && !QuanLiNhanSu.danhSachNhanVien.get(QuanLiNhanSu.username).getMaCv().equals("AD")){
+            this.paySlip.setVisible(false);
+            this.RDItem.setVisible(false);
         }
     }
 
@@ -70,6 +74,11 @@ public class QuanLiLuong extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Salary Management");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         bang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -280,8 +289,6 @@ public class QuanLiLuong extends javax.swing.JFrame {
             this.BtnAdd.setVisible(false);
             this.BtnEdit.setVisible(false);
             this.BtnDel.setVisible(false);
-            this.RDItem.setVisible(false);
-            this.paySlip.setVisible(false);
         }
     }//GEN-LAST:event_SalaryTableActionPerformed
 
@@ -386,6 +393,8 @@ public class QuanLiLuong extends javax.swing.JFrame {
         // TODO add your handling code here:
         bang.setModel(QuanLiNhanSu.callRun().callModel());
         this.BtnAdd.setVisible(false);
+        this.BtnEdit.setVisible(true);
+        this.BtnDel.setVisible(true);
         this.BtnEdit.setEnabled(false);
         this.BtnDel.setEnabled(false);
         this.BtnEdit.setText("View");
@@ -409,6 +418,11 @@ public class QuanLiLuong extends javax.swing.JFrame {
         // TODO add your handling code here:
         BangKTKL.callRun().setVisible(true);
     }//GEN-LAST:event_RDItemActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        ThoatController.Thoat(this);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -445,6 +459,12 @@ public class QuanLiLuong extends javax.swing.JFrame {
         return obj;
     }
 
+    @Override
+    public void dispose() {
+        obj=null;
+        super.dispose(); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAdd;
     private javax.swing.JButton BtnDel;

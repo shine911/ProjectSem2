@@ -9,10 +9,10 @@ import com.java.client.controller.DateController;
 import com.java.config.LookConfig;
 import com.java.model.Nhanvien;
 import com.java.model.PhieuLuong;
-import com.java.model.dao.ChucvuDAO;
 import com.java.model.dao.PhieuLuongDAO;
 import java.time.LocalDate;
 import java.util.SortedMap;
+import java.util.concurrent.atomic.AtomicInteger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -94,8 +94,15 @@ public class LapPhieuLuong extends javax.swing.JFrame {
                 {"Working Committee:", QuanLiNhanSu.danhSachPhongBan.get(nv.getMaPb())},
                 {"Salary Level", QuanLiLuong.danhSachChucVu.get(nv.getMaCv()).getMucluong().getSoTien()}
             }, new String[]{"",""}
-        ));
-        tableEmp.setTableHeader(null);
+        ){
+            boolean[] canEdit = new boolean[]{
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tableEmp);
 
         tableOwner.setModel(new javax.swing.table.DefaultTableModel(
@@ -105,9 +112,16 @@ public class LapPhieuLuong extends javax.swing.JFrame {
             new String [] {
                 "", "", ""
             }
-        ));
+        ){
+            boolean[] canEdit = new boolean[]{
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
         tableOwner.setEnabled(false);
-        tableOwner.setTableHeader(null);
         jScrollPane3.setViewportView(tableOwner);
 
         okBtn.setText("OK");
@@ -236,15 +250,24 @@ public class LapPhieuLuong extends javax.swing.JFrame {
                 new String[]{
                     "STT", "Category", "Explain", "Number of money:"
                 }
-        );
+        ) {
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        };
         String tenMl = "Level" + QuanLiLuong.danhSachChucVu.get(nv.getMaCv()).getMucluong().getMaML().substring(3);
         int salaryValue = QuanLiLuong.danhSachChucVu.get(nv.getMaCv()).getMucluong().getSoTien();
         model.addRow(new String[]{"1", "Salary", tenMl, String.valueOf(salaryValue)});
-        int index = 2;
+        AtomicInteger index = new AtomicInteger(2);
         nv.getDanhSachKTKL().values().stream()
                 .forEach(ktkl -> {
                     model.addRow(new String[]{String.valueOf(index), ktkl.getTenKTKL(), ktkl.getHinhThuc(),
                         String.valueOf(ktkl.getSotien())});
+                    index.getAndIncrement();
                 });
 
         int value = 0;

@@ -8,7 +8,7 @@ package com.java.client.view;
 import com.java.config.LookConfig;
 import com.java.model.KTKL;
 import com.java.model.Nhanvien;
-import java.util.Map;
+import com.java.model.dao.KTKLDAO;
 import java.util.SortedMap;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
@@ -29,11 +29,11 @@ public class BangKTKL extends javax.swing.JFrame {
         initComponents();
         Nhanvien nv = QuanLiNhanSu.danhSachNhanVien.get(QuanLiNhanSu.username);
         if (nv.getMaCv().equals("MGL")) {
-            RList.setVisible(false);
-            DList.setVisible(false);
+            this.PaneDList.remove(this.DList);
+            this.PaneDList.remove(this.RList);
         } else if (nv.getMaCv().equals("MGH")) {
-            RList.setVisible(true);
-            DList.setVisible(true);
+            this.PaneDList.remove(this.DTable);
+            this.PaneDList.remove(this.RTable);
         }
     }
 
@@ -228,6 +228,11 @@ public class BangKTKL extends javax.swing.JFrame {
 
         rListDel.setText("Delete");
         rListDel.setEnabled(false);
+        rListDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rListDelActionPerformed(evt);
+            }
+        });
 
         rListEdit.setText("Edit");
         rListEdit.setEnabled(false);
@@ -288,6 +293,11 @@ public class BangKTKL extends javax.swing.JFrame {
 
         dListDel.setText("Delete");
         dListDel.setEnabled(false);
+        dListDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dListDelActionPerformed(evt);
+            }
+        });
 
         dListEdit.setText("Edit");
         dListEdit.setEnabled(false);
@@ -441,7 +451,7 @@ public class BangKTKL extends javax.swing.JFrame {
         // TODO add your handling code here:
         int row = rTable.getSelectedRow();
         String key = rTable.getValueAt(row, 0).toString();
-        danhSachKTKL.remove(key);
+        KTKLDAO.removeKTKL(danhSachKTKL.remove(key));
         ((DefaultTableModel) rTable.getModel()).removeRow(row);
     }//GEN-LAST:event_rTableDelActionPerformed
 
@@ -457,7 +467,7 @@ public class BangKTKL extends javax.swing.JFrame {
         // TODO add your handling code here:
         int row = dTable.getSelectedRow();
         String key = dTable.getValueAt(row, 0).toString();
-        danhSachKTKL.remove(key);
+        KTKLDAO.removeKTKL(danhSachKTKL.remove(key));
         ((DefaultTableModel) dTable.getModel()).removeRow(row);
     }//GEN-LAST:event_dDelActionPerformed
 
@@ -483,13 +493,35 @@ public class BangKTKL extends javax.swing.JFrame {
 
     private void dListEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dListEditActionPerformed
         // TODO add your handling code here:
+        int row = dListTable.getSelectedRow();
+            String keyNV = dListTable.getValueAt(row, 0).toString();
+            String keyKTKL = dListTable.getValueAt(row, 2).toString();
+            Nhanvien nv = QuanLiNhanSu.danhSachNhanVien.get(keyNV);
+            KTKL ktkl = danhSachKTKL.get(keyKTKL);
+            NV_KTKL.callRun("Discipline", nv, ktkl);
+    }//GEN-LAST:event_dListEditActionPerformed
+
+    private void rListDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rListDelActionPerformed
+        // TODO add your handling code here:
         int row = rListTable.getSelectedRow();
         String keyNV = rListTable.getValueAt(row, 0).toString();
         String keyKTKL = rListTable.getValueAt(row, 2).toString();
         Nhanvien nv = QuanLiNhanSu.danhSachNhanVien.get(keyNV);
-        KTKL ktkl = danhSachKTKL.get(keyKTKL);
-        NV_KTKL.callRun("Discipline", nv, ktkl);
-    }//GEN-LAST:event_dListEditActionPerformed
+        KTKL ktkl = nv.getDanhSachKTKL().remove(keyKTKL);
+        KTKLDAO.removeNVKTKL(nv.getMaNv(), ktkl.getMaKTKL());
+        ((DefaultTableModel) this.rListTable.getModel()).removeRow(row);
+    }//GEN-LAST:event_rListDelActionPerformed
+
+    private void dListDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dListDelActionPerformed
+        // TODO add your handling code here:
+        int row = dListTable.getSelectedRow();
+        String keyNV = dListTable.getValueAt(row, 0).toString();
+        String keyKTKL = dListTable.getValueAt(row, 2).toString();
+        Nhanvien nv = QuanLiNhanSu.danhSachNhanVien.get(keyNV);
+        KTKL ktkl = nv.getDanhSachKTKL().remove(keyKTKL);
+        KTKLDAO.removeNVKTKL(nv.getMaNv(), ktkl.getMaKTKL());
+        ((DefaultTableModel) this.dListTable.getModel()).removeRow(row);
+    }//GEN-LAST:event_dListDelActionPerformed
 
     private void BtnEnable(JButton edit, JButton Del) {
         edit.setEnabled(true);

@@ -7,6 +7,7 @@ package com.java.client.view;
 
 import com.java.model.KTKL;
 import com.java.model.Nhanvien;
+import com.java.model.dao.KTKLDAO;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 
@@ -15,7 +16,7 @@ import javax.swing.DefaultComboBoxModel;
  * @author MR.K
  */
 public class NV_KTKL extends javax.swing.JFrame {
-
+    String keyCu;
     /**
      * Creates new form nhapthongtin_KTKL
      */
@@ -29,6 +30,7 @@ public class NV_KTKL extends javax.swing.JFrame {
         }
         if(ktkl!=null){
             this.jComboBox2.setSelectedItem(ktkl);
+            keyCu = ktkl.getMaKTKL();
         }
         this.jTextField1.setText(((Nhanvien) this.jComboBox1.getSelectedItem()).getTenNv());
         this.jTextField2.setText(((KTKL)this.jComboBox2.getSelectedItem()).getTenKTKL());
@@ -70,7 +72,7 @@ public class NV_KTKL extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nhập thông tin KTKL");
 
         jLabel1.setText("Employee code:");
@@ -178,6 +180,11 @@ public class NV_KTKL extends javax.swing.JFrame {
         // TODO add your handling code here:
         Nhanvien nv =(Nhanvien) jComboBox1.getSelectedItem();
         KTKL ktkl = (KTKL) jComboBox2.getSelectedItem();
+        if(keyCu!=null){
+            KTKLDAO.updateDSNVKTKL(nv.getMaNv(), ktkl.getMaKTKL(), keyCu);
+        } else {
+            KTKLDAO.insertNVKTKL(nv.getMaNv(), ktkl.getMaKTKL());
+        }
         nv.getDanhSachKTKL().put(ktkl.getMaKTKL(), ktkl);
         BangKTKL.callRun().callUpdate();
         this.dispose();

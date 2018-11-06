@@ -360,6 +360,13 @@ public class QuanLiNhanSu extends javax.swing.JFrame {
         return obj;
     }
 
+    @Override
+    public void dispose() {
+        obj = null;
+        super.dispose(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Action;
     private javax.swing.JTable Bang;

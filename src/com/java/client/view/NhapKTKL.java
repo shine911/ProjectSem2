@@ -6,6 +6,7 @@
 package com.java.client.view;
 
 import com.java.model.KTKL;
+import com.java.model.dao.KTKLDAO;
 
 /**
  *
@@ -124,6 +125,11 @@ public class NhapKTKL extends javax.swing.JFrame {
         // TODO add your handling code here:
         ktkl.setTenKTKL(this.name.getText());
         ktkl.setSotien(Integer.parseInt(this.jTextField2.getText()));
+        if(!BangKTKL.danhSachKTKL.containsKey(ktkl.getMaKTKL())){
+            KTKLDAO.insertKTKL(ktkl);
+        } else {
+            KTKLDAO.updateKTKL(ktkl);
+        }
         BangKTKL.danhSachKTKL.put(ktkl.getMaKTKL(), ktkl);
         BangKTKL.callRun().callUpdate();
         this.dispose();

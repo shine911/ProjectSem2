@@ -7,6 +7,8 @@ package com.java.model.dao;
 
 import com.java.client.view.BangKTKL;
 import com.java.model.KTKL;
+import com.java.model.Nhanvien;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -62,5 +64,84 @@ public class KTKLDAO {
             Logger.getLogger(KTKLDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return danhSach;
+    }
+    
+    public static void removeNVKTKL(String maNV, String MaKTKL){
+        String sql = "DELETE FROM KTKL_NHANVIEN WHERE MaNV=? AND MaKTKL=?";
+        try {
+            PreparedStatement pre = NhanvienDAO.connection.prepareStatement(sql);
+            pre.setString(1, maNV);
+            pre.setString(2, MaKTKL);
+            pre.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(KTKLDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static void updateDSNVKTKL(String maNV, String maKTKL, String keyCu){
+        String sql = "UPDATE KTKL_NHANVIEN SET MaKTKL = ? WHERE MaNV=? AND MaKTKL = ?";
+        try {
+            PreparedStatement pre = NhanvienDAO.connection.prepareStatement(sql);
+            pre.setString(1, maKTKL);
+            pre.setString(2, maNV);
+            pre.setString(3, keyCu);
+            pre.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(KTKLDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static void insertNVKTKL(String maNV, String maKTKL){
+        String sql = "INSERT INTO KTKL_NHANVIEN VALUES(?,?,?)";
+        try {
+            PreparedStatement pre = NhanvienDAO.connection.prepareStatement(sql);
+            pre.setString(1, maKTKL);
+            pre.setString(2, maNV);
+            pre.setDate(3, Date.valueOf(LocalDate.now()));
+            pre.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(KTKLDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    public static void insertKTKL(KTKL ktkl){
+        String sql = "INSERT INTO KTKL VALUES(?,?,?,?)";
+        try {
+            PreparedStatement pre = NhanvienDAO.connection.prepareStatement(sql);
+            pre.setString(1, ktkl.getMaKTKL());
+            pre.setString(2, ktkl.getTenKTKL());
+            pre.setString(3, ktkl.getHinhThuc());
+            pre.setInt(4, ktkl.getSotien());
+            pre.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(KTKLDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static void updateKTKL(KTKL ktkl){
+        String sql = "UPDATE KTKL SET TenKTKL=?, SoTien=? WHERE MaKTKL=?";
+        try {
+            PreparedStatement pre = NhanvienDAO.connection.prepareStatement(sql);
+            pre.setString(1, ktkl.getTenKTKL());
+            pre.setInt(2, ktkl.getSotien());
+            pre.setString(3, ktkl.getMaKTKL());
+            pre.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(KTKLDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static void removeKTKL(KTKL ktkl){
+        String sql = "DELETE FROM KTKL_NHANVIEN WHERE MaKTKL=?;DELETE FROM KTKL WHERE MaKTKL = ?";
+        try {
+            PreparedStatement pre = NhanvienDAO.connection.prepareStatement(sql);
+            pre.setString(1, ktkl.getMaKTKL());
+            pre.setString(2, ktkl.getMaKTKL());
+            pre.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(KTKLDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 }
