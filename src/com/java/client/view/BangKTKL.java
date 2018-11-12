@@ -5,6 +5,7 @@
  */
 package com.java.client.view;
 
+import com.java.client.controller.ThoatController;
 import com.java.config.LookConfig;
 import com.java.model.KTKL;
 import com.java.model.Nhanvien;
@@ -78,8 +79,6 @@ public class BangKTKL extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
 
@@ -347,25 +346,17 @@ public class BangKTKL extends javax.swing.JFrame {
         PaneDList.addTab("Discipline List", DList);
 
         jMenu2.setText("Menu");
+        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu2ActionPerformed(evt);
+            }
+        });
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem1.setText("Thoát khỏi hệ thống");
+        jMenuItem1.setText("Exit");
         jMenu2.add(jMenuItem1);
 
         jMenuBar1.add(jMenu2);
-
-        jMenu3.setText("Edit");
-
-        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem6.setText("Tìm kiếm ");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem6);
-
-        jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Help");
 
@@ -385,7 +376,7 @@ public class BangKTKL extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(PaneDList, javax.swing.GroupLayout.PREFERRED_SIZE, 248, Short.MAX_VALUE)
+                .addComponent(PaneDList, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -396,10 +387,6 @@ public class BangKTKL extends javax.swing.JFrame {
         // TODO add your handling code here:
         NhapKTKL.callRun(new KTKL("", "", "Reward", 0));
     }//GEN-LAST:event_rTableAddActionPerformed
-
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void rTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rTableMouseClicked
 
@@ -522,6 +509,11 @@ public class BangKTKL extends javax.swing.JFrame {
         KTKLDAO.removeNVKTKL(nv.getMaNv(), ktkl.getMaKTKL());
         ((DefaultTableModel) this.dListTable.getModel()).removeRow(row);
     }//GEN-LAST:event_dListDelActionPerformed
+
+    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+        // TODO add your handling code here:
+        ThoatController.Thoat(this);
+    }//GEN-LAST:event_jMenu2ActionPerformed
 
     private void BtnEnable(JButton edit, JButton Del) {
         edit.setEnabled(true);
@@ -682,11 +674,9 @@ public class BangKTKL extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
